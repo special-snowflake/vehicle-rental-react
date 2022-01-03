@@ -14,7 +14,7 @@
 }
 .vehicle-info-details {
   margin-top: 20px;
-  font-size: 15px;
+  font-size: calc(14px + 0.3vw);
   line-height: 20px;
 }
 .vehicle-detail-header {
@@ -25,7 +25,7 @@
 .vehicle-detail-subheader {
   font-family: 'Playfair Display', serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: calc(14px + 0.3vw);
   color: #042521;
   line-height: 0;
 }
@@ -54,7 +54,11 @@
   float: left;
 }
 button {
-  border: 0;
-  box-shadow: none;
-  background-color: rgba(0, 0, 0, 0);
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

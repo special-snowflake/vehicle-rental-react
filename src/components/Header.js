@@ -48,20 +48,20 @@ function Header() {
               </a>
             </li>
             <li>
-              <a
-                href='login.html'
+              <Link
+                to='/login'
                 className='btn btn-sm btn-login nav-link'
                 style={{marginTop: 'inherit', padding: '10px'}}>
                 Login
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='signup.html'
+              <Link
+                to='/signup'
                 className='btn btn-sm btn-signup nav-link'
                 style={{marginTop: 'inherit', padding: '10px'}}>
                 Sign Up
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

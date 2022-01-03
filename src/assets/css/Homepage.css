@@ -1,266 +1,279 @@
 .poster {
-    min-height: 87vh;
-    background-image: url('../images/resi-kling-jkmQz2eVjuQ-unsplash-c.webp');
-    background-position: center;
-    background-size: cover;
-  }
-  .poster .layer {
-    padding: 5%;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
+  min-height: 87vh;
+  background-image: url('../images/resi-kling-jkmQz2eVjuQ-unsplash-c.webp');
+  background-position: center;
+  background-size: cover;
+}
+.poster .layer {
+  padding: 5%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.tagline {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-weight: bolder;
+  font-size: 35px;
+  margin-bottom: 2vh;
+  line-height: 110%;
+}
+.sub-tagline {
+  font-size: 20px;
+  color: white;
+  font-weight: bolder;
+}
+.sub-tagline:after {
+  content: '';
+  display: block;
+  margin-top: 10px;
+  width: 5%;
+  border-top: 2px solid white;
+  margin-bottom: 4vh;
+}
+.more {
+  color: #fb8f1d;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+.vehicle-content {
+  position: relative;
+}
+.vehicle-card {
+  border: 0px solid tomato;
+  margin-bottom: 3vh;
+}
+.vehicle-images {
+  position: relative;
+  width: 20vw;
+  height: 27vw;
+}
+.vehicle-images img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.vehicle-images figcaption {
+  padding: 3px;
+  padding-left: 0px;
+  border-top-right-radius: 8px;
+  background: white;
+  color: black;
+  position: absolute;
+  max-width: 60%;
+  min-width: 40%;
+  min-height: 40px;
+  bottom: 0;
+  left: 0;
+  text-align: left;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.vehicle-images figcaption a {
+  color: inherit;
+  text-decoration: none;
+}
+.fig-title {
+  font-weight: bold;
+  color: #042521;
+}
+.fig-subtitle {
+  color: gray;
+}
+.ico-star {
+  padding-left: 10px;
+  padding-right: 10px;
+  background: url('../icons/star-fill.svg');
+  background-position: center;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+}
+
+.testimony {
+  margin-top: 3vh;
+}
+.testimony .user {
+  font-size: calc(14px + 0.3vw);
+  font-weight: bolder;
+  margin-top: 20px;
+}
+.testimony-images {
+  position: relative;
+  margin: auto;
+  width: 18vw;
+  height: 25vw;
+}
+.testimony-images .user-image {
+  margin: auto;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.testimony-images figcaption {
+  position: relative;
+  padding: 3px;
+  width: 100%;
+  border-top-left-radius: 8px;
+  bottom: 0;
+  right: 3vw;
+}
+.wrapper-testimony-btn {
+  position: absolute;
+  right: -3.4vw;
+  bottom: 0;
+  min-width: 6vw;
+  height: auto;
+  padding: 0.5vw;
+  background-color: white;
+  border-top-left-radius: 8px;
+}
+
+.next-previous {
+  width: 2.5vw;
+  height: 2.5vw;
+}
+
+.border-plus {
+  position: absolute;
+  width: 2vw;
+  height: 2vw;
+  left: -1vw;
+  bottom: -1vw;
+  z-index: 1;
+}
+.border-circle {
+  position: absolute;
+  width: 2.5vw;
+  height: 2.5vw;
+  top: -1vw;
+  right: -1vw;
+  z-index: -1;
+}
+.foot {
+  font-size: calc(14px + 0.3vw);
+}
+@media (min-width: 1400px) {
   .tagline {
-    color: white;
-    font-family: 'Playfair Display', serif;
-    font-weight: bolder;
-    font-size: 35px;
-    margin-bottom: 2vh;
-    line-height: 110%;
+    font-size: 75px !important;
   }
   .sub-tagline {
+    font-size: 30px !important;
+  }
+  .fig-title,
+  .fig-subtitle {
     font-size: 20px;
-    color: white;
-    font-weight: bolder;
   }
-  .sub-tagline:after {
-    content: '';
-    display: block;
-    margin-top: 10px;
-    width: 5%;
-    border-top: 2px solid white;
-    margin-bottom: 4vh;
+}
+@media (min-width: 768px) {
+  .tagline {
+    font-size: 60px;
   }
-  .more {
-    color: #fb8f1d;
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
+  .sub-tagline {
+    font-size: 25px;
   }
-  .vehicle-content {
-    position: relative;
+}
+@media (max-width: 767px) {
+  .tagline {
+    font-size: 45px;
   }
-  .vehicle-card {
-    border: 0px solid tomato;
-    margin-bottom: 3vh;
+  .next-previous {
+    height: 5vw;
+    width: 5vw;
+  }
+  .border-circle,
+  .border-plus {
+    width: 5vw;
+    height: 5vw;
+  }
+  .border-circle {
+    right: -2vw;
+    top: -2vw;
+  }
+  .border-plus {
+    left: -2.5vw;
+    bottom: -2.5vw;
   }
   .vehicle-images {
-    position: relative;
-    width: 20vw;
-    height: 27vw;
+    margin: auto;
+    width: 30vw;
+    height: 45vw;
+  }
+  .testimony-images {
+    width: 30vw;
+    height: 45vw;
+  }
+}
+@media (max-width: 576px) {
+  .border-plus {
+    display: none;
+  }
+  .border-circle {
+    display: none;
+  }
+  .poster {
+    min-height: 87vh;
+  }
+  .form {
+    padding-top: 0vh !important;
+  }
+  .more img {
+    display: none;
+  }
+  .vehicle-images {
+    width: 35vw;
+    height: 45vw;
+  }
+  .testimony .wrapper-all {
+    min-height: 150px;
+  }
+  .testimony-images {
+    margin: 0;
+    width: 70px;
+    height: 70px;
+  }
+  .user-image {
+    border-radius: 100% !important;
+  }
+  .wrapper-testimony-btn {
+    bottom: auto;
+  }
+  .next-previous {
+    bottom: auto;
+    height: 35px;
+    width: 35px;
+  }
+  .border-circle,
+  .border-plus {
+    width: 5vw;
+    height: 5vw;
+  }
+  .border-circle {
+    right: -2vw;
+    top: -2vw;
+  }
+  .border-plus {
+    left: -2.5vw;
+    bottom: -2.5vw;
   }
   .vehicle-images img {
     display: block;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
     border-radius: 8px;
   }
   .vehicle-images figcaption {
-    padding: 3px;
-    padding-left: 0px;
-    border-top-right-radius: 8px;
-    background: white;
-    color: black;
-    position: absolute;
-    max-width: 60%;
-    min-width: 40%;
-    min-height: 40px;
-    bottom: 0;
-    left: 0;
-    text-align: left;
-    font-size: 15px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    max-width: 60%;
   }
-  .vehicle-images figcaption a {
-    color: inherit;
-    text-decoration: none;
+  .testimonies {
+    text-align: justify;
   }
-  .fig-title {
-    font-weight: bold;
-    color: #042521;
-  }
-  .fig-subtitle {
-    color: gray;
-  }
-  .ico-star {
-    padding-left: 10px;
-    padding-right: 10px;
-    background: url('../icons/star-fill.svg');
-    background-position: center;
-    width: 15px;
-    height: 15px;
-    background-repeat: no-repeat;
-  }
-
-  .testimony {
-    margin-top: 3vh;
-  }
-  .testimony .user {
-    font-weight: bolder;
-    margin-top: 20px;
-  }
-  .testimony-images {
-    position: relative;
-    margin: auto;
-    width: 18vw;
-    height: 25vw;
-  }
-  .testimony-images .user-image {
-    margin: auto;
-    display: block;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-  }
-  .testimony-images figcaption {
-    position: relative;
-    padding: 3px;
-    width: 100%;
-    border-top-left-radius: 8px;
-    bottom: 0;
-    right: 3vw;
-  }
-  .wrapper-testimony-btn {
-    position: absolute;
-    right: -3.4vw;
-    bottom: 0;
-    min-width: 6vw;
-    height: auto;
-    padding: 0.5vw;
-    background-color: white;
-    border-top-left-radius: 8px;
-  }
-
-  .next-previous {
-    width: 2.5vw;
-    height: 2.5vw;
-  }
-
-  .border-plus {
-    position: absolute;
-    width: 2vw;
-    height: 2vw;
-    left: -1vw;
-    bottom: -1vw;
-    z-index: 1;
-  }
-  .border-circle {
-    position: absolute;
-    width: 2.5vw;
-    height: 2.5vw;
-    top: -1vw;
-    right: -1vw;
-    z-index: -1;
-  }
-  .foot {
-    font-size: calc(14px + 0.3vw);
-    
-  }
-  @media (min-width: 1400px) {
-    .tagline{
-      font-size: 75px !important;
-    }
-    .sub-tagline{
-      font-size: 30px !important;
-    }
-    .fig-title, .fig-subtitle{
-      font-size: 20px;
-    }
-  }
-  @media (min-width:768px) {
-    .tagline{
-      font-size: 60px;
-    }
-    .sub-tagline{
-      font-size: 25px;
-    }
-  }
-  @media (max-width: 767px) {
-    .tagline{
-      font-size: 45px;
-    }
-    .testimony-images {
-      margin: 0;
-    }
-    .next-previous {
-      height: 5vw;
-      width: 5vw;
-    }
-    .border-circle,
-    .border-plus {
-      width: 5vw;
-      height: 5vw;
-    }
-    .border-circle {
-      right: -2vw;
-      top: -2vw;
-    }
-    .border-plus {
-      left: -2.5vw;
-      bottom: -2.5vw;
-    }
-    .vehicle-images {
-      width: 30vw;
-      height: 45vw;
-    }
-    .testimony-images {
-      width: 30vw;
-      height: 45vw;
-    }
-  }
-  @media (max-width: 576px) {
-    .poster {
-      min-height: 87vh;
-    }
-    .form{
-      padding-top: 0vh !important;
-    }
-    .more img {
-      display: none;
-    }
-    .vehicle-images {
-      width: 35vw;
-      height: 45vw;
-    }
-    .testimony-images {
-      margin: 0;
-    }
-    .next-previous {
-      height: 8vw;
-      width: 9vw;
-    }
-    .border-circle,
-    .border-plus {
-      width: 5vw;
-      height: 5vw;
-    }
-    .border-circle {
-      right: -2vw;
-      top: -2vw;
-    }
-    .border-plus {
-      left: -2.5vw;
-      bottom: -2.5vw;
-    }
-    .vehicle-images img {
-      display: block;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .vehicle-images figcaption {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      max-width: 60%;
-    }
-    .testimony-images {
-      width: 40vw;
-      height: 60vw;
-    }
-    .testimonies {
-      text-align: justify;
-    }
-  }
+}

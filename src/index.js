@@ -1,26 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/css/App.css';
-import App from './pages/App';
-import Home from './pages/Home';
-import DetailVehicle from './pages/DetailVehicle';
 import reportWebVitals from './reportWebVitals';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import Main from './Main';
 
 ReactDOM.render(
-  <Router>
-    <Routes>
-      <Route path='/' replace element={<Navigate to='home' />} />
-      <Route path='home' element={<Home />} />
-      <Route path='detail-vehicle' element={<DetailVehicle />} />
-      <Route path='app' element={<App />} />
-    </Routes>
-  </Router>,
+  <React.StrictMode>
+    <Main />
+  </React.StrictMode>,
   document.getElementById('main'),
 );
 

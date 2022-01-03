@@ -35,7 +35,7 @@ function Home() {
                     <div className='row' style={{color: '#393939'}}>
                       <div className='col-sm-6 col-12'>
                         <select>
-                          <option value='Location' selected disabled>
+                          <option value='Location' selected>
                             Location
                           </option>
                           <option value='Bali'>Bali</option>
@@ -47,7 +47,7 @@ function Home() {
                       </div>
                       <div className='col-sm-6 col-12'>
                         <select>
-                          <option value='Type' selected disabled>
+                          <option value='Type' selected>
                             Type
                           </option>
                           <option value='Car'>Car</option>
@@ -58,7 +58,9 @@ function Home() {
                       </div>
                       <div className='col-sm-6 col-12'>
                         <select>
-                          <option value='Payment'>Payment</option>
+                          <option value='Payment' selected>
+                            Payment
+                          </option>
                         </select>
                       </div>
                       <div className='col-sm-6 col-12'>
@@ -203,12 +205,13 @@ function Home() {
                   </p>
                 </blockquote>
               </div>
-              <div className='col-12 col-sm-6 user'>
-                <a href='profile.html' style={{color: 'black'}}>
+              <div className='col-12 user'>
+                <Link to='/profile' style={{color: 'black'}}>
                   Edward Newgate
-                </a>
+                </Link>
                 <br />
-                <span style={{fontSize: '12px', color: '#393939b4'}}>
+                <span
+                  style={{fontSize: 'calc(13px + 0.3vw)', color: '#393939b4'}}>
                   Founder Circle
                 </span>
               </div>

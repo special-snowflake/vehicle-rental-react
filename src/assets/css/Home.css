@@ -22,7 +22,6 @@ body {
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
 }
-
 .hidden {
   display: none;
 }
@@ -254,6 +253,12 @@ a:hover {
 .like-item a:hover {
   color: #eb4956 !important;
 }
+.blockquote {
+  font-size: calc(14px + 0.3vw);
+}
+.navbar-nav .nav-link{
+  margin-bottom: 5px;
+}
 
 /* Ipad Pro Potrait */
 @media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
@@ -282,13 +287,19 @@ a:hover {
 }
 
 @media (max-width: 576px) {
+  .foot{
+    min-height: 100vh;
+  }
+  input,select{
+    background-color: rgba(255, 255, 255, 0.8);
+  }
   .form-check-inline {
     display: block;
   }
-  .vehicle-images{
+  .vehicle-images {
     height: auto;
   }
-  .vehicle-images figcaption{
+  .vehicle-images figcaption {
     max-width: 100%;
   }
 }
@@ -303,7 +314,7 @@ a:hover {
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .header ul li{
+  .header ul li {
     font-size: 1em;
   }
 }
@@ -331,4 +342,3 @@ a:hover {
     margin-right: 15px;
   }
 }
-
