@@ -1,0 +1,29 @@
+.loading-wrapper {
+  padding: 5%;
+}
+.row-header-loading {
+  content: '';
+  padding: 15px;
+  min-width: 50px;
+  min-height: 20px;
+  background: linear-gradient(90deg, #8a8a8a, #4b4d4c, #8a8a8a);
+  background-size: 400% 400%;
+  animation: gradient 2s infinite;
+  margin-bottom: 30px;
+}
+.loading-content {
+  background: linear-gradient(90deg, #8a8a8a, #4b4d4c, #8a8a8a);
+  background-size: 400% 400%;
+  animation: gradient 2s infinite;
+  width: 100%;
+  min-height: min(30vw, 300px);
+}
+
+@keyframes gradient {
+	0% {
+    background-position: 100% 50%;
+	}
+	100% {
+    background-position: 0% 50%;
+  }
+}

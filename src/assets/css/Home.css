@@ -60,18 +60,16 @@ body {
   margin-top: -35px;
   margin-left: -7px;
 }
-
-.nav-user-picture {
+.nav-img-user-wrapper {
   width: 40px;
   height: 40px;
-  object-fit: cover;
-  display: block;
-  background-image: url('../images/michael-dam-mEZ3PoFGs_k-unsplash-nav.webp');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center -7px;
+}
+.nav-user-profile {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin: auto;
+  object-fit: cover;
+  box-shadow: 0px 1px 3px 0px #46464677;
 }
 
 input,
@@ -124,6 +122,13 @@ input:focus {
 }
 .btn-signup:hover {
   color: white !important;
+}
+.sub-popular-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: calc(14px + 0.3vw);
+  color: #b8becd;
+  padding: 10px 0 20px 0;
 }
 a {
   color: #b8becd;
@@ -180,7 +185,7 @@ a:hover {
   margin-bottom: 10px;
 }
 .bi {
-  font-size: 23px;
+  font-size: calc(14px + 0.3vw);
 }
 .foot ul {
   padding-left: 0;
@@ -256,7 +261,7 @@ a:hover {
 .blockquote {
   font-size: calc(14px + 0.3vw);
 }
-.navbar-nav .nav-link{
+.navbar-nav .nav-link {
   margin-bottom: 5px;
 }
 
@@ -287,10 +292,11 @@ a:hover {
 }
 
 @media (max-width: 576px) {
-  .foot{
+  .foot {
     min-height: 100vh;
   }
-  input,select{
+  input,
+  select {
     background-color: rgba(255, 255, 255, 0.8);
   }
   .form-check-inline {

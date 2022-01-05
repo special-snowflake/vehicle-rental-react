@@ -1,9 +1,8 @@
 import React from 'react';
 
 class Counter extends React.Component {
-  //   console.log("update");
   render() {
-    return <div>{this.props.counterNumber}</div>;
+    return <div id='vehicle-counter'>{this.props.counterNumber}</div>;
   }
 }
 

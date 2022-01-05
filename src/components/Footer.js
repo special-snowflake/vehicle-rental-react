@@ -23,21 +23,21 @@ function Footer() {
         <div className='col-lg-2 col-md-3 col-sm-4 col-6'>
           <div className='footer-title'>Destinations</div>
           <ul>
-            <li>Bali</li>
-            <li>Yogyakarta</li>
-            <li>Jakarta</li>
-            <li>Kalimantan</li>
-            <li>Malang</li>
+            <li key='Bali'>Bali</li>
+            <li key='Yogyakarta'>Yogyakarta</li>
+            <li key='Jakarta'>Jakarta</li>
+            <li key='Kalimantan'>Kalimantan</li>
+            <li key='Malang'>Malang</li>
           </ul>
         </div>
         <div className='col-lg-2 col-md-3 col-sm-4 col-6'>
           <div className='footer-title'>Vehicle</div>
           <ul>
-            <li>Bike</li>
-            <li>Cars</li>
-            <li>Motorbike</li>
-            <li>Return Times</li>
-            <li>FAQs</li>
+            <li key='Bike'>Bike</li>
+            <li key ='Cars'>Cars</li>
+            <li key='Motorbike'>Motorbike</li>
+            <li key='Return'>Return Times</li>
+            <li key='FAQ'>FAQs</li>
           </ul>
         </div>
         <div
@@ -45,11 +45,11 @@ function Footer() {
           style={{marginRight: 0}}>
           <div className='footer-title'>Interest</div>
           <ul>
-            <li>Adventure Travel</li>
-            <li>Art and Culture</li>
-            <li>Wildlife and Nature</li>
-            <li>Family Holiday</li>
-            <li>Culinary Trip</li>
+            <li key='Adventure'>Adventure Travel</li>
+            <li key='Art'>Art and Culture</li>
+            <li key='Nature'>Wildlife and Nature</li>
+            <li key='Family'>Family Holiday</li>
+            <li key='Culinar'>Culinary Trip</li>
           </ul>
         </div>
         <div className='footer-info'>

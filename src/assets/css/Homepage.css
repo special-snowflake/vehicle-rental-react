@@ -159,6 +159,11 @@
 .foot {
   font-size: calc(14px + 0.3vw);
 }
+.carousel-control-next,
+.carousel-control-prev {
+  position: inherit !important;
+  display: inherit !important;
+}
 @media (min-width: 1400px) {
   .tagline {
     font-size: 75px !important;
@@ -275,5 +280,8 @@
   }
   .testimonies {
     text-align: justify;
+  }
+  .carousel-item {
+    min-height: 250px !important;
   }
 }
