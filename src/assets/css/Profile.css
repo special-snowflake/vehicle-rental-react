@@ -9,6 +9,11 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.profile-info .profile-image:hover {
+  cursor: pointer;
+}
+
 .profile-image-wrapper {
   max-width: 150px;
   max-height: 150px;

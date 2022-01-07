@@ -1,0 +1,46 @@
+.error-wrapper {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.error-container {
+  border-radius: 10px;
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  min-width: 30px;
+  min-height: 100px;
+  margin: auto;
+  background-color: white;
+}
+.close-svg {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: #fc8f1c;
+  max-width: 450px;
+  min-width: 30px;
+  padding: 20px 0 20px 0;
+  color:black;
+}
+
+
+.err-msg{
+    padding: 10px 5px 10px 5px;
+    font-size: calc(14px + 0.3vw);
+    font-weight: 400;
+    color: red;
+}
+
+.err-btn{
+    margin: 5px 0 5px 0;
+    background-color: #393939;
+    color: #fc8f1c;
+    padding :7px;
+    border-radius: 5px;
+}

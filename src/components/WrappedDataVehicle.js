@@ -10,14 +10,20 @@ import forwardSvg from '../assets/icons/forward.svg';
 
 import axios from 'axios';
 
+const numberFormat = (value) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'IDR',
+  }).format(value);
+
 class WrappedDataVehicle extends React.Component {
   state = {
-    counter: 0,
+    counter: 1,
     detailVehicle: '',
     isSuccess: false,
   };
   onClickAdd = () => {
-    if (this.state.counter < 5) {
+    if (this.state.counter < this.state.detailVehicle.stock) {
       const number = this.state.counter;
       this.setState({
         counter: number + 1,
@@ -25,7 +31,7 @@ class WrappedDataVehicle extends React.Component {
     }
   };
   onClickSubstract = () => {
-    if (this.state.counter > 0) {
+    if (this.state.counter > 1) {
       const number = this.state.counter;
       this.setState({
         counter: number - 1,
@@ -55,6 +61,8 @@ class WrappedDataVehicle extends React.Component {
   render() {
     const {city, category, brand, model, capacity, price, status} =
       this.state.detailVehicle;
+    const formatPrice = numberFormat(price);
+    // console.log(formatPrice);
     const {isSuccess} = this.state;
     return (
       <>
@@ -139,7 +147,7 @@ class WrappedDataVehicle extends React.Component {
                               fontSize: '20px',
                               fontWeight: 800,
                             }}>
-                            Rp.{price}/day
+                            {formatPrice}/day
                           </span>
                         </div>
                       </div>

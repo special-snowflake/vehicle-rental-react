@@ -56,7 +56,7 @@ function SliderTestimony(props) {
             </div>
             <div className='col-12 user'>
               <Link to='/profile' style={{color: 'black'}}>
-                {testimonyData[i].first_name + ' ' + testimonyData[i].last_name}
+                {testimonyData[i].full_name}
               </Link>
               <br />
               <span

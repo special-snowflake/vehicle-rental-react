@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom';
 
 function VehicleCard(props) {
   const dataVehicle = props.dataVehicle;
+  console.log('vehicle card', dataVehicle);
   let lengthData =
     props.length > props.dataVehicle.length
       ? props.dataVehicle.length
       : !props.length
+      ? props.dataVehicle.length
+      : props.length > props.dataVehicle.length
       ? props.dataVehicle.length
       : props.length;
   const card = [];
