@@ -7,7 +7,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:5;
+
 }
 .error-container {
   border-radius: 10px;
@@ -22,25 +24,24 @@
 .close-svg {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  background-color: #fc8f1c;
+  background-color: #ffcd61;
   max-width: 450px;
   min-width: 30px;
   padding: 20px 0 20px 0;
-  color:black;
+  color: black;
 }
 
-
-.err-msg{
-    padding: 10px 5px 10px 5px;
-    font-size: calc(14px + 0.3vw);
-    font-weight: 400;
-    color: red;
+.err-msg {
+  padding: 10px 5px 10px 5px;
+  font-size: calc(14px + 0.3vw);
+  font-weight: 400;
+  color: red;
 }
 
-.err-btn{
-    margin: 5px 0 5px 0;
-    background-color: #393939;
-    color: #fc8f1c;
-    padding :7px;
-    border-radius: 5px;
+.err-btn {
+  margin: 5px 0 5px 0;
+  background-color: #393939;
+  color: #ffcd61;
+  padding: 7px 15px 7px 15px;
+  border-radius: 5px;
 }

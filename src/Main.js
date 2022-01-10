@@ -17,6 +17,8 @@ import Profile from './pages/Profile';
 import DetailVehicle from './pages/DetailVehicle';
 import InvalidRoute from './pages/InvalidRoute';
 import ViewMore from './pages/ViewMore';
+import Chat from './pages/Chat';
+import ChatView from './pages/ChatView';
 
 function Main() {
   return (
@@ -30,9 +32,10 @@ function Main() {
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='view-more' element={<ViewMore />} />
-        <Route path='vehicle' exact element={<DetailVehicle />}>
-          <Route path=':id' element={<DetailVehicle />} />
-        </Route>
+        <Route path='vehicle' element={<DetailVehicle />} />
+        <Route path='vehicle/:id' element={<DetailVehicle />} />
+        <Route path='chat' element={<Chat />} />
+        <Route path='chat/:id' element={<ChatView />} />
         <Route path='404' replace element={<InvalidRoute />} />
         <Route path='*' exact element={<Navigate to='/404' />} />
       </Routes>

@@ -5,28 +5,28 @@ function VehicleCard(props) {
   const dataVehicle = props.dataVehicle;
   console.log('vehicle card', dataVehicle);
   let lengthData =
-    props.length > props.dataVehicle.length
-      ? props.dataVehicle.length
-      : !props.length
+    typeof props.length === 'undefined'
       ? props.dataVehicle.length
       : props.length > props.dataVehicle.length
+      ? props.dataVehicle.length
+      : !props.length
       ? props.dataVehicle.length
       : props.length;
   const card = [];
   for (let index = 0; index < lengthData; index++) {
-    const vehicleId = dataVehicle[index].vehicle_id;
+    const id = dataVehicle[index].id;
     const image = JSON.stringify(dataVehicle[index].image);
     const imgURL =
       image !== 'null'
         ? `http://localhost:8000/vehicles${JSON.parse(image)}`
         : require(`../assets/images/car-default.jpg`);
     const element = (
-      <div
+      <section
         className='col-md-3 col-sm-6 col-6 text-center vehicle-card'
-        key={'vcard' + vehicleId}>
+        key={'vcard' + id}>
         <div className='vehicle-content'>
           <div className='vehicle-images'>
-            <Link to={`/vehicle/${vehicleId}`}>
+            <Link to={`/vehicle/${id}`}>
               <img src={imgURL} alt='vehicles' />
               <figcaption>
                 <span className='fig-title'>
@@ -38,7 +38,7 @@ function VehicleCard(props) {
             </Link>
           </div>
         </div>
-      </div>
+      </section>
     );
     card.push(element);
   }

@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import LoadingPage from './LoadingPage';
+import ErrorMsg from './ErrorMsg';
 
 import '../assets/css/Profile.css';
 
 import pencilSvg from '../assets/icons/pencil.svg';
 import axios from 'axios';
-// import jwtDecode from 'jwt-decode';
 
 export class WrapperProfile extends Component {
   constructor(props) {
@@ -25,6 +25,9 @@ export class WrapperProfile extends Component {
     selectedSex: '',
     photoProfile: require('../assets/images/default3.jpg'),
     reRender: false,
+    isError: false,
+    showError: false,
+    errMsg: null,
   };
   getDataUser = () => {
     const userId = this.props.id;
@@ -49,6 +52,11 @@ export class WrapperProfile extends Component {
         console.log(error);
       });
   };
+
+  handleCallback = (childData) => {
+    this.setState({showError: childData});
+  };
+
   getBase64(e) {
     var file = e.target.files[0];
     let reader = new FileReader();
@@ -63,26 +71,19 @@ export class WrapperProfile extends Component {
     };
   }
   handleFileChange(e) {
-    // const selectedFile = e.target.files[0];
-    // console.log('inside change, selected: ', selectedFile);
-    // const reader = new FileReader();
-
-    // // const url = reader.readAsDataURL(selectedFile);
-    // console.log('this is selected', url);
-    // // reader.onloadend = function (e) {
-    // //   // this.setState({
-    // //   //     imgSrc: [reader.result];
-    // //   // })
-    // // }.bind(this);
-    // // console.log('this is selected files', e.target.files[0]);
     this.getBase64(e);
     this.setState({
       selectedFile: e.target.files[0],
-      // photoProfile: url,
     });
   }
 
   cancel() {
+    const photo = this.state.dataUser.photo;
+    if (photo !== null && typeof photo !== 'undefined') {
+      this.setState({
+        photoProfile: `http://localhost:8000/user${photo}`,
+      });
+    }
     this.setState({
       selectedSex: this.state.dataUser.sex,
     });
@@ -129,6 +130,11 @@ export class WrapperProfile extends Component {
       })
       .catch((error) => {
         console.log('error', error.response);
+        this.setState({
+          isError: true,
+          showError: true,
+          errMsg: error.response.data.errMsg,
+        });
       });
   }
   componentDidMount() {
@@ -136,22 +142,19 @@ export class WrapperProfile extends Component {
   }
 
   render() {
-    console.log('state is:', this.state);
-    const {isSuccess, dataUser, photoProfile} = this.state;
-    const {id, full_name, dob, sex, email, phone, address, join_at, photo} =
-      dataUser;
-    // let userImageURL = require('../assets/images/default3.jpg');
-    // const image = photo;
-    // console.log(typeof image);
-    // if (image !== null) {
-    //   userImageURL = `http://localhost:8000/user${dataUser.photo}`;
-    // }
+    const {isSuccess, dataUser, photoProfile, isError, showError, errMsg} =
+      this.state;
+    console.log('error', isError, showError);
+    const {id, full_name, dob, sex, email, phone, address, join_at} = dataUser;
     let isMale = false;
     if (sex === 'M') isMale = true;
     console.log('ismale: ', isMale, sex);
     return (
       <>
         <Header />
+        {isError && showError && (
+          <ErrorMsg parentCallback={this.handleCallback} msg={errMsg} />
+        )}
         {isSuccess ? (
           <main className='row'>
             <div className='.d-none .d-sm-block col-sm-1'></div>

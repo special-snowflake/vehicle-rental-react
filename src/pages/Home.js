@@ -21,6 +21,8 @@ class Home extends React.Component {
     isSuccess: false,
     dataVehicle: '',
     dataTestimony: '',
+    listCity: null,
+    listCategory: null,
   };
   componentDidMount() {
     this.getPopular();
@@ -30,13 +32,17 @@ class Home extends React.Component {
     const testi = axios.get(
       'http://localhost:8000/testimony?orderBy=rate&sort=desc',
     );
+    const getLocation = axios.get('http://localhost:8000/city');
+    const getCategory = axios.get('http://localhost:8000/category');
     axios
-      .all([popular, testi])
+      .all([popular, testi, getLocation, getCategory])
       .then(
         axios.spread((...responses) => {
           this.setState({
             dataVehicle: responses[0].data.data,
             dataTestimony: responses[1].data.data,
+            listCity: responses[2].data.data,
+            listCategory: responses[3].data.data,
             isSuccess: true,
           });
         }),
@@ -48,6 +54,7 @@ class Home extends React.Component {
   render() {
     const {isSuccess} = this.state;
     console.log('data testi:', this.state.dataTestimony);
+    console.log('state:', this.state);
     return (
       <>
         <Header />

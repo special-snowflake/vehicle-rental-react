@@ -20,7 +20,7 @@
 .vehicle-detail-header {
   font-family: 'Playfair Display', serif;
   font-weight: 800;
-  font-size: 25px;
+  font-size: calc(18px + 0.35vw);
 }
 .vehicle-detail-subheader {
   font-family: 'Playfair Display', serif;
@@ -61,4 +61,41 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+.carousel-indicators {
+  position: relative;
+  margin-right: 0;
+  margin-bottom: 0;
+  justify-content: space-around;
+  margin-left: 0;
+}
+.carousel-indicators [data-bs-target] {
+  width: 100%;
+  height: auto;
+}
+.carousel-item-vehicle {
+  width: 100%;
+  height: 50vh;
+  border-radius: 10px;
+}
+.carousel-item-vehicle img {
+  width: 100% !important;
+  height: 50vh !important;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+.img-preview-wrapper {
+  max-width: calc(30px + 5vw);
+  height:  calc(30px + 5vw);
+  border-radius: 10px;
+  position: relative;
+}
+.img-preview-wrapper img {
+  width:  calc(30px + 5vw) !important;
+  height:  calc(30px + 5vw) !important;
+  object-fit: cover;
+  /* object-position: center; */
+  border-radius: 10px !important;
+  /* object-position: center; */
 }

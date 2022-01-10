@@ -4,9 +4,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Counter from '../components/Counter';
 import LoadingPage from './LoadingPage';
+import SliderDetailVehicle from './SliderDetailVehicle';
 
 import backSvg from '../assets/icons/back.svg';
-import forwardSvg from '../assets/icons/forward.svg';
+// import forwardSvg from '../assets/icons/forward.svg';
+
 
 import axios from 'axios';
 
@@ -62,7 +64,6 @@ class WrappedDataVehicle extends React.Component {
     const {city, category, brand, model, capacity, price, status} =
       this.state.detailVehicle;
     const formatPrice = numberFormat(price);
-    // console.log(formatPrice);
     const {isSuccess} = this.state;
     return (
       <>
@@ -82,41 +83,7 @@ class WrappedDataVehicle extends React.Component {
                     </div>
                   </div>
                   <div className='col-12 col-sm-6 vehicle-images-detail'>
-                    <img
-                      src={require('../assets/images/robert-bye-tG36rvCeqng-unsplash-c.webp')}
-                      alt='Product'
-                      width='100%'
-                    />
-                    <div className='row preview-images'>
-                      <div className='col-2 align-items-center'>
-                        <a href='#prev' aria-label='Previous Image'>
-                          <img src={backSvg} width='18' height='18' alt='' />
-                        </a>
-                      </div>
-                      <div className='col-8'>
-                        <div className='row'>
-                          <div className='col-6'>
-                            <img
-                              src={require('../assets/images/robert-bye-tG36rvCeqng-unsplash-c.webp')}
-                              width='100%'
-                              alt=''
-                            />
-                          </div>
-                          <div className='col-6'>
-                            <img
-                              src={require('../assets/images/robert-bye-tG36rvCeqng-unsplash-c.webp')}
-                              width='100%'
-                              alt=''
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className='col-2 align-items-center'>
-                        <a href='#next' aria-label='Next Image'>
-                          <img src={forwardSvg} width='18' height='18' alt='' />
-                        </a>
-                      </div>
-                    </div>
+                    <SliderDetailVehicle data={this.state.detailVehicle.images} />
                   </div>
                   <div className='col-12 col-sm-6 vehicle-info-details'>
                     <span className='vehicle-detail-header'>
@@ -196,7 +163,7 @@ class WrappedDataVehicle extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className='col 12'>
+                  <div className='col 12 mt-5'>
                     <div className='row justify-content-between'>
                       <div className='col-12 col-sm-4'>
                         <a href='#chat' className='btn btn-black'>

@@ -23,7 +23,7 @@ export class ErrorMsg extends Component {
     const errMsg = this.props.msg;
     console.log('errmsg:', errMsg);
     return (
-      <section className='col-12 error-wrapper'>
+      <section className='col-12 error-wrapper' onClick={this.onTrigger}>
         <div className='error-container text-center'>
           <div className='close-svg text-center align-middle col-12'>
             <img src={closeSVG} alt='close x' width={35} height={35} />

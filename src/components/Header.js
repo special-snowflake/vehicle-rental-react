@@ -6,13 +6,15 @@ import jwt_decode from 'jwt-decode';
 
 import logoVehicleRental from '../assets/icons/logo-vehicle-rental.svg';
 
+import forwardSvg from '../assets/icons/forward.svg';
+
 class Header extends React.Component {
   state = {
     isSuccess: false,
     userData: null,
     photoProfile: require('../assets/images/default3.jpg'),
   };
-  
+
   getUserData() {
     const token = localStorage.getItem('vehicle-rental-token');
     console.log('token', token);
@@ -68,7 +70,7 @@ class Header extends React.Component {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='toggleMobileMenu'>
-            <ul className='navbar-nav ms-auto text-center'>
+            <ul className='navbar-nav ms-auto text-center nav-middle'>
               <li key='Home'>
                 <NavLink to='/home' className='nav-link'>
                   Home
@@ -89,10 +91,18 @@ class Header extends React.Component {
                   About
                 </a>
               </li>
+              {/* <li key='none'></li> */}
+            </ul>
+            <ul className='navbar-nav ms-auto text-center'>
               {isSuccess ? (
                 <>
-                  <li className='text-center'>
-                    <div className='col-12 nav-mail'>
+                  <li className='text-center nav-item dropdown'>
+                    <div
+                      className='col-12 nav-mail nav-link dropdown-toggle'
+                      id='mailDropdown'
+                      role='button'
+                      data-bs-toggle='dropdown'
+                      aria-expanded='false'>
                       <div
                         style={{
                           maxWidth: '40px',
@@ -109,20 +119,72 @@ class Header extends React.Component {
                         <figcaption>1</figcaption>
                       </div>
                     </div>
+                    <ul
+                      className='dropdown-menu dropdown-menu-end'
+                      aria-labelledby='mailDropdown'>
+                      <li>
+                        <Link className='dropdown-item drop-msg' to='/chat'>
+                          <p className='nav-msg-name'>Johnson</p>
+                          <p className='nav-msg-preview'>
+                            Okay, thank you for the good service.
+                          </p>
+                          <p className='nav-msg-time'>Just Now</p>
+                          {/* <p className='nav-msg-count'>1</p> */}
+                        </Link>
+                      </li>
+                      <hr className='dropdown-divider' />
+                      <li>
+                        <Link className='dropdown-item drop-msg' to='/chat'>
+                          <p className='nav-msg-name'>Eudora</p>
+                          <p className='nav-msg-preview nav-msg-new'>
+                            Who has the last laugh?
+                          </p>
+                          <p className='nav-msg-time'>Yesterday</p>
+                          <p className='nav-msg-count'>1</p>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <li key='User Profile'>
-                    <Link to='/profile'>
-                      <div className='col-12 text-center ms-auto'>
-                        <div className='nav-img-user-wrapper'>
-                          {console.log('inside photo', this.state.photoProfile)}
-                          <img
-                            src={this.state.photoProfile}
-                            alt='user profile'
-                            className='nav-user-profile'
-                          />
-                        </div>
+                  <li key='User Profile' className='nav-item dropdown'>
+                    <div
+                      className='col-12 text-center ms-auto nav-link dropdown-toggle'
+                      id='profileDropdown'
+                      role='button'
+                      data-bs-toggle='dropdown'
+                      aria-expanded='false'>
+                      <div className='nav-img-user-wrapper'>
+                        {console.log('inside photo', this.state.photoProfile)}
+                        <img
+                          src={this.state.photoProfile}
+                          alt='user profile'
+                          className='nav-user-profile'
+                        />
                       </div>
-                    </Link>
+                    </div>
+                    <ul
+                      className='dropdown-menu dropdown-menu-end'
+                      aria-labelledby='profileDropdown'>
+                      <li>
+                        <Link className='dropdown-item' to='/profile'>
+                          Edit Profile
+                          <img src={forwardSvg} width={15} height={15} alt='' />
+                        </Link>
+                      </li>
+                      <hr className='dropdown-divider' />
+                      <li>
+                        <Link className='dropdown-item' to='/help'>
+                          Help
+                          <img src={forwardSvg} width={15} height={15} alt='' />
+                        </Link>
+                      </li>
+                      <hr className='dropdown-divider' />
+                      <li>
+                        <Link className='dropdown-item' to='/logout'>
+                          Logout
+                          <img src={forwardSvg} width={15} height={15} alt='' />
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                 </>
               ) : (

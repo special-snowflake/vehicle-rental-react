@@ -7,7 +7,9 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoadingPage from '../components/LoadingPage';
 import VehicleCard from '../components/VehicleCard';
+import SearchVehicle from '../components/SearchVehicle';
 
+import searchSvg from '../assets/icons/search.svg';
 export default class VehicleType extends Component {
   state = {
     isSuccess: false,
@@ -15,6 +17,8 @@ export default class VehicleType extends Component {
     dataBike: '',
     dataCar: '',
     dataMotorCycle: '',
+    isSearching: false,
+    keyword: null,
   };
   getData = () => {
     const host = 'http://localhost:8000/';
@@ -41,19 +45,54 @@ export default class VehicleType extends Component {
         console.log('error', err);
       });
   };
+  onSearch(e) {
+    e.preventDefault();
+    console.log(e.target.searchVehicle.value);
+    this.setState({
+      keyword: e.target.searchVehicle.value,
+      isSearching: true,
+    });
+  }
   componentDidMount() {
     this.getData();
   }
   render() {
-    const {isSuccess} =
-      this.state;
+    const {isSuccess, keyword, isSearching} = this.state;
     return (
       <>
         <Header />
-        {isSuccess ? (
+        <div
+          className='row content d-flex flex-row align-items-center content-search'
+          style={{
+            backgroundImage: `url("../assets/icons/circle.svg")`,
+            backgroundPosition: 'center bottom',
+            backgroundSize: '2vw 2vw',
+            backgroundRepeat: 'no-repeat',
+          }}>
+          <div className='col-11 col-md-12 search-input-wrapper'>
+            <form onSubmit={this.onSearch.bind(this)}>
+              <input
+                type='text'
+                name='searchVehicle'
+                id='search-vehicle'
+                className='input-search'
+                placeholder='Search vehicle (ex. cars, cars name)'
+              />
+              <button type='submit' className='search-icon'>
+                <img
+                  src={searchSvg}
+                  alt='search button'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+        {isSuccess & !isSearching ? (
           <>
             <div
-              className=' row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
@@ -64,41 +103,41 @@ export default class VehicleType extends Component {
               <VehicleCard dataVehicle={this.state.dataPopular} length={4} />
             </div>
             <div
-              className=' row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Popular in Car</div>
+              <div className='col-12 row-header'>Car</div>
               <VehicleCard dataVehicle={this.state.dataCar} length={4} />
             </div>
             <div
-              className=' row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>
-                Popular in Motorcycle
-              </div>
+              <div className='col-12 row-header'>Motorcycle</div>
               <VehicleCard dataVehicle={this.state.dataMotorCycle} length={4} />
             </div>
             <div
-              className=' row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Popular in Bike</div>
+              <div className='col-12 row-header'>Bike</div>
               <VehicleCard dataVehicle={this.state.dataBike} length={4} />
             </div>
           </>
+        ) : isSuccess & isSearching ? (
+          <SearchVehicle keyword={keyword} />
         ) : (
           <LoadingPage />
         )}
