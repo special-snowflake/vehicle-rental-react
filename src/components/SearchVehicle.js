@@ -12,7 +12,7 @@ export default class SearchVehicle extends Component {
   };
   searchVehicle(keyword) {
     const host = process.env.REACT_APP_HOST;
-    const url = `${host}vehicles/search?keyword=${keyword}`;
+    const url = `${host}/vehicles/search?keyword=${keyword}`;
     axios
       .get(url)
       .then((response) => {

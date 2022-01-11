@@ -40,7 +40,7 @@ class WrappedDataVehicle extends React.Component {
     }
   };
   getDetailVehicle = (id) => {
-    const urlDetail = process.env.REACT_APP_HOST + `/vehicles/detail/${id}`;
+    const urlDetail = process.env.REACT_APP_HOST+`/vehicles/detail/${id}`;
     console.log('url', urlDetail);
     axios
       .get(urlDetail)

@@ -103,7 +103,7 @@ export class WrapperProfile extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const body = new FormData();
-    const url = `${process.env.REACT_APP_HOST}/user1`;
+    const url = `${process.env.REACT_APP_HOST}/user`;
     if (this.state.selectedFile !== null) {
       body.append(
         'profilePicture',

@@ -22,10 +22,10 @@ export default class VehicleType extends Component {
   };
   getData = () => {
     const host = process.env.REACT_APP_HOST;
-    const urlPopular = axios.get(`${host}vehicles/popular`);
-    const urlBike = axios.get(`${host}vehicles/bike`);
-    const urlCar = axios.get(`${host}vehicles/car`);
-    const urlMotorCycle = axios.get(`${host}vehicles/motorcycle`);
+    const urlPopular = axios.get(host+'/vehicles/popular');
+    const urlBike = axios.get(host+'/vehicles/bike');
+    const urlCar = axios.get(host+'/vehicles/car');
+    const urlMotorCycle = axios.get(host+'/vehicles/motorcycle');
     console.log(urlPopular, urlCar);
     axios
       .all([urlPopular, urlBike, urlCar, urlMotorCycle])
