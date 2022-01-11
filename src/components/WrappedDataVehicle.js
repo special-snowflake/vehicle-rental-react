@@ -9,7 +9,6 @@ import SliderDetailVehicle from './SliderDetailVehicle';
 import backSvg from '../assets/icons/back.svg';
 // import forwardSvg from '../assets/icons/forward.svg';
 
-
 import axios from 'axios';
 
 const numberFormat = (value) =>
@@ -41,12 +40,13 @@ class WrappedDataVehicle extends React.Component {
     }
   };
   getDetailVehicle = (id) => {
-    const urlDetail = `http://localhost:8000/vehicles/detail/${id}`;
+    const urlDetail = process.env.REACT_APP_HOST + `/vehicles/detail/${id}`;
     console.log('url', urlDetail);
     axios
       .get(urlDetail)
       .then((response) => {
         const data = response.data.data;
+        console.log('data-detail', data.id);
         this.setState({
           detailVehicle: data,
           isSuccess: true,
@@ -83,7 +83,9 @@ class WrappedDataVehicle extends React.Component {
                     </div>
                   </div>
                   <div className='col-12 col-sm-6 vehicle-images-detail'>
-                    <SliderDetailVehicle data={this.state.detailVehicle.images} />
+                    <SliderDetailVehicle
+                      data={this.state.detailVehicle.images}
+                    />
                   </div>
                   <div className='col-12 col-sm-6 vehicle-info-details'>
                     <span className='vehicle-detail-header'>

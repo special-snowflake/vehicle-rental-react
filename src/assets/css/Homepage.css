@@ -285,8 +285,6 @@ select.input-filter {
   width: 100%;
   padding: 0;
   background-color: #61616105;
-  overflow-y: scroll;
-  overflow-x: hidden;
   position: relative;
 }
 .chat-field .typing-area {
@@ -387,6 +385,22 @@ p.time-chat {
   object-position: center;
   border-radius: 5px;
 }
+.history-product .history-img-wrapper {
+  height: calc(100px + 5vw);
+  content: '';
+  width: calc(100px + 5vw);
+  position: relative;
+}
+.history-product .history-img-wrapper img {
+  width: calc(100px + 5vw);
+  height: calc(100px + 5vw);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
+.history-product-info{
+  padding-inline: calc(15px + 1vw);
+}
 
 .history-search-wrapper {
   position: relative;
@@ -405,6 +419,19 @@ p.time-chat {
 .history-search-filter {
   border: 1px solid #afb0b9;
 }
+.info-history .info-history-wrapper {
+  font-size: calc(13px + 0.3vw);
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid #c4c4c4;
+}
+.info-history-wrapper img {
+  position: absolute;
+  width: calc(13px + 0.3vw);
+  height: calc(13px + 0.3vw);
+  inset: auto 5px auto auto;
+}
 .new-arrival-wrapper {
   border: 1px solid #dadada;
   border-radius: 10px;
@@ -415,6 +442,14 @@ p.time-chat {
   font-family: 'Playfair Display', serif;
 }
 
+.new-arrival-wrapper .view-more img{
+  width: calc(16px + 0.3vw);
+  height: calc(18px + 0.3vw);
+}
+.list-header {
+  color: #c4c4c4;
+  font-weight: normal;
+}
 @media (min-width: 1400px) {
   .tagline {
     font-size: 75px !important;

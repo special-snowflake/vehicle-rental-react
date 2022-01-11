@@ -12,25 +12,25 @@ class Header extends React.Component {
   state = {
     isSuccess: false,
     userData: null,
+    token: null,
     photoProfile: require('../assets/images/default3.jpg'),
   };
 
-  getUserData() {
-    const token = localStorage.getItem('vehicle-rental-token');
-    console.log('token', token);
+  getUserData(token) {
     const data = jwt_decode(token);
     const id = data.id;
-    const urlData = `http://localhost:8000/user/detail/${id}`;
-    console.log('url: ', urlData);
+    const host =process.env.REACT_APP_HOST;
+    const urlData = `${host}/user/detail/${id}`;
+    // console.log('url: ', urlData);
     axios
       .get(urlData)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const photo = response.data.data.photo;
-        console.log('photo: ', photo);
+        // console.log('photo: ', photo);
         if (photo !== null && typeof photo !== 'undefined') {
           this.setState({
-            photoProfile: `http://localhost:8000/user${photo}`,
+            photoProfile: `${host}/user${photo}`,
           });
         }
         this.setState({
@@ -43,7 +43,9 @@ class Header extends React.Component {
       });
   }
   componentDidMount() {
-    this.getUserData();
+    const token = localStorage.getItem('vehicle-rental-token');
+    // console.log('token', token, typeof token);
+    if (token !== null) this.getUserData(token);
   }
   render() {
     const {isSuccess} = this.state;
@@ -91,12 +93,11 @@ class Header extends React.Component {
                   About
                 </a>
               </li>
-              {/* <li key='none'></li> */}
             </ul>
             <ul className='navbar-nav ms-auto text-center'>
               {isSuccess ? (
                 <>
-                  <li className='text-center nav-item dropdown'>
+                  <li className='text-center nav-item dropdown d-none d-md-block'>
                     <div
                       className='col-12 nav-mail nav-link dropdown-toggle'
                       id='mailDropdown'
@@ -129,7 +130,6 @@ class Header extends React.Component {
                             Okay, thank you for the good service.
                           </p>
                           <p className='nav-msg-time'>Just Now</p>
-                          {/* <p className='nav-msg-count'>1</p> */}
                         </Link>
                       </li>
                       <hr className='dropdown-divider' />
@@ -145,7 +145,9 @@ class Header extends React.Component {
                       </li>
                     </ul>
                   </li>
-                  <li key='User Profile' className='nav-item dropdown'>
+                  <li
+                    key='User Profile'
+                    className='nav-item dropdown d-none d-md-block'>
                     <div
                       className='col-12 text-center ms-auto nav-link dropdown-toggle'
                       id='profileDropdown'
@@ -153,7 +155,7 @@ class Header extends React.Component {
                       data-bs-toggle='dropdown'
                       aria-expanded='false'>
                       <div className='nav-img-user-wrapper'>
-                        {console.log('inside photo', this.state.photoProfile)}
+                        {/* {console.log('inside photo', this.state.photoProfile)} */}
                         <img
                           src={this.state.photoProfile}
                           alt='user profile'
@@ -210,6 +212,75 @@ class Header extends React.Component {
             </ul>
           </div>
         </nav>
+        {isSuccess && (
+          <div className='menu-sm position-fixed d-block d-md-none'>
+            <div className='d-flex justify-content-around mt-2'>
+              <button
+                className='dropdown-toggle'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'>
+                <img src={require('../assets/icons/email.png')} alt='msg' />
+              </button>
+              <ul
+                className='dropdown-menu dropdown-menu-end'
+                aria-labelledby='mailDropdown'>
+                <li>
+                  <Link className='dropdown-item drop-msg' to='/chat'>
+                    <p className='nav-msg-name'>Johnson</p>
+                    <p className='nav-msg-preview'>
+                      Okay, thank you for the good service.
+                    </p>
+                    <p className='nav-msg-time'>Just Now</p>
+                  </Link>
+                </li>
+                <hr className='dropdown-divider' />
+                <li>
+                  <Link className='dropdown-item drop-msg' to='/chat'>
+                    <p className='nav-msg-name'>Eudora</p>
+                    <p className='nav-msg-preview nav-msg-new'>
+                      Who has the last laugh?
+                    </p>
+                    <p className='nav-msg-time'>Yesterday</p>
+                    <p className='nav-msg-count'>1</p>
+                  </Link>
+                </li>
+              </ul>
+              <button
+                className='dropdown-toggle'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'>
+                <div className='menu-sm-wrapper'>
+                  <img
+                    src={this.state.photoProfile}
+                    className='menu-sm-img-profile'
+                    alt='msg'
+                  />
+                </div>
+              </button>
+              <ul
+                className='dropdown-menu dropdown-menu'
+                aria-labelledby='profileDropdown'>
+                <li>
+                  <Link className='dropdown-item' to='/profile'>
+                    Edit Profile
+                  </Link>
+                </li>
+                <hr className='dropdown-divider' />
+                <li>
+                  <Link className='dropdown-item' to='/help'>
+                    Help
+                  </Link>
+                </li>
+                <hr className='dropdown-divider' />
+                <li>
+                  <Link className='dropdown-item' to='/logout'>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
       </header>
     );
   }

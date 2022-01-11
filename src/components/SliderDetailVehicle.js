@@ -3,14 +3,14 @@ import React from 'react';
 import backSvg from '../assets/icons/back.svg';
 import forwardSvg from '../assets/icons/forward.svg';
 
-const host = 'http://localhost:8000';
+const host = process.env.REACT_APP_HOST;
 function carousel(image, idx) {
   let imgSrc = `${host}/vehicles${image}`;
   if (image === 'default') imgSrc = require('../assets/images/car-default.jpg');
   return (
     <div
       className={`carousel-item carousel-item-vehicle ${idx === 0 && 'active'}`}
-      data-bs-interval='false'>
+      data-bs-interval='false' key={idx}>
       <img src={imgSrc} className='d-block w-100' alt='...' />
       <div className='carousel-caption d-none d-md-block'></div>
     </div>
@@ -21,7 +21,7 @@ function indicatorPreview(image, idx) {
   let imgSrc = `${host}/vehicles${image}`;
   if (image === 'default') imgSrc = require('../assets/images/car-default.jpg');
   return (
-    <div className='img-preview-wrapper'>
+    <div className='img-preview-wrapper' key={idx}>
       <img
         data-bs-target='#carouselExampleDark'
         data-bs-slide-to={idx}

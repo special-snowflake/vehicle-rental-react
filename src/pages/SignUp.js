@@ -24,7 +24,7 @@ class SignUp extends React.Component {
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      const URL = 'http://localhost:8000/auth/register';
+      const URL = process.env.REACT_APP_HOST+'/auth/register';
       console.log(body, URL);
       axios
         .post(URL, body)

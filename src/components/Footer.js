@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import logoVehicleRental from '../assets/icons/logo-vehicle-rental.svg';
 import twitterSvg from '../assets/icons/twitter.svg';
 import facebookSvg from '../assets/icons/facebook.svg';
@@ -11,7 +12,14 @@ function Footer() {
     <>
       <footer className='row foot'>
         <div className='col-lg-6 col-md-3 col-sm-12 col-12'>
-          <img src={logoVehicleRental} alt='Icon' width='25px' height='25px' />
+          <Link to='/home'>
+            <img
+              src={logoVehicleRental}
+              alt='Icon'
+              width='25px'
+              height='25px'
+            />
+          </Link>
           <br />
           <br />
           <p style={{textAlign: 'justify'}}>
@@ -34,7 +42,7 @@ function Footer() {
           <div className='footer-title'>Vehicle</div>
           <ul>
             <li key='Bike'>Bike</li>
-            <li key ='Cars'>Cars</li>
+            <li key='Cars'>Cars</li>
             <li key='Motorbike'>Motorbike</li>
             <li key='Return'>Return Times</li>
             <li key='FAQ'>FAQs</li>

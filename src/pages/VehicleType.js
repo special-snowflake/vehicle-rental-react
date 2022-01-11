@@ -21,7 +21,7 @@ export default class VehicleType extends Component {
     keyword: null,
   };
   getData = () => {
-    const host = 'http://localhost:8000/';
+    const host = process.env.REACT_APP_HOST;
     const urlPopular = axios.get(`${host}vehicles/popular`);
     const urlBike = axios.get(`${host}vehicles/bike`);
     const urlCar = axios.get(`${host}vehicles/car`);

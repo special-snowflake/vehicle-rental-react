@@ -18,7 +18,7 @@ function VehicleCard(props) {
     const image = JSON.stringify(dataVehicle[index].image);
     const imgURL =
       image !== 'null'
-        ? `http://localhost:8000/vehicles${JSON.parse(image)}`
+        ? `${process.env.REACT_APP_HOST}/vehicles${JSON.parse(image)}`
         : require(`../assets/images/car-default.jpg`);
     const element = (
       <section

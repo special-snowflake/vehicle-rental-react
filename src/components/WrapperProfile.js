@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -29,9 +29,10 @@ export class WrapperProfile extends Component {
     showError: false,
     errMsg: null,
   };
+
   getDataUser = () => {
     const userId = this.props.id;
-    const urlUser = `http://localhost:8000/user/detail/${userId}`;
+    const urlUser = `${process.env.REACT_APP_HOST}/user/detail/${userId}`;
     console.log(urlUser);
     axios
       .get(urlUser)
@@ -39,7 +40,7 @@ export class WrapperProfile extends Component {
         const photo = response.data.data.photo;
         if (photo !== null && typeof photo !== 'undefined') {
           this.setState({
-            photoProfile: `http://localhost:8000/user${photo}`,
+            photoProfile: `${process.env.REACT_APP_HOST}/user${photo}`,
           });
         }
         this.setState({
@@ -81,7 +82,7 @@ export class WrapperProfile extends Component {
     const photo = this.state.dataUser.photo;
     if (photo !== null && typeof photo !== 'undefined') {
       this.setState({
-        photoProfile: `http://localhost:8000/user${photo}`,
+        photoProfile: `${process.env.REACT_APP_HOST}/user${photo}`,
       });
     }
     this.setState({
@@ -102,7 +103,7 @@ export class WrapperProfile extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const body = new FormData();
-    const url = 'http://localhost:8000/user';
+    const url = `${process.env.REACT_APP_HOST}/user1`;
     if (this.state.selectedFile !== null) {
       body.append(
         'profilePicture',
@@ -110,7 +111,7 @@ export class WrapperProfile extends Component {
         this.state.selectedFile.name,
       );
     }
-    body.append('firstName', e.target.firstName.value);
+    body.append('full_name', e.target.fullName.value);
     body.append('email', e.target.email.value);
     body.append('sex', this.state.selectedSex);
     body.append('address', e.target.address.value);
@@ -125,7 +126,7 @@ export class WrapperProfile extends Component {
     axios
       .patch(url, body, config)
       .then((response) => {
-        console.log('response', response);
+        console.log('response', response.data.data);
         this.getDataUser();
       })
       .catch((error) => {
@@ -294,8 +295,8 @@ export class WrapperProfile extends Component {
                               <input
                                 type='text'
                                 className='input-proile'
-                                name='firstName'
-                                id='firstName'
+                                name='fullName'
+                                id='fullName'
                                 defaultValue={full_name}
                               />
                             </div>
@@ -319,7 +320,9 @@ export class WrapperProfile extends Component {
                               </button>
                             </div>
                             <div className='col-12 col-sm-4'>
-                              <Link to='/' className='btn btn-black'>
+                              <Link
+                                to='/profile/change-password'
+                                className='btn btn-black'>
                                 Edit Password
                               </Link>
                             </div>
@@ -335,6 +338,7 @@ export class WrapperProfile extends Component {
                   </div>
                 </div>
               </div>
+              <Outlet />
             </div>
             <div className='.d-none .d-sm-block col-sm-1'></div>
           </main>

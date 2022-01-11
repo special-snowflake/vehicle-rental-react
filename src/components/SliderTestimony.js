@@ -30,7 +30,7 @@ function SliderTestimony(props) {
     const profilPhoto =
       testimonyData[i].image !== 'null' &&
       testimonyData[i].image !== ''
-        ? `http://localhost:8000/user${testimonyData[i].image}`
+        ? `${process.env.REACT_APP_HOST}/user${testimonyData[i].image}`
         : require('../assets/images/default2.jpg');
     let carouselClass = 'carousel-item';
     console.log(testimonyData[i]);

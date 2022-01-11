@@ -15,7 +15,7 @@ class ViewMore extends React.Component {
     this.getPopular();
   }
   getPopular = () => {
-    const popular = 'http://localhost:8000/vehicles/popular';
+    const popular = process.env.REACT_APP_HOST+'/vehicles/popular';
     axios
       .get(popular)
       .then((response) => {

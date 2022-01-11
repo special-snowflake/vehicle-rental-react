@@ -16,6 +16,29 @@ import SliderTestimony from '../components/SliderTestimony';
 // import circleSvg from '../assets/icons/circle.svg';
 import forwardSvg from '../assets/icons/forward.svg';
 
+const optionCity = (list) => {
+  const elements = [];
+  for (let index = 0; index < list.length; index++) {
+    elements.push(
+      <option value={list[index].id} key={list[index].id}>
+        {list[index].city}
+      </option>,
+    );
+  }
+  return elements;
+};
+const optionCategory = (list) => {
+  const elements = [];
+  for (let index = 0; index < list.length; index++) {
+    console.log(list[index]);
+    elements.push(
+      <option value={list[index].id} key={list[index].id}>
+        {list[index].category}
+      </option>,
+    );
+  }
+  return elements;
+};
 class Home extends React.Component {
   state = {
     isSuccess: false,
@@ -26,18 +49,19 @@ class Home extends React.Component {
   };
   componentDidMount() {
     this.getPopular();
+    console.log('this is:', process.env.REACT_APP_HOST);
   }
   getPopular = () => {
-    const popular = axios.get('http://localhost:8000/vehicles/popular');
-    const testi = axios.get(
-      'http://localhost:8000/testimony?orderBy=rate&sort=desc',
-    );
-    const getLocation = axios.get('http://localhost:8000/city');
-    const getCategory = axios.get('http://localhost:8000/category');
+    const host = process.env.REACT_APP_HOST;
+    const popular = axios.get(host + '/vehicles/popular');
+    const testi = axios.get(host + '/testimony?orderBy=rate&sort=desc');
+    const getLocation = axios.get(host + '/city');
+    const getCategory = axios.get(host + '/category');
     axios
       .all([popular, testi, getLocation, getCategory])
       .then(
         axios.spread((...responses) => {
+          console.log('list city getpop:', responses[2].data);
           this.setState({
             dataVehicle: responses[0].data.data,
             dataTestimony: responses[1].data.data,
@@ -52,9 +76,9 @@ class Home extends React.Component {
       });
   };
   render() {
-    const {isSuccess} = this.state;
-    console.log('data testi:', this.state.dataTestimony);
-    console.log('state:', this.state);
+    const {isSuccess, listCategory, listCity} = this.state;
+    // console.log('data testi:', this.state.dataTestimony);
+    // console.log('list:', this.state.listCity);
     return (
       <>
         <Header />
@@ -81,22 +105,11 @@ class Home extends React.Component {
                     <div className='wrapper col-12 col-sm-8 col-md-8 col-xl-6'>
                       <div className='row' style={{color: '#393939'}}>
                         <div className='col-sm-6 col-12'>
-                          <select>
-                            <option value='Location'>Location</option>
-                            <option value='Bali'>Bali</option>
-                            <option value='Yogyakarta'>Yogyakarta</option>
-                            <option value='Jakarta'>Jakarta</option>
-                            <option value='Kalimantan'>Kalimantan</option>
-                            <option value='Malang'>Malang</option>
-                          </select>
+                          <select>{isSuccess && optionCity(listCity)}</select>
                         </div>
                         <div className='col-sm-6 col-12'>
                           <select>
-                            <option value='Type'>Type</option>
-                            <option value='Car'>Car</option>
-                            <option value='Bike'>Bike</option>
-                            <option value='Motorcycle'>Motorcycle</option>
-                            <option value='Sports Car'>Sports Car</option>
+                            {isSuccess && optionCategory(listCategory)}
                           </select>
                         </div>
                         <div className='col-sm-6 col-12'>

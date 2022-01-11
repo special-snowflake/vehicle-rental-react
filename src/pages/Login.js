@@ -19,7 +19,7 @@ class Login extends React.Component {
   };
   render() {
     const loginHandler = (e) => {
-      const URL = 'http://localhost:8000/auth/';
+      const URL = process.env.REACT_APP_HOST+'/auth/';
       e.preventDefault();
       const body = {
         user: e.target.user.value,
@@ -32,8 +32,12 @@ class Login extends React.Component {
           const {navigate} = this.props;
           console.log(response);
           const token = response.data.data.token;
+          const id = response.data.data.id;
+          const roles = response.data.data.roles;
           console.log(token);
           localStorage.setItem('vehicle-rental-token', JSON.stringify(token));
+          localStorage.setItem('vehicle-user-id', JSON.stringify(id));
+          localStorage.setItem('vehicle-user-roles', JSON.stringify(roles));
           return navigate('/home', {replace: true});
         })
         .catch((error) => {
@@ -93,7 +97,7 @@ class Login extends React.Component {
                     />
                     <br />
                     <p></p>
-                    <Link to='/foget-password' className='forget-password'>
+                    <Link to='/forget-password' className='forget-password'>
                       Forget Password?
                     </Link>
                     <button className='btn btn-gold' type='submit'>

@@ -292,31 +292,31 @@ a:hover {
   width: max(150px, 15vw);
   height: 15vh;
   max-height: 60px;
-  font-size: 15px ;
+  font-size: 15px;
   font-weight: normal;
 }
-.drop-msg .nav-msg-name{
+.drop-msg .nav-msg-name {
   font-weight: bold;
   position: absolute;
   inset: 5px auto 10px auto;
 }
-.drop-msg .nav-msg-preview{
+.drop-msg .nav-msg-preview {
   position: absolute;
   inset: 25px auto 10px auto;
   text-overflow: ellipsis;
-  overflow: hidden; 
-  max-width: max(135px, 12.5vw); 
-  height: fit-content; 
+  overflow: hidden;
+  max-width: max(135px, 12.5vw);
+  height: fit-content;
   white-space: nowrap;
 }
-.drop-msg .nav-msg-time{
+.drop-msg .nav-msg-time {
   position: absolute;
   inset: 5px 10px auto auto;
 }
-.drop-msg .nav-msg-new{
+.drop-msg .nav-msg-new {
   font-weight: bold;
 }
-.drop-msg .nav-msg-count{
+.drop-msg .nav-msg-count {
   position: absolute;
   font-weight: bold;
   height: 0;
@@ -324,11 +324,38 @@ a:hover {
   width: 20px;
   padding-bottom: 20px;
   border-radius: 50%;
-  background-color: #FFCD61;
+  background-color: #ffcd61;
   inset: 25px 10px auto auto;
 }
 
-
+.menu-sm {
+  inset: auto 0px 0px 0px;
+  height: 50px;
+  z-index: 4;
+  background-color: white;
+  box-shadow: 0px 5px 8px black;
+}
+.menu-sm .menu-sm-img-wrapper {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.menu-sm img {
+  inset: 10px;
+  width: 30px;
+  height: 30px;
+}
+.menu-sm-wrapper {
+  width: 30px;
+  height: 30px;
+}
+.menu-sm .menu-sm-wrapper .menu-sm-img-profile {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
 /* Ipad Pro Potrait */
 @media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
   .footer-info {

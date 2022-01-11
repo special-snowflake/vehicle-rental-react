@@ -10,6 +10,14 @@ body {
   background-size: cover;
   background-position: center center;
 }
+.canvas-forget-password {
+  width: 100vw;
+  max-width: 100%;
+  background-image: url('../images/kilarov-zaneit-nan5wYNRwhs-unsplash-rs.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
 .content-first,
 .content-second {
   width: 100%;
@@ -29,6 +37,10 @@ body {
   height: 100%;
   padding: 4vh;
   flex: 1;
+}
+.single-content {
+  width: 100%;
+  min-height: 80vh;
 }
 
 .content-first .middle {
@@ -67,6 +79,27 @@ body {
   padding-top: 5%;
   height: 100%;
   max-width: 35vw;
+}
+.wrapper-forget {
+  max-width: 40vw;
+  margin: auto;
+  height: 100%;
+}
+.wrapper-forget input,.wrapper-forget button{
+  width: 50%;
+  margin-inline: 25%;
+  margin-bottom: calc(20px + 1vh);
+}
+.notice{
+  font-size: calc(14px + 0.3vw);
+  color: white;
+}
+.single-content h1 {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  color: white;
+  font-size: calc(20px + 3vw);
+  margin: 5vh auto 5vh auto;
 }
 .content-first .right input {
   font-family: 'Nunito', sans-serif;
@@ -177,6 +210,9 @@ ul li a {
 } */
 
 @media (max-width: 992px) {
+  .wrapper-forget {
+    max-width: 60vw;
+  }
   .content-first .left,
   .right {
     width: 100%;
@@ -189,6 +225,9 @@ ul li a {
 }
 
 @media (max-width: 576px) {
+  .wrapper-forget {
+    max-width: 80vw;
+  }
   .marg-5 {
     margin-top: 5px;
   }
