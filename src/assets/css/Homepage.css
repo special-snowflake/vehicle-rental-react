@@ -171,14 +171,15 @@
 .search-input-wrapper {
   position: relative;
 }
-input#search-vehicle {
-  position: absolute;
+input.search-vehicle,select.search-vehicle {
+  /* position: absolute; */
   font-size: calc(14px + 0.3vw);
   border: 1px solid #afb0b9;
   border-radius: 10px;
   color: #b8becd;
   padding: 0 50px 0 15px;
   height: 50px;
+  margin-bottom: 2%;
 }
 input#search-vehicle::placeholder {
   color: #b8becd;
@@ -326,6 +327,7 @@ select.input-filter {
   height: 90%;
   /* background-color: red; */
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .chat-msg span {
   width: 100%;
@@ -368,7 +370,7 @@ p.time-chat {
 .chat-product-info .price {
   font-family: 'Playfair Display', serif;
   font-weight: bold;
-  font-size: calc(16px + 0.3vw);
+  font-size: calc(16px + 0.5vw);
 }
 
 .chat-product .chat-img-wrapper {
@@ -398,7 +400,7 @@ p.time-chat {
   object-position: center;
   border-radius: 5px;
 }
-.history-product-info{
+.history-product-info {
   padding-inline: calc(15px + 1vw);
 }
 
@@ -442,7 +444,7 @@ p.time-chat {
   font-family: 'Playfair Display', serif;
 }
 
-.new-arrival-wrapper .view-more img{
+.new-arrival-wrapper .view-more img {
   width: calc(16px + 0.3vw);
   height: calc(18px + 0.3vw);
 }

@@ -62,7 +62,7 @@ function SliderDetailVehicle(props) {
               type='button'
               data-bs-target='#carouselExampleDark'
               data-bs-slide='prev'>
-              <img src={backSvg} width='18' height='18' alt='' />
+              <img src={backSvg} width='30' height='40' alt='' />
             </button>
           </div>
           <div className='col-8'>
@@ -81,7 +81,7 @@ function SliderDetailVehicle(props) {
               type='button'
               data-bs-target='#carouselExampleDark'
               data-bs-slide='next'>
-              <img src={forwardSvg} width='18' height='18' alt='' />
+              <img src={forwardSvg} width='30' height='40' alt='' />
             </button>
           </div>
         </div>

@@ -40,7 +40,7 @@ class WrappedDataVehicle extends React.Component {
     }
   };
   getDetailVehicle = (id) => {
-    const urlDetail = process.env.REACT_APP_HOST+`/vehicles/detail/${id}`;
+    const urlDetail = process.env.REACT_APP_HOST + `/vehicles/detail/${id}`;
     console.log('url', urlDetail);
     axios
       .get(urlDetail)
@@ -61,7 +61,7 @@ class WrappedDataVehicle extends React.Component {
     this.getDetailVehicle(vehicleId);
   }
   render() {
-    const {city, category, brand, model, capacity, price, status} =
+    const {city, category, name, price, status, description} =
       this.state.detailVehicle;
     const formatPrice = numberFormat(price);
     const {isSuccess} = this.state;
@@ -88,23 +88,26 @@ class WrappedDataVehicle extends React.Component {
                     />
                   </div>
                   <div className='col-12 col-sm-6 vehicle-info-details'>
-                    <span className='vehicle-detail-header'>
-                      {brand} - {model}
-                    </span>
+                    <span className='vehicle-detail-header'>{name}</span>
                     <br />
                     <span className='vehicle-detail-subheader'>{city}</span>
                     <br />
                     <br />
                     <span className='availabiliy'>{status}</span> <br />
+                    <br />
                     <span
                       className='prepayment-status'
                       style={{color: '#9b0a0a'}}>
                       No Prepayment
                     </span>
                     <p>
-                      Capacity : {capacity} person <br />
+                      <br />
+                      {description}
+                      <br />
+                      <br />
+                      {/* Capacity : 2 person <br /> */}
+                      {/* Reservation before 2 PM */}
                       Type : {category} <br />
-                      Reservation before 2 PM
                     </p>
                     <div className='col-12'>
                       <div className='row'>
@@ -113,7 +116,7 @@ class WrappedDataVehicle extends React.Component {
                           <span
                             style={{
                               fontFamily: `'Playfair Display', serif`,
-                              fontSize: '20px',
+                              fontSize: 'calc(18px + 0.5vw)',
                               fontWeight: 800,
                             }}>
                             {formatPrice}/day
@@ -173,9 +176,9 @@ class WrappedDataVehicle extends React.Component {
                         </a>
                       </div>
                       <div className='col-12 col-sm-4'>
-                        <a href='#reservation' className='btn btn-gold'>
+                        <Link to='/reservation/1' className='btn btn-gold'>
                           Reservation
-                        </a>
+                        </Link>
                       </div>
                       <div className='col-12 col-sm-3 like-item'>
                         <a href='#Like' className='btn btn-black'>

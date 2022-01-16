@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 function VehicleCard(props) {
   const dataVehicle = props.dataVehicle;
-  console.log('vehicle card', dataVehicle);
+  // console.log('vehicle card', dataVehicle);
   let lengthData =
     typeof props.length === 'undefined'
       ? props.dataVehicle.length
@@ -30,7 +30,7 @@ function VehicleCard(props) {
               <img src={imgURL} alt='vehicles' />
               <figcaption>
                 <span className='fig-title'>
-                  {dataVehicle[index].brand + ' ' + dataVehicle[index].model}
+                  {dataVehicle[index].name}
                 </span>
                 <br />
                 <span className='fig-subtitle'>{dataVehicle[index].city}</span>

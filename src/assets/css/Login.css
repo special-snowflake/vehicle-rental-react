@@ -307,7 +307,7 @@ ul li a {
 }
 @media (min-width: 1200px) {
   body {
-    font: 22px;
+    font-size: calc(14px + 0.3vw);
   }
   .btn {
     font-size: calc(13px + 0.3vw);

@@ -9,6 +9,29 @@ import mbakmbak from '../assets/images/michael-dam-mEZ3PoFGs_k-unsplash-profile.
 import cameraSvg from '../assets/icons/camera.svg';
 
 class ChatView extends React.Component {
+  scrollToBottom = () => {
+    // window.scrollTo(0, 0);
+    // this.messagesEnd.scrollIntoView({behavior: 'smooth'});
+    this.messagesEnd.scrollIntoView();
+    // const target = document.getElementById('target');
+    // target.parentNode.scrollTop = target.offsetTop;
+    // // target.scrollTop(0);
+  };
+  scrollToTop = () => {
+    this.top.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  };
+  componentDidMount() {
+    this.scrollToBottom();
+    // this.scrollToTop();
+  }
+
+  componentDidUpdate() {
+    // this.scrollToBottom();
+  }
   render() {
     return (
       <>
@@ -44,11 +67,17 @@ class ChatView extends React.Component {
                           alt=''
                         />
                       </div>
-                      <div className="chat-product-info">
-                        <p className='vehicle-detail-header'>Fixie - Gray Only</p>
-                        <p className='vehicle-detail-subheader mt-2'>Yogyakarta</p>
+                      <div className='chat-product-info'>
+                        <p className='vehicle-detail-header'>
+                          Fixie - Gray Only
+                        </p>
+                        <p className='vehicle-detail-subheader mt-2'>
+                          Yogyakarta
+                        </p>
                         <p className='availabiliy mt-2'>Available</p>
-                        <div className="col-12 text-end price">Rp 78.000/day</div>
+                        <div className='col-12 text-end price'>
+                          Rp 78.000/day
+                        </div>
                       </div>
                     </div>
                     <div className='col-12 text-end mt-3 d-flex justify-content-start'>
@@ -119,6 +148,11 @@ class ChatView extends React.Component {
                     <div className='col-12 text-end mt-1 d-flex justify-content-end'>
                       <p className='time-chat'>12:36 PM</p>
                     </div>
+                    <div
+                      style={{float: 'left', clear: 'both'}}
+                      ref={(el) => {
+                        this.messagesEnd = el;
+                      }}></div>
                   </div>
                 </div>
                 <div className='typing-area'>
@@ -131,6 +165,7 @@ class ChatView extends React.Component {
               </section>
             </div>
           </div>
+          <div className="translate-top"></div>
         </div>
         <Footer />
       </>

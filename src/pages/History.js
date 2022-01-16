@@ -49,17 +49,17 @@ function History() {
               </select>
             </div>
             <div className='info-history row'>
-              <di className='info-history-wrapper col-10 col-sm-11 mb-2'>
+              <div className='info-history-wrapper col-10 col-sm-11 mb-2'>
                 Please finish your payment for vespa for Vespa Rental Jogja
                 <img src={forwarSvg} alt='next' />
-              </di>
+              </div>
               <div className='col-2 col-sm-1 '>
                 <input type='checkbox' className='checkbox-history m-auto' />
               </div>
-              <di className='info-history-wrapper col-10 col-sm-11 mb-2'>
+              <div className='info-history-wrapper col-10 col-sm-11 mb-2'>
                 Your payment has been confirmed!
                 <img src={forwarSvg} alt='next' />
-              </di>
+              </div>
               <div className='col-2 col-sm-1 m-auto'>
                 <input type='checkbox' className='checkbox-history m-auto' />
               </div>

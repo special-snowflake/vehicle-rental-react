@@ -1,9 +1,14 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import Footer from '../components/Footer';
 import axios from 'axios';
-import '../assets/css/Login.css';
+
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import ErrorMsg from '../components/ErrorMsg';
+import Footer from '../components/Footer';
+
+import '../assets/css/Login.css';
 
 class SignUp extends React.Component {
   state = {
@@ -24,13 +29,24 @@ class SignUp extends React.Component {
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      const URL = process.env.REACT_APP_HOST+'/auth/register';
+      const URL = process.env.REACT_APP_HOST + '/auth/register';
       console.log(body, URL);
       axios
         .post(URL, body)
         .then((response) => {
           console.log(response);
-          return navigate('/login', {replace: true});
+          toast.success('SignUp Success.', {
+            position: 'bottom-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(() => {
+            return navigate('/login', {replace: true});
+          }, 5500);
         })
         .catch((error) => {
           this.setState({
@@ -44,6 +60,7 @@ class SignUp extends React.Component {
     console.log('Error is: ', isError, errMsg, showError);
     return (
       <>
+        <ToastContainer />
         <main className='canvas'>
           <div className='content-first'>
             <div className='left'>

@@ -11,6 +11,9 @@ import '../assets/css/Profile.css';
 import pencilSvg from '../assets/icons/pencil.svg';
 import axios from 'axios';
 
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export class WrapperProfile extends Component {
   constructor(props) {
     super(props);
@@ -24,14 +27,13 @@ export class WrapperProfile extends Component {
     selectedFile: null,
     selectedSex: '',
     photoProfile: require('../assets/images/default3.jpg'),
-    reRender: false,
     isError: false,
     showError: false,
     errMsg: null,
   };
 
   getDataUser = () => {
-    const userId = this.props.id;
+    const userId = localStorage['vehicle-rental-userId'];
     const urlUser = `${process.env.REACT_APP_HOST}/user/detail/${userId}`;
     console.log(urlUser);
     axios
@@ -50,7 +52,17 @@ export class WrapperProfile extends Component {
         });
       })
       .catch((error) => {
-        console.log(error);
+        const errMsg = error.response.data.errMsg;
+        toast.error(errMsg, {
+          position: 'bottom-left',
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        // console.log(error);
       });
   };
 
@@ -71,12 +83,17 @@ export class WrapperProfile extends Component {
       console.log('Error: ', error);
     };
   }
+
   handleFileChange(e) {
     this.getBase64(e);
     this.setState({
       selectedFile: e.target.files[0],
     });
   }
+
+  inputImage = (e) => {
+    this.inputFileRef.current.click();
+  };
 
   cancel() {
     const photo = this.state.dataUser.photo;
@@ -89,10 +106,6 @@ export class WrapperProfile extends Component {
       selectedSex: this.state.dataUser.sex,
     });
   }
-
-  inputImage = (e) => {
-    this.inputFileRef.current.click();
-  };
 
   onValueChange(event) {
     this.setState({
@@ -126,16 +139,35 @@ export class WrapperProfile extends Component {
     axios
       .patch(url, body, config)
       .then((response) => {
-        console.log('response', response.data.data);
+        toast.success('Update success.', {
+          position: 'bottom-left',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         this.getDataUser();
       })
       .catch((error) => {
-        console.log('error', error.response);
-        this.setState({
-          isError: true,
-          showError: true,
-          errMsg: error.response.data.errMsg,
+        // console.log('error', error.response);
+        const errMsg = error.response.data.errMsg;
+        // console.log('err msg', errMsg)
+        toast.error(errMsg, {
+          position: 'bottom-left',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
+        // this.setState({
+        //   isError: true,
+        //   showError: true,
+        //   errMsg: error.response.data.errMsg,
+        // });
       });
   }
   componentDidMount() {
@@ -153,6 +185,7 @@ export class WrapperProfile extends Component {
     return (
       <>
         <Header />
+        <ToastContainer />
         {isError && showError && (
           <ErrorMsg parentCallback={this.handleCallback} msg={errMsg} />
         )}

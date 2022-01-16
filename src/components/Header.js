@@ -17,8 +17,8 @@ class Header extends React.Component {
   };
 
   getUserData(token) {
-    const data = jwt_decode(token);
-    const id = data.id;
+    // const data = jwt_decode(token);
+    const id = localStorage['vehicle-rental-userId'];
     const host =process.env.REACT_APP_HOST;
     const urlData = `${host}/user/detail/${id}`;
     // console.log('url: ', urlData);

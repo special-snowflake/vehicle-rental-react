@@ -1,57 +1,72 @@
 import React from 'react';
-
 import {Link, useNavigate} from 'react-router-dom';
-import Footer from '../components/Footer';
 
-import axios from 'axios';
-import ErrorMsg from '../components/ErrorMsg';
+import {connect} from 'react-redux';
+import {loginAction} from '../redux/actions/auth';
+
+import Footer from '../components/Footer';
 import '../assets/css/Login.css';
+
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Login extends React.Component {
   state = {
-    isError: false,
-    showError: false,
     isSuccess: false,
     errMsg: '',
   };
   handleCallback = (childData) => {
     this.setState({showError: childData});
   };
+  componentDidUpdate() {
+    const {isFulfilled, isRejected, userData} = this.props.auth;
+    console.log('isPending? ', this.props.auth.isPending);
+    console.log('isFulfilled? ', this.props.auth.isFulfilled);
+    console.log('isRejected? ', this.props.auth.isRejected);
+    // if (isPending === true) {
+    //   toast.info('Wait!', {
+    //     position: 'bottom-left',
+    //     autoClose: false,
+    //     hideProgressBar: false,
+    //     closeOnClick: false,
+    //     pauseOnHover: true,
+    //     draggable: false,
+    //     progress: undefined,
+    //   });
+    // }
+    if (isFulfilled === true) {
+      const {navigate} = this.props;
+      console.log('it is fullfilled');
+      localStorage['vehicle-rental-token'] = JSON.stringify(userData.token);
+      localStorage['vehicle-rental-userId'] = JSON.stringify(userData.id)
+      localStorage['vehicle-rental-roles'] = JSON.stringify(userData.roles);
+      localStorage['vehicle-rental-photo'] = JSON.stringify(userData.photo);
+      return navigate('/home', {replace: true});
+    }
+    if (isRejected === true) {
+      toast.error(this.props.auth.err.errMsg, {
+        position: 'bottom-left',
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
   render() {
     const loginHandler = (e) => {
-      const URL = process.env.REACT_APP_HOST+'/auth/';
       e.preventDefault();
       const body = {
         user: e.target.user.value,
         password: e.target.password.value,
       };
-      console.log(URL, body);
-      axios
-        .post(URL, body)
-        .then((response) => {
-          const {navigate} = this.props;
-          console.log(response);
-          const token = response.data.data.token;
-          const id = response.data.data.id;
-          const roles = response.data.data.roles;
-          console.log(token);
-          localStorage.setItem('vehicle-rental-token', JSON.stringify(token));
-          localStorage.setItem('vehicle-user-id', JSON.stringify(id));
-          localStorage.setItem('vehicle-user-roles', JSON.stringify(roles));
-          return navigate('/home', {replace: true});
-        })
-        .catch((error) => {
-          console.log('error is:', error.response.data);
-          this.setState({
-            isError: true,
-            showError: true,
-            errMsg: error.response.data.errMsg,
-          });
-        });
+      this.props.loginDispatch(body);
     };
-    const {isError, errMsg, showError} = this.state;
     return (
       <>
+        <ToastContainer />
         <main>
           <div className='canvas'>
             <div className='content-first'>
@@ -73,12 +88,6 @@ class Login extends React.Component {
               <section className='middle'></section>
               <section className='right' id='login'>
                 <div className='wrapper'>
-                  {isError && showError && (
-                    <ErrorMsg
-                      parentCallback={this.handleCallback}
-                      msg={errMsg}
-                    />
-                  )}
                   <form className='login-form' onSubmit={loginHandler}>
                     <input
                       type='text'
@@ -119,8 +128,24 @@ class Login extends React.Component {
     );
   }
 }
-export default function WrapperLogin(props) {
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginDispatch: (body) => {
+      dispatch(loginAction(body));
+    },
+  };
+};
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+function WrapperLogin(props) {
   const navigate = useNavigate();
 
   return <Login {...props} navigate={navigate} />;
 }
+export default connect(mapStateToProps, mapDispatchToProps)(WrapperLogin);

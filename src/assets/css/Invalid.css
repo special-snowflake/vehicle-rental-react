@@ -1,10 +1,12 @@
-.invalid-main {
+.invalid-main,
+.forbidden-main {
   background-color: white;
   padding: 5vh;
   width: 100%;
   min-height: 55vh;
 }
-.invalid-main .wrapper {
+.invalid-main .wrapper,
+.forbidden-main .wrapper {
   margin: auto;
   width: 100%;
 }
@@ -14,29 +16,41 @@
   /* width: 50vw; */
   height: auto;
 }
-.invalid-main .wrapper h1 {
+.forbidden-main .wrapper img{
+  height: max(380px, 30vh);
+}
+.forbidden-main .wrapper .four-0-three{
+  color: tomato;
+}
+.invalid-main .wrapper h1,
+.forbidden-main .wrapper h1 {
   font-size: calc(20px + 10vw);
   color: #393939;
   font-weight: 800;
 }
-.invalid-main .wrapper p {
+.invalid-main .wrapper p,
+.forbidden-main .wrapper p {
   font-size: calc(15px + 0.5vw);
   color: #393939;
   font-weight: 500;
 }
-.invalid-main a {
+.invalid-main a,
+.forbidden-main a {
   font-size: calc(14px + 0.5vw);
   text-decoration: none;
   color: #fc8f1c;
 }
+
 @media (min-width: 576px) {
-  .invalid-main {
-    max-height: 85vh;
+  .invalid-main,
+  .forbidden-main {
+    /* max-height: 85vh; */
     padding: 0px;
     min-height: 65vh;
   }
-  .invalid-main .wrapper h1 {
-      font-size: calc(25px + 5vw);
+  .invalid-main .wrapper h1,
+  .forbidden-main .wrapper h1 {
+    font-size: calc(25px + 5vw);
   }
 }
 
