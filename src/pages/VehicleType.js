@@ -60,7 +60,7 @@ class VehicleType extends Component {
   onSearch(e) {
     e.preventDefault();
     // console.log(e.target.searchVehicle.value);
-    const {searchParams, setSearchParams} = this.props;
+    const {setSearchParams} = this.props;
     const city = e.target.city.value;
     const category = e.target.category.value;
     const sortBy = e.target.sortBy.value;
