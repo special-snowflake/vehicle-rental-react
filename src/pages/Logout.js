@@ -20,7 +20,8 @@ export default function Logout() {
       console.log(err.data);
     });
   localStorage.removeItem('vehicle-rental-token');
-  localStorage.removeItem('vehicle-user-id');
-  localStorage.removeItem('vehicle-user-roles');
+  localStorage.removeItem('vehicle-rental-userId');
+  localStorage.removeItem('vehicle-rental-roles');
+  localStorage.removeItem('vehicle-rental-photo');
   return <Navigate to='/login' />;
 }

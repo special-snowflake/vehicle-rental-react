@@ -158,6 +158,7 @@ class AddItem extends React.Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     getCategory()
       .then((response) => {
         this.setState({

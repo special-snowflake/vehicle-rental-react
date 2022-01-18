@@ -2,7 +2,6 @@ import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 
 import logoVehicleRental from '../assets/icons/logo-vehicle-rental.svg';
 
@@ -16,10 +15,9 @@ class Header extends React.Component {
     photoProfile: require('../assets/images/default3.jpg'),
   };
 
-  getUserData(token) {
-    // const data = jwt_decode(token);
+  getUserData() {
     const id = localStorage['vehicle-rental-userId'];
-    const host =process.env.REACT_APP_HOST;
+    const host = process.env.REACT_APP_HOST;
     const urlData = `${host}/user/detail/${id}`;
     // console.log('url: ', urlData);
     axios
@@ -27,8 +25,8 @@ class Header extends React.Component {
       .then((response) => {
         // console.log(response.data);
         const photo = response.data.data.photo;
-        // console.log('photo: ', photo);
-        if (photo !== null && typeof photo !== 'undefined') {
+        console.log('photo: ', photo, typeof photo);
+        if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
           this.setState({
             photoProfile: `${host}/user${photo}`,
           });
@@ -41,11 +39,22 @@ class Header extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+    // const photo = JSON.parse(localStorage['vehicle-rental-photo']);
+    // const host = process.env.REACT_APP_HOST;
+    // console.log('photo: ', photo, typeof photo);
+    // if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
+    //   this.setState({
+    //     photoProfile: `${host}/user${photo}`,
+    //   });
+    // }
+    // this.setState({
+    //   isSuccess: true,
+    // });
   }
   componentDidMount() {
     const token = localStorage.getItem('vehicle-rental-token');
     // console.log('token', token, typeof token);
-    if (token !== null) this.getUserData(token);
+    if (token !== null) this.getUserData();
   }
   render() {
     const {isSuccess} = this.state;

@@ -9,12 +9,12 @@
 }
 .nonslide-img-wrapper {
   width: 100%;
-  height: calc(200px + 25vh);
+  height: calc(200px + 30vh);
   border-radius: 10px;
 }
 .nonslide-img-wrapper img {
   width: 100% !important;
-  height: calc(200px + 25vh) !important;
+  height: calc(200px + 30vh) !important;
   object-fit: cover;
   object-position: center;
   border-radius: 10px;

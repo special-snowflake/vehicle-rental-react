@@ -5,17 +5,18 @@ import Footer from '../components/Footer';
 import Counter from '../components/Counter';
 import LoadingPage from './LoadingPage';
 import SliderDetailVehicle from './SliderDetailVehicle';
+import {numberToRupiah} from '../helpers/collection';
 
 import backSvg from '../assets/icons/back.svg';
 // import forwardSvg from '../assets/icons/forward.svg';
 
 import axios from 'axios';
 
-const numberFormat = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'IDR',
-  }).format(value);
+// const numberFormat = (value) =>
+//   new Intl.NumberFormat('en-IN', {
+//     style: 'currency',
+//     currency: 'IDR',
+//   }).format(value);
 
 class WrappedDataVehicle extends React.Component {
   state = {
@@ -63,7 +64,7 @@ class WrappedDataVehicle extends React.Component {
   render() {
     const {city, category, name, price, status, description} =
       this.state.detailVehicle;
-    const formatPrice = numberFormat(price);
+    // const formatPrice = ;
     const {isSuccess} = this.state;
     return (
       <>
@@ -119,7 +120,7 @@ class WrappedDataVehicle extends React.Component {
                               fontSize: 'calc(18px + 0.5vw)',
                               fontWeight: 800,
                             }}>
-                            {formatPrice}/day
+                            Rp {numberToRupiah(price)}/day
                           </span>
                         </div>
                       </div>
@@ -176,7 +177,14 @@ class WrappedDataVehicle extends React.Component {
                         </a>
                       </div>
                       <div className='col-12 col-sm-4'>
-                        <Link to='/reservation/1' className='btn btn-gold'>
+                        <Link
+                          to='/reservation'
+                          state={{
+                            dataVehicle: this.state.detailVehicle,
+                            counter: this.state.counter,
+                          }}
+                          // counter={this.state.counter}
+                          className='btn btn-gold'>
                           Reservation
                         </Link>
                       </div>

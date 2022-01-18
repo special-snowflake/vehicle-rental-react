@@ -49,7 +49,7 @@ class Home extends React.Component {
   };
   componentDidMount() {
     this.getPopular();
-    console.log('this is:', process.env.REACT_APP_HOST);
+    // console.log('this is:', process.env.REACT_APP_HOST);
   }
   getPopular = () => {
     const host = process.env.REACT_APP_HOST;
@@ -77,6 +77,11 @@ class Home extends React.Component {
   };
   render() {
     const {isSuccess, listCategory, listCity} = this.state;
+    let roles = localStorage['vehicle-rental-roles'];
+    if (typeof roles !== 'undefined') {
+      roles = JSON.parse(localStorage['vehicle-rental-roles']);
+    }
+    // console.log(roles);
     // console.log('data testi:', this.state.dataTestimony);
     // console.log('list:', this.state.listCity);
     return (
@@ -140,7 +145,7 @@ class Home extends React.Component {
           {isSuccess ? (
             <>
               <div
-                className=' row content d-flex flex-row align-items-center justify-content-start'
+                className='row content d-flex flex-row align-items-center justify-content-start'
                 style={{
                   backgroundImage: `url("../assets/icons/circle.svg")`,
                   backgroundPosition: 'center bottom',
@@ -167,6 +172,19 @@ class Home extends React.Component {
                 </div>
                 <VehicleCard dataVehicle={this.state.dataVehicle} length={4} />
               </div>
+              {roles === 'owner' && (
+                <div className='row row content d-flex flex-row align-items-center justify-content-start mt-0'>
+                  {/* <div className='d-none d-sm-block col-sm-1'></div>
+                  <div className='col-12 col-sm-10'> */}
+                  <div className='add-item-wrapper'>
+                    <Link to='/add-item' className='btn btn-black'>
+                      Add Item
+                    </Link>
+                  </div>
+                  {/* </div>
+                  <div className='d-none d-sm-block col-sm-1'></div> */}
+                </div>
+              )}
               <div className='row'>
                 <div
                   className='row content'

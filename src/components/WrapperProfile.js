@@ -40,7 +40,7 @@ export class WrapperProfile extends Component {
       .get(urlUser)
       .then((response) => {
         const photo = response.data.data.photo;
-        if (photo !== null && typeof photo !== 'undefined') {
+        if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
           this.setState({
             photoProfile: `${process.env.REACT_APP_HOST}/user${photo}`,
           });

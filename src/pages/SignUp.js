@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import {register} from '../utils/https/auth';
 
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,15 +30,16 @@ class SignUp extends React.Component {
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      const URL = process.env.REACT_APP_HOST + '/auth/register';
-      console.log(body, URL);
-      axios
-        .post(URL, body)
+      // const URL = process.env.REACT_APP_HOST + '/auth/register';
+      // console.log(body, URL);
+      // axios
+      //   .post(URL, body)
+      register(body)
         .then((response) => {
           console.log(response);
-          toast.success('SignUp Success.', {
+          toast.success(response.data.msg, {
             position: 'bottom-left',
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -45,15 +47,24 @@ class SignUp extends React.Component {
             progress: undefined,
           });
           setTimeout(() => {
-            return navigate('/login', {replace: true});
-          }, 5500);
+            return navigate('/login', {replace: false});
+          }, 2500);
         })
         .catch((error) => {
-          this.setState({
-            isError: true,
-            showError: true,
-            errMsg: error.response.data.errMsg,
+          toast.error(error.response.data.errMsg, {
+            position: 'bottom-left',
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
+          // this.setState({
+          //   isError: true,
+          //   showError: true,
+          //   errMsg: error.response.data.errMsg,
+          // });
         });
     };
     const {isError, errMsg, showError} = this.state;

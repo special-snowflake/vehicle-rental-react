@@ -12,7 +12,12 @@ class ChatView extends React.Component {
   scrollToBottom = () => {
     // window.scrollTo(0, 0);
     // this.messagesEnd.scrollIntoView({behavior: 'smooth'});
-    this.messagesEnd.scrollIntoView();
+    // this.messagesEnd.scrollHeight();
+    // window.scrollTo(0, 0);
+    console.log('scroll me');
+    const messagesDOM = this.chatField;
+    // window.scrollTo(0,document.body.scrollHeight);
+    // messagesDOM.scrollTop = messagesDOM.scrollHeight;
     // const target = document.getElementById('target');
     // target.parentNode.scrollTop = target.offsetTop;
     // // target.scrollTop(0);
@@ -45,7 +50,9 @@ class ChatView extends React.Component {
             backgroundRepeat: 'no-repeat',
           }}>
           <div className='row chat-list justify-content-center'>
-            <div className='col-12 col-lg-10'>
+            <div className='col-12 col-lg-10' id='chat-field' ref={(el) => {
+                        this.chatField = el;
+                      }}>
               <div className='back-detail'>
                 <div className='col-2'>
                   <Link to='/chat' className='d-inline-flex align-items-center'>
@@ -59,7 +66,7 @@ class ChatView extends React.Component {
               </div>
               <section className='chat-field'>
                 <div className='chat-msg d-flex'>
-                  <div className='w-100'>
+                  <div className='w-100' id='chat-field'>
                     <div className='col-12 chat-product d-flex'>
                       <div className='chat-img-wrapper'>
                         <img
@@ -165,7 +172,7 @@ class ChatView extends React.Component {
               </section>
             </div>
           </div>
-          <div className="translate-top"></div>
+          <div className='translate-top'></div>
         </div>
         <Footer />
       </>

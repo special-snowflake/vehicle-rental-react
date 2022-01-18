@@ -1,29 +1,44 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {Link} from 'react-router-dom';
 
-// import Counter from '../components/Counter';
+import {numberToRupiah, addDate} from '../helpers/collection';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {getUserData} from '../utils/https/user';
+import {addTransaction} from '../utils/https/history';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LoadingPage from '../components/LoadingPage';
 
 import backSvg from '../assets/icons/back.svg';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default class Payment extends Component {
+class Payment extends Component {
   state = {
-    detailVehicle: null,
-    isSuccess: true,
+    dataVehicle: null,
+    isSuccess: false,
+    totalPayment: null,
+    vehicleImage: null,
   };
-  getDetailVehicle = (id) => {
-    const urlDetail = process.env.REACT_APP_HOST + `/vehicles/detail/${id}`;
-    console.log('url', urlDetail);
-    axios
-      .get(urlDetail)
+  copyBookingCode = (bookingCode) => {
+    navigator.clipboard.writeText(bookingCode);
+    toast.success('Booking code coppied to clipboard', {
+      position: 'bottom-left',
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  getUserData = (id) => {
+    getUserData(id)
       .then((response) => {
         const data = response.data.data;
-        console.log('data-detail', data.id);
+        // console.log('data-detail', data.id);
         this.setState({
-          detailVehicle: data,
+          userData: data,
           isSuccess: true,
         });
       })
@@ -32,18 +47,95 @@ export default class Payment extends Component {
       });
   };
 
+  showOrderDetails = () => {
+    const elements = [];
+    const total = this.state.counter * this.state.dataVehicle.price;
+    for (let i = 0; i < this.state.rentalDuration; i++) {
+      const element = (
+        <p className='quantity-item' key={`detail-${i}`}>
+          {this.state.counter} bike : {numberToRupiah(total)}{' '}
+        </p>
+      );
+      elements.push(element);
+    }
+    return elements;
+  };
+
+  addHistory = () => {
+    const returnDate = addDate(
+      this.state.rentalDate,
+      parseInt(this.state.rentalDuration),
+    );
+    const userId = JSON.parse(localStorage['vehicle-rental-userId']);
+    const token = localStorage['vehicle-rental-token'];
+    const body = {
+      user_id: userId,
+      vehicle_id: this.state.dataVehicle.id,
+      total_payment: this.state.totalPayment,
+      rental_date: this.state.rentalDate,
+      return_date: returnDate,
+    };
+    console.log('body: ', body);
+    addTransaction(body, token)
+      .then((response) => {
+        const navigate = this.props.navigate;
+        toast.success('Payment success.', {
+          position: 'bottom-left',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate('/history')
+        }, 3500);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.errMsg, {
+          position: 'bottom-left',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
   componentDidMount() {
-    const vehicleId = this.props.vid;
-    console.log('id', vehicleId);
-    this.getDetailVehicle(vehicleId);
+    const hostImg = process.env.REACT_APP_HOST + '/vehicles';
+    const location = this.props.location;
+    const {dataVehicle, counter, rentalDate, rentalDuration} = location.state;
+    console.log('rental date is:', rentalDate);
+    const totalPayment = counter * dataVehicle.price * rentalDuration;
+    const imgDefault = require('../assets/images/car-default.jpg');
+    const dataImage = dataVehicle.images;
+    const vehicleImage =
+      dataImage.length === 0 ? imgDefault : `${hostImg}${dataImage[0]}`;
+    console.log('Data vehicle: ', dataVehicle);
+    const id = localStorage['vehicle-rental-userId'];
+    this.setState({
+      dataVehicle,
+      counter,
+      rentalDate,
+      rentalDuration,
+      totalPayment,
+      vehicleImage,
+    });
+    this.getUserData(id);
   }
   render() {
+    console.log(this.state);
+    const bookingCode = '#FG1209878YZS';
     const {isSuccess} = this.state;
     return (
       <>
         <Header />
         {isSuccess ? (
           <div>
+            <ToastContainer />
             <main>
               <div className='row text-left'>
                 <div className='.d-none .d-sm-block col-sm-1'></div>
@@ -64,58 +156,74 @@ export default class Payment extends Component {
                     </div>
                     <div className='col-12 col-sm-4 vehicle-noslide-detail'>
                       <div className='payment-img-wrapper'>
-                        <img
-                          src={require('../assets/images/iqx-azmi-jn01MSrsUpE-unsplash-cmobile.webp')}
-                          alt=''
-                        />
+                        <img src={this.state.vehicleImage} alt='' />
                       </div>
                     </div>
                     <div className='col-12 col-sm-8 vehicle-info-details'>
                       <span className='vehicle-detail-header'>
-                        {'brand'} - {'model'}
+                        {this.state.dataVehicle.name}
                       </span>
                       <br />
-                      <span className='vehicle-detail-subheader'>{'city'}</span>
+                      <span className='vehicle-detail-subheader'>
+                        {this.state.dataVehicle.city}
+                      </span>
                       <br />
                       <br />
                       <p>No Prepayment</p>
-                      <p className='booking-code mt-5'>#FG1209878YZS</p>
-                      <button className='copy-boking-code mt-2 fw-bold'>
+                      <p className='booking-code mt-5'>{bookingCode}</p>
+                      <button
+                        className='copy-boking-code mt-2 fw-bold'
+                        onClick={() => {
+                          this.copyBookingCode(bookingCode);
+                        }}>
                         Copy booking code
                       </button>
                     </div>
                     <div className='col-12 col-sm-4 detail-box payment-quantitiy-box d-flex'>
                       <section className='box-wrapper col-12 col-4'>
-                        <span className='fw-bold'>Quantity :</span> 2 bikes
+                        <span className='fw-bold'>Quantity : </span>
+                        {this.state.counter}
+                        {this.state.dataVehicle.counter} bikes
                       </section>
                     </div>
                     <div className='col-12 col-sm-8 detail-box payment-reservation-box'>
                       <section className='box-wrapper'>
-                        <span className='fw-bold'>Reservation Date :</span> Jan
-                        18 - 20 2021
+                        <span className='fw-bold'>Reservation Date :</span>
+                        {' ' + this.state.rentalDate + ' - '}
+                        {addDate(
+                          this.state.rentalDate,
+                          parseInt(this.state.rentalDuration),
+                        )}
                       </section>
                     </div>
                     <div className='col-12 col-sm-4 detail-box payment-quantitiy-box d-flex'>
                       <section className='box-wrapper col-12 col-4'>
                         <p className='box-header'>Order details :</p>
-                        <p className='quantity-item'>1 bike : Rp. 78.000 </p>
-                        <p className='quantity-item'>1 bike : Rp. 78.000 </p>
-                        <p className='total-item'>Total : 178.000</p>
+                        {this.showOrderDetails()}
+                        {/* <p className='quantity-item'>1 bike : Rp. 78.000 </p>
+                        <p className='quantity-item'>1 bike : Rp. 78.000 </p> */}
+                        <p className='total-item'>
+                          Total : {numberToRupiah(this.state.totalPayment)}
+                        </p>
                       </section>
                     </div>
                     <div className='col-12 col-sm-8 detail-box payment-reservation-box'>
                       <section className='box-wrapper'>
                         <p className='box-header'>Identity : </p>
-                        <p>Samantha Doe (+6290987682) </p>
-                        <p>samanthadoe@mail.com</p>
+                        <p>
+                          {this.state.userData.full_name}(
+                          {this.state.userData.phone})
+                        </p>
+                        <p>{this.state.userData.email}</p>
                       </section>
                     </div>
                     <div className='col-12 mt-2'>
-                      <Link
+                      <button
                         to='/reservation-payment'
+                        onClick={this.addHistory}
                         className='btn btn-yellow'>
-                        Paynow 178.000
-                      </Link>
+                        Paynow {numberToRupiah(this.state.totalPayment)}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -130,4 +238,10 @@ export default class Payment extends Component {
       </>
     );
   }
+}
+
+export default function WrapperPayment(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  return <Payment {...props} location={location} navigate={navigate} />;
 }

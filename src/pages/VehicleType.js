@@ -67,9 +67,6 @@ class VehicleType extends Component {
     const keyword = e.target.searchVehicle.value;
     let params = {
       keyword: e.target.searchVehicle.value,
-      // city: e.target.city.value,
-      // category: e.target.category.value,
-      // sortBy: e.target.sortBy.value,
     };
     let filter = '';
     if (city !== 'all') {
@@ -87,11 +84,6 @@ class VehicleType extends Component {
       filter += '&orderBy=' + orderBy + '&sort=' + sort;
     }
     setSearchParams(params);
-    // const city = searchParams.get('city');
-    // for (const entry of searchParams.entries()) {
-    //   const [param, value] = entry;
-    //   console.log(param, value);
-    // }
     this.setState({
       keyword: keyword,
       filter: filter,
@@ -146,7 +138,6 @@ class VehicleType extends Component {
       const keyword = searchParams.get('keyword');
       const city = searchParams.get('city');
       const defaultCity = city === null ? 'all' : city;
-      // console.log('component did mount:', defaultCity);
       const category = searchParams.get('category');
       const defaultCategory = category === null ? 'all' : category;
       const sortBy = searchParams.get('sortBy');
@@ -173,7 +164,6 @@ class VehicleType extends Component {
         defaultSortBy: defaultSortBy,
       });
     }
-    // console.log('entry ', searchParams.get('keyword'));
   }
   render() {
     const {
@@ -187,10 +177,6 @@ class VehicleType extends Component {
       defaultCategory,
       defaultSortBy,
     } = this.state;
-    // console.log('filter type:', filter);
-    // console.log('defaultCity: ', defaultCity);
-    // console.log('defaultSortBy: ', defaultCategory);
-    // console.log('defaultSortBy: ', defaultSortBy);
     return (
       <>
         <Header />
