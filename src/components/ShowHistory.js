@@ -2,19 +2,21 @@ import React from 'react';
 import {numberToRupiah} from '../helpers/collection';
 
 function ShowHistory(props) {
+  const host = process.env.REACT_APP_HOST;
   const elements = [];
   const {dataHistory} = props;
   for (let index = 0; index < dataHistory.length; index++) {
+    const image = dataHistory[index].image;
+    let imgSrc = `${host}/vehicles${image}`;
+    if (image === null || typeof image === 'undefined' || image === '')
+      imgSrc = require('../assets/images/car-default.jpg');
     const element = (
       <React.Fragment key={`history-${index}`}>
         <div
           className='history-product col-10 col-sm-11 p-0 mb-4 d-flex'
           key={`history-${index}`}>
           <div className='history-img-wrapper'>
-            <img
-              src={require('../assets/images/iqx-azmi-jn01MSrsUpE-unsplash-cmobile.webp')}
-              alt=''
-            />
+            <img src={imgSrc} alt='' />
           </div>
           <div className='history-product-info mt-auto mb-auto'>
             <p className='vehicle-detail-header'>{dataHistory[index].name}</p>

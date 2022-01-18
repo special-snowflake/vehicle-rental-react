@@ -183,7 +183,6 @@ class WrappedDataVehicle extends React.Component {
                             dataVehicle: this.state.detailVehicle,
                             counter: this.state.counter,
                           }}
-                          // counter={this.state.counter}
                           className='btn btn-gold'>
                           Reservation
                         </Link>

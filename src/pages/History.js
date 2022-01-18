@@ -104,62 +104,26 @@ class History extends React.Component {
                     <img src={forwarSvg} alt='next' />
                   </div>
                   <div className='col-2 col-sm-1 '>
-                    <input
+                    {/* <input
                       type='checkbox'
                       className='checkbox-history m-auto'
                       name='deleteCheck'
-                    />
+                    /> */}
                   </div>
                   <div className='info-history-wrapper col-10 col-sm-11 mb-2'>
                     Your payment has been confirmed!
                     <img src={forwarSvg} alt='next' />
                   </div>
                   <div className='col-2 col-sm-1 m-auto'>
-                    <input
+                    {/* <input
                       type='checkbox'
                       className='checkbox-history m-auto'
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className='history-list p-0 text-start mt-4 row'>
                   <h5 className='list-header'>A week ago</h5>
                   <ShowHistory dataHistory={dataHistory} />
-                  {/* {dataHistory.map()} */}
-                  {/* {this.showHistory} */}
-                  {/* <div className='history-product col-10 col-sm-11 p-0 mb-4 d-flex'>
-                    <div className='history-img-wrapper'>
-                      <img
-                        src={require('../assets/images/iqx-azmi-jn01MSrsUpE-unsplash-cmobile.webp')}
-                        alt=''
-                      />
-                    </div>
-                    <div className='history-product-info mt-auto mb-auto'>
-                      <p className='vehicle-detail-header'>Fixie - Gray Only</p>
-                      <p className='date-rental'>Jan 18 to 21 2020</p>
-                      <p className='fw-bold'>Prepayment : Rp. 245.000</p>
-                      <p className='availabiliy mt-2'>Has been returned</p>
-                    </div>
-                  </div>
-                  <div className='col-2 col-sm-1 m-auto'>
-                    <input type='checkbox' className='checkbox-history' />
-                  </div>
-                  <div className='history-product col-10 col-sm-11 p-0 mb-4 d-flex'>
-                    <div className='history-img-wrapper'>
-                      <img
-                        src={require('../assets/images/kilarov-zaneit-nan5wYNRwhs-unsplash.webp')}
-                        alt=''
-                      />
-                    </div>
-                    <div className='history-product-info mt-auto mb-auto'>
-                      <p className='vehicle-detail-header'>Jeep - Juventus</p>
-                      <p className='date-rental'>Jan 18 to 21 2020</p>
-                      <p className='fw-bold'>Prepayment : Rp. 245.000</p>
-                      <p className='availabiliy mt-2'>Has been returned</p>
-                    </div>
-                  </div>
-                  <div className='col-2 col-sm-1 m-auto'>
-                    <input type='checkbox' className='checkbox-history' />
-                  </div> */}
                   <div className='col-12 col-sm-11 p-0'>
                     <button className='btn btn-yellow'>Delete Selected Item</button>
                   </div>
