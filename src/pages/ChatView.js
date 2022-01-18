@@ -15,7 +15,7 @@ class ChatView extends React.Component {
     // this.messagesEnd.scrollHeight();
     // window.scrollTo(0, 0);
     console.log('scroll me');
-    const messagesDOM = this.chatField;
+    // const messagesDOM = this.chatField;
     // window.scrollTo(0,document.body.scrollHeight);
     // messagesDOM.scrollTop = messagesDOM.scrollHeight;
     // const target = document.getElementById('target');

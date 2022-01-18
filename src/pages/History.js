@@ -8,7 +8,7 @@ import searchSvg from '../assets/icons/search.svg';
 import forwarSvg from '../assets/icons/forward.svg';
 import downSvg from '../assets/icons/down.svg';
 import {searchHistory} from '../utils/https/history';
-import {numberToRupiah} from '../helpers/collection';
+// import {numberToRupiah} from '../helpers/collection';
 
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

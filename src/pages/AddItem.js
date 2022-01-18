@@ -1,6 +1,6 @@
 import React from 'react';
 // import axios from 'axios';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
 
