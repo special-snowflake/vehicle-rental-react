@@ -12,8 +12,7 @@ import LoadingPage from '../components/LoadingPage';
 import VehicleCard from '../components/VehicleCard';
 import SearchVehicle from '../components/SearchVehicle';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 import searchSvg from '../assets/icons/search.svg';
 class VehicleType extends Component {
@@ -38,12 +37,10 @@ class VehicleType extends Component {
     const urlBike = axios.get(host + '/vehicles/bike');
     const urlCar = axios.get(host + '/vehicles/car');
     const urlMotorCycle = axios.get(host + '/vehicles/motorcycle');
-    // console.log(urlPopular, urlCar);
     axios
       .all([urlPopular, urlBike, urlCar, urlMotorCycle])
       .then(
         axios.spread((...responses) => {
-          // console.log('responses', responses);
           this.setState({
             dataPopular: responses[0].data.data,
             dataBike: responses[1].data.data,
@@ -180,7 +177,6 @@ class VehicleType extends Component {
     return (
       <>
         <Header />
-        <ToastContainer />
         <div
           className='row content d-flex flex-row align-items-center content-search'
           style={{

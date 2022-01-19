@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import ErrorMsg from './ErrorMsg';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 export default class ChangePassword extends Component {
   state = {
     isError: false,
@@ -58,7 +57,6 @@ export default class ChangePassword extends Component {
     const {isError, showError, errMsg} = this.state;
     return (
       <section className='row content'>
-        <ToastContainer />
         {isError && showError && (
           <ErrorMsg
             parentCallback={this.handleCallback.bind(this)}

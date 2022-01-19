@@ -10,8 +10,7 @@ import Footer from '../components/Footer';
 import LoadingPage from '../components/LoadingPage';
 
 import backSvg from '../assets/icons/back.svg';
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 class Payment extends Component {
   state = {
@@ -135,7 +134,6 @@ class Payment extends Component {
         <Header />
         {isSuccess ? (
           <div>
-            <ToastContainer />
             <main>
               <div className='row text-left'>
                 <div className='.d-none .d-sm-block col-sm-1'></div>

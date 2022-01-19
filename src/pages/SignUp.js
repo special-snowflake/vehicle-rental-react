@@ -3,8 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 // import axios from 'axios';
 import {register} from '../utils/https/auth';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 import ErrorMsg from '../components/ErrorMsg';
 import Footer from '../components/Footer';
@@ -71,7 +70,6 @@ class SignUp extends React.Component {
     console.log('Error is: ', isError, errMsg, showError);
     return (
       <>
-        <ToastContainer />
         <main className='canvas'>
           <div className='content-first'>
             <div className='left'>

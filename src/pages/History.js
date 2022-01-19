@@ -10,8 +10,7 @@ import downSvg from '../assets/icons/down.svg';
 import {searchHistory} from '../utils/https/history';
 // import {numberToRupiah} from '../helpers/collection';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 import ShowHistory from '../components/ShowHistory';
 
 class History extends React.Component {
@@ -57,7 +56,6 @@ class History extends React.Component {
     return (
       <>
         <Header />
-        <ToastContainer />
         {isSuccess ? (
           <div
             className='row content d-flex flex-row align-items-center content-search'

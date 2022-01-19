@@ -62,10 +62,11 @@ class WrappedDataVehicle extends React.Component {
     this.getDetailVehicle(vehicleId);
   }
   render() {
-    const {city, category, name, price, status, description} =
+    const {city, category, name, price, status, description, user_id} =
       this.state.detailVehicle;
     // const formatPrice = ;
     const {isSuccess} = this.state;
+    const vehicleId = this.props.vid;
     return (
       <>
         <Header />
@@ -177,15 +178,19 @@ class WrappedDataVehicle extends React.Component {
                         </a>
                       </div>
                       <div className='col-12 col-sm-4'>
-                        <Link
-                          to='/reservation'
-                          state={{
-                            dataVehicle: this.state.detailVehicle,
-                            counter: this.state.counter,
-                          }}
-                          className='btn btn-gold'>
-                          Reservation
-                        </Link>
+                        {user_id === JSON.parse(localStorage['vehicle-rental-userId']) ? (
+                          <Link to={`/edit-item/${vehicleId}`} className='btn btn-gold'>Edit Item</Link>
+                        ) : (
+                          <Link
+                            to='/reservation'
+                            state={{
+                              dataVehicle: this.state.detailVehicle,
+                              counter: this.state.counter,
+                            }}
+                            className='btn btn-gold'>
+                            Reservation
+                          </Link>
+                        )}
                       </div>
                       <div className='col-12 col-sm-3 like-item'>
                         <a href='#Like' className='btn btn-black'>

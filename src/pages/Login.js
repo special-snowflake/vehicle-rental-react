@@ -7,8 +7,7 @@ import {loginAction} from '../redux/actions/auth';
 import Footer from '../components/Footer';
 import '../assets/css/Login.css';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 class Login extends React.Component {
   state = {
@@ -23,30 +22,28 @@ class Login extends React.Component {
     console.log('isPending? ', this.props.auth.isPending);
     console.log('isFulfilled? ', this.props.auth.isFulfilled);
     console.log('isRejected? ', this.props.auth.isRejected);
-    // if (isPending === true) {
-    //   toast.info('Wait!', {
-    //     position: 'bottom-left',
-    //     autoClose: false,
-    //     hideProgressBar: false,
-    //     closeOnClick: false,
-    //     pauseOnHover: true,
-    //     draggable: false,
-    //     progress: undefined,
-    //   });
-    // }
     if (isFulfilled === true) {
       const {navigate} = this.props;
       console.log('it is fullfilled');
       localStorage['vehicle-rental-token'] = JSON.stringify(userData.token);
-      localStorage['vehicle-rental-userId'] = JSON.stringify(userData.id)
+      localStorage['vehicle-rental-userId'] = JSON.stringify(userData.id);
       localStorage['vehicle-rental-roles'] = JSON.stringify(userData.roles);
       localStorage['vehicle-rental-photo'] = JSON.stringify(userData.photo);
+      toast.success('Login success', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return navigate('/home', {replace: true});
     }
     if (isRejected === true) {
       toast.error(this.props.auth.err.errMsg, {
         position: 'bottom-left',
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -66,7 +63,6 @@ class Login extends React.Component {
     };
     return (
       <>
-        <ToastContainer />
         <main>
           <div className='canvas'>
             <div className='content-first'>

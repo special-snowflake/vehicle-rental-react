@@ -11,8 +11,7 @@ import '../assets/css/Profile.css';
 import pencilSvg from '../assets/icons/pencil.svg';
 import axios from 'axios';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 export class WrapperProfile extends Component {
   constructor(props) {
@@ -185,7 +184,6 @@ export class WrapperProfile extends Component {
     return (
       <>
         <Header />
-        <ToastContainer />
         {isError && showError && (
           <ErrorMsg parentCallback={this.handleCallback} msg={errMsg} />
         )}

@@ -9,33 +9,23 @@ import mbakmbak from '../assets/images/michael-dam-mEZ3PoFGs_k-unsplash-profile.
 import cameraSvg from '../assets/icons/camera.svg';
 
 class ChatView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.chatField = React.createRef();
+  }
   scrollToBottom = () => {
-    // window.scrollTo(0, 0);
-    // this.messagesEnd.scrollIntoView({behavior: 'smooth'});
-    // this.messagesEnd.scrollHeight();
-    // window.scrollTo(0, 0);
     console.log('scroll me');
-    // const messagesDOM = this.chatField;
-    // window.scrollTo(0,document.body.scrollHeight);
-    // messagesDOM.scrollTop = messagesDOM.scrollHeight;
-    // const target = document.getElementById('target');
-    // target.parentNode.scrollTop = target.offsetTop;
-    // // target.scrollTop(0);
-  };
-  scrollToTop = () => {
-    this.top.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
+    const messagesDOM = this.chatField;
+    console.log(this.chatField);
+    messagesDOM.scrollTop = messagesDOM.scrollHeight;
+    console.log(messagesDOM.scrollHeight, messagesDOM.scrollTop);
   };
   componentDidMount() {
     this.scrollToBottom();
-    // this.scrollToTop();
   }
 
   componentDidUpdate() {
-    // this.scrollToBottom();
+    this.scrollToBottom();
   }
   render() {
     return (
@@ -50,9 +40,7 @@ class ChatView extends React.Component {
             backgroundRepeat: 'no-repeat',
           }}>
           <div className='row chat-list justify-content-center'>
-            <div className='col-12 col-lg-10' id='chat-field' ref={(el) => {
-                        this.chatField = el;
-                      }}>
+            <div className='col-12 col-lg-10' id='chat-field'>
               <div className='back-detail'>
                 <div className='col-2'>
                   <Link to='/chat' className='d-inline-flex align-items-center'>
@@ -65,7 +53,11 @@ class ChatView extends React.Component {
                 </div>
               </div>
               <section className='chat-field'>
-                <div className='chat-msg d-flex'>
+                <div
+                  className='chat-msg d-flex'
+                  ref={(el) => {
+                    this.chatField = el;
+                  }}>
                   <div className='w-100' id='chat-field'>
                     <div className='col-12 chat-product d-flex'>
                       <div className='chat-img-wrapper'>

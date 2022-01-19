@@ -3,7 +3,7 @@ import React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
-
+// import { numberToRupiah } from '../helpers/collection';
 import {addVehicle} from '../utils/https/vehicles';
 
 // import Counter from '../components/Counter';
@@ -11,8 +11,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 // import LoadingPage from '../components/LoadingPage';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 import backSvg from '../assets/icons/back.svg';
 
@@ -202,7 +201,6 @@ class AddItem extends React.Component {
       <>
         <Header />
         {navigate !== null && <Navigate to={navigate} />}
-        <ToastContainer />
         <div>
           <main>
             <div className='row text-left'>
@@ -318,6 +316,7 @@ class AddItem extends React.Component {
                         <input
                           type='number'
                           name='price'
+                          // value={}
                           placeholder='Type the price'
                         />
                         <h3 className='box-header'>Status : </h3>

@@ -11,8 +11,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LoadingPage from '../components/LoadingPage';
 
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
 
 import backSvg from '../assets/icons/back.svg';
 // import DetailVehicle from './DetailVehicle';
@@ -244,7 +243,6 @@ class EditItem extends React.Component {
       <>
         <Header />
         {navigate !== null && <Navigate to={navigate} />}
-        <ToastContainer />
         <div>
           <main>
             {isSuccess ? (

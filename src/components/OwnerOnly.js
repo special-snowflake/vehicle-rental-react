@@ -2,7 +2,7 @@ import React from 'react';
 import {Navigate, Outlet} from 'react-router-dom';
 
 const useAuthRoles = () => {
-  const roles = localStorage['vehicle-rental-roles'];
+  const roles = JSON.parse(localStorage['vehicle-rental-roles']);
   let isOwner = true;
   if (roles !== 'owner') isOwner = false;
   return isOwner;

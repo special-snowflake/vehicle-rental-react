@@ -8,6 +8,8 @@ import {
 
 // import './assets/css/App.css';
 
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 
@@ -33,7 +35,7 @@ import EditItem from './pages/EditItem';
 
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
-import OwnerOnly from './OwnerOnly';
+import OwnerOnly from './components/OwnerOnly';
 import CustomerOnly from './CustomerOnly';
 class Main extends React.Component {
   state = {
@@ -46,6 +48,7 @@ class Main extends React.Component {
     return (
       <Provider store={store}>
         <Router>
+          <ToastContainer />
           <Routes>
             <Route path='/' replace element={<Navigate to='home' />} />
             <Route path='home' element={<Home />} />
@@ -68,13 +71,13 @@ class Main extends React.Component {
               <Route element={<OwnerOnly />}>
                 <Route path='add-item' element={<AddItem />} />
                 <Route path='edit-item/:id' exact element={<EditItem />} />
-                <Route path='history' element={<History />} />
+                {/* <Route path='history' element={<History />} /> */}
               </Route>
+              <Route path='history' element={<History />} />
 
               <Route element={<CustomerOnly />}>
                 <Route path='reservation' element={<Reservation />} />
                 <Route path='payment' element={<Payment />} />
-                <Route path='history' element={<History />} />
               </Route>
 
               <Route path='profile' element={<Profile />}>
