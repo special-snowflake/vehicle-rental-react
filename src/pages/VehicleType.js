@@ -178,7 +178,6 @@ class VehicleType extends Component {
       isSearching,
       city,
       category,
-      filter,
       defaultCity,
       defaultCategory,
       defaultOrderBy,

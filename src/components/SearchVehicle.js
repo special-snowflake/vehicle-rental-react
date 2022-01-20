@@ -50,7 +50,7 @@ export default class SearchVehicle extends Component {
 
   showPagination(meta) {
     console.log('inside pagination');
-    const {nextPage, page, previousPage, totalData, totalPage} = meta;
+    const {nextPage, page, previousPage} = meta;
     return (
       <nav aria-label='Page navigation example'>
         <ul className='pagination justify-content-center'>
