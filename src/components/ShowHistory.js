@@ -3,8 +3,11 @@ import {numberToRupiah} from '../helpers/collection';
 
 function ShowHistory(props) {
   const host = process.env.REACT_APP_HOST;
+  // const [keyword, setKeyword] = useState(initialState);
+  // const [stateData, setStateData] = useState(props.dataHistory);
   const elements = [];
   const {dataHistory} = props;
+  // console.log('update show history', stateData);
   for (let index = 0; index < dataHistory.length; index++) {
     const image = dataHistory[index].image;
     let imgSrc = `${host}/vehicles${image}`;
@@ -41,7 +44,7 @@ function ShowHistory(props) {
   if (dataHistory.length === 0) {
     elements.push(
       <>
-        <p>Please add a new transaction.</p>
+        <p>No history found.</p>
       </>,
     );
   }

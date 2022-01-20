@@ -18,7 +18,9 @@ class History extends React.Component {
     isSuccess: false,
     dataHistory: null,
     keyword: '',
+    prevKeyword: null,
     orderBy: 'date',
+    prevOrderBy: null,
   };
   searchHistoryReact = () => {
     const token = localStorage['vehicle-rental-token'];
@@ -26,11 +28,11 @@ class History extends React.Component {
     const filter = `keyword=${keyword}&orderBy=${orderBy}`;
     searchHistory(filter, token)
       .then((response) => {
-        // console.log(response);
-        // console.log('datahistory:', response.data.data);
         this.setState({
           dataHistory: response.data.data,
           isSuccess: true,
+          prevKeyword: keyword,
+          prevOrderBy: orderBy,
         });
       })
       .catch((err) => {
@@ -45,57 +47,107 @@ class History extends React.Component {
         });
       });
   };
-  // showHistory = () => {
 
-  // };
+  componentDidUpdate() {
+    const {keyword, prevKeyword, orderBy, prevOrderBy} = this.state;
+    if (
+      prevKeyword !== null &&
+      prevOrderBy !== null &&
+      (keyword !== prevKeyword || orderBy !== prevOrderBy)
+    ) {
+      console.log('did update: ', prevKeyword, keyword, prevOrderBy, orderBy);
+      console.log('did update');
+      this.searchHistoryReact();
+    }
+  }
   componentDidMount() {
-    this.searchHistoryReact();
+    const {searchParams} = this.props;
+    if (!searchParams.get('keyword')) {
+      this.searchHistoryReact();
+    } else {
+      const keyword = searchParams.get('keyword');
+      const orderBy = searchParams.get('orderBy')
+        ? searchParams.get('orderBy')
+        : 'date';
+      this.setState({
+        prevKeyword: this.state.keyword,
+        prevOrderBy: this.state.orderBy,
+        keyword,
+        orderBy,
+      });
+    }
   }
   render() {
     const {isSuccess, dataHistory} = this.state;
+    const onSubmitHandler = (e) => {
+      e.preventDefault();
+      const {setSearchParams} = this.props;
+      const params = {
+        keyword: e.target.keyword.value,
+        orderBy: e.target.orderBy.value,
+      };
+      setSearchParams(params);
+      this.setState({
+        prevKeyword: this.state.keyword,
+        prevOrderBy: this.state.orderBy,
+        keyword: e.target.keyword.value,
+        orderBy: e.target.orderBy.value,
+      });
+      this.searchHistoryReact();
+    };
     return (
       <>
         <Header />
         {isSuccess ? (
           <div
-            className='row content d-flex flex-row align-items-center content-search'
+            className='row content d-flex flex-row align-items-center content-search mt-3'
             style={{
-              backgroundImage: `url("../assets/icons/circle.svg")`,
               backgroundPosition: 'center bottom',
               backgroundSize: '2vw 2vw',
               backgroundRepeat: 'no-repeat',
             }}>
             <div className='row'>
               <div className='col-12 col-md-8 p-0'>
-                <div className='col-11'>
-                  <div className='history-search-wrapper'>
-                    <input
-                      type='text'
-                      placeholder='Search history'
-                      className='history-search'
-                    />
-                    <button type='submit' className='search-icon'>
-                      <img
-                        src={searchSvg}
-                        alt='search button'
-                        className='history-search-button'
-                        width={30}
-                        height={30}
-                      />
-                    </button>
+                <form onSubmit={onSubmitHandler}>
+                  <div className='row'>
+                    <div className='col-12 col-sm-6'>
+                      <div className='history-search-wrapper'>
+                        <input
+                          type='text'
+                          name='keyword'
+                          placeholder='Search history'
+                          className='history-search'
+                        />
+                        <button type='submit' className='search-icon'>
+                          <img
+                            src={searchSvg}
+                            alt='search button'
+                            className='history-search-button'
+                            width={30}
+                            height={30}
+                          />
+                        </button>
+                      </div>
+                    </div>
+                    <div className='col-12 col-sm-5 ps-sm-2'>
+                      <select
+                        name='orderBy'
+                        id='orderBy'
+                        className='history-search-filter'>
+                        <option value='date'>Date Added</option>
+                        <option value='type'>Type</option>
+                        <option value='name'>Name</option>
+                        {/* <option value='favourite'>Favourite Product</option> */}
+                      </select>
+                    </div>
+                    <div className='col-8 col-sm-4 mb-3'>
+                      <button className='btn btn-yellow mt-0' type='submit'>
+                        Search
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className='col-6 col-md-5 col-lg-4'>
-                  <select
-                    name='orderBy'
-                    id='orderBy'
-                    className='history-search-filter'>
-                    <option value='type'>Type</option>
-                    <option value='date'>Date Added</option>
-                    <option value='name'>Name</option>
-                    <option value='favourite'>Favourite Product</option>
-                  </select>
-                </div>
+                </form>
+
                 <div className='info-history row'>
                   <div className='info-history-wrapper col-10 col-sm-11 mb-2'>
                     Please finish your payment for vespa for Vespa Rental Jogja
@@ -123,7 +175,9 @@ class History extends React.Component {
                   <h5 className='list-header'>A week ago</h5>
                   <ShowHistory dataHistory={dataHistory} />
                   <div className='col-12 col-sm-11 p-0'>
-                    <button className='btn btn-yellow'>Delete Selected Item</button>
+                    <button className='btn btn-yellow'>
+                      Delete Selected Item
+                    </button>
                   </div>
                 </div>
               </div>

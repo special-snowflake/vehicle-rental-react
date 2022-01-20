@@ -69,6 +69,7 @@ class Payment extends Component {
     const token = localStorage['vehicle-rental-token'];
     const body = {
       user_id: userId,
+      unit:this.state.counter,
       vehicle_id: this.state.dataVehicle.id,
       total_payment: this.state.totalPayment,
       rental_date: this.state.rentalDate,

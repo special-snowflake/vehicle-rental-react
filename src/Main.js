@@ -8,7 +8,7 @@ import {
 
 // import './assets/css/App.css';
 
-import {ToastContainer, toast} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Provider} from 'react-redux';
 import store from './redux/store';
@@ -33,10 +33,10 @@ import Payment from './pages/Payment';
 import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
 
-import PrivateRoutes from './PrivateRoutes';
-import PublicRoutes from './PublicRoutes';
+import PrivateRoutes from './components/PrivateRoutes';
+import PublicRoutes from './components/PublicRoutes';
 import OwnerOnly from './components/OwnerOnly';
-import CustomerOnly from './CustomerOnly';
+import CustomerOnly from './components/CustomerOnly';
 class Main extends React.Component {
   state = {
     token: null,
@@ -50,7 +50,7 @@ class Main extends React.Component {
         <Router>
           <ToastContainer />
           <Routes>
-            <Route path='/' replace element={<Navigate to='home' />} />
+            <Route path='/' element={<Navigate to='home' />} />
             <Route path='home' element={<Home />} />
             <Route path='vehicle-type' element={<VehicleType />} />
 

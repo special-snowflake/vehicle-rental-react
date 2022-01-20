@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {useSearchParams, useLocation} from 'react-router-dom';
 
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
@@ -26,7 +26,9 @@ class VehicleType extends Component {
     keyword: null,
     defaultCity: 'all',
     defaultCategory: 'all',
-    defaultSortBy: 'all',
+    defaultOrderBy: 'all',
+    defaultSort: 'asc',
+    page: null,
     filter: '',
     category: null,
     city: null,
@@ -56,11 +58,11 @@ class VehicleType extends Component {
   };
   onSearch(e) {
     e.preventDefault();
-    // console.log(e.target.searchVehicle.value);
     const {setSearchParams} = this.props;
     const city = e.target.city.value;
     const category = e.target.category.value;
-    const sortBy = e.target.sortBy.value;
+    const sort = e.target.sort.value;
+    const orderBy = e.target.orderBy.value;
     const keyword = e.target.searchVehicle.value;
     let params = {
       keyword: e.target.searchVehicle.value,
@@ -74,11 +76,13 @@ class VehicleType extends Component {
       params = {...params, category};
       filter += '&categoryId=' + category;
     }
-    if (sortBy !== 'all') {
-      params = {...params, sortBy};
-      const orderBy = sortBy.substr(0, sortBy.indexOf('-'));
-      const sort = sortBy.substr(sortBy.indexOf('-') + 1);
-      filter += '&orderBy=' + orderBy + '&sort=' + sort;
+    if (orderBy !== 'all') {
+      params = {...params, orderBy};
+      filter += '&orderBy=' + orderBy;
+    }
+    if (sort !== 'all') {
+      params = {...params, sort};
+      filter += '&sort=' + sort;
     }
     setSearchParams(params);
     this.setState({
@@ -134,11 +138,13 @@ class VehicleType extends Component {
     } else {
       const keyword = searchParams.get('keyword');
       const city = searchParams.get('city');
+      const orderBy = searchParams.get('orderBy');
+      const sort = searchParams.get('sort');
+      const page = !searchParams.get('page') ? '1' : searchParams.get('page');
       const defaultCity = city === null ? 'all' : city;
       const category = searchParams.get('category');
       const defaultCategory = category === null ? 'all' : category;
-      const sortBy = searchParams.get('sortBy');
-      const defaultSortBy = sortBy === null ? 'all' : sortBy;
+      const defaultSort = sort === null ? 'all' : sort;
       let filter = '';
       if (city !== 'all' && city !== null) {
         filter += '&cityId=' + city;
@@ -146,19 +152,22 @@ class VehicleType extends Component {
       if (category !== 'all' && category !== null) {
         filter += '&categoryId=' + category;
       }
-      if (sortBy !== 'all' && sortBy !== null) {
-        const orderBy = sortBy.substr(0, sortBy.indexOf('-'));
-        const sort = sortBy.substr(sortBy.indexOf('-') + 1);
-        filter += '&orderBy=' + orderBy + '&sort=' + sort;
+      if (orderBy !== 'all' && orderBy !== null) {
+        filter += '&orderBy=' + orderBy;
       }
+      if (sort !== 'all' && sort !== null) {
+        filter += '&sort=' + sort;
+      }
+      filter += '&page=' + page;
       this.setState({
         filter: filter,
         keyword: keyword,
         isSearching: true,
         isSuccess: true,
+        page,
         defaultCity: defaultCity,
         defaultCategory: defaultCategory,
-        defaultSortBy: defaultSortBy,
+        defaultSort: defaultSort,
       });
     }
   }
@@ -172,7 +181,8 @@ class VehicleType extends Component {
       filter,
       defaultCity,
       defaultCategory,
-      defaultSortBy,
+      defaultOrderBy,
+      defaultSort,
     } = this.state;
     return (
       <>
@@ -205,7 +215,7 @@ class VehicleType extends Component {
               </button>
             </div>
             <div className='row'>
-              <div className='col-12 col-sm-4'>
+              <div className='col-6 col-sm-3'>
                 <label htmlFor='city'>Location: </label>
                 <select
                   name='city'
@@ -221,7 +231,7 @@ class VehicleType extends Component {
                     ))}
                 </select>
               </div>
-              <div className='col-12 col-sm-4'>
+              <div className='col-6 col-sm-3'>
                 <label htmlFor='category'>Category: </label>
                 <select
                   name='category'
@@ -237,18 +247,28 @@ class VehicleType extends Component {
                     ))}
                 </select>
               </div>
-              <div className='col-12 col-sm-4'>
-                <label htmlFor='sortBy'>Sort By: </label>
+              <div className='col-6 col-sm-3'>
+                <label htmlFor='orderBy'>Order : </label>
                 <select
-                  name='sortBy'
-                  id='sortBy'
+                  name='orderBy'
+                  id='orderBy'
                   className='search-vehicle'
-                  defaultValue={defaultSortBy}>
+                  defaultValue={defaultOrderBy}>
                   <option value='all'>Default</option>
-                  <option value='price-asc'>Price (Low To High)</option>
-                  <option value='price-desc'>Price (High To Low)</option>
-                  <option value='name-asc'>Name (A-Z)</option>
-                  <option value='name-desc'>Name (Z-A)</option>
+                  <option value='price'>Price</option>
+                  <option value='name'>Name</option>
+                  <option value='city'>City</option>
+                </select>
+              </div>
+              <div className='col-6 col-sm-3'>
+                <label htmlFor='sort'>Sort : </label>
+                <select
+                  name='sort'
+                  id='sort'
+                  className='search-vehicle'
+                  defaultValue={defaultSort}>
+                  <option value='asc'>Ascending</option>
+                  <option value='desc'>Descending</option>
                 </select>
               </div>
               <div className='col-12 col-sm-4'>
@@ -305,7 +325,10 @@ class VehicleType extends Component {
             </div>
           </>
         ) : isSuccess & isSearching ? (
-          <SearchVehicle keyword={keyword} filter={filter} />
+          <SearchVehicle
+            searchParams={this.props.searchParams}
+            location={this.props.location}
+          />
         ) : (
           <LoadingPage />
         )}
@@ -318,11 +341,13 @@ class VehicleType extends Component {
 
 export default function VehicleTypeWrapper(props) {
   let [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   return (
     <VehicleType
       {...props}
       searchParams={searchParams}
       setSearchParams={setSearchParams}
+      location={location}
     />
   );
 }

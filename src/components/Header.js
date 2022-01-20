@@ -81,7 +81,7 @@ class Header extends React.Component {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='toggleMobileMenu'>
-            <ul className='navbar-nav ms-auto text-center nav-middle'>
+            <ul className='navbar-nav ms-auto me-5 text-center nav-middle'>
               <li key='Home'>
                 <NavLink to='/home' className='nav-link'>
                   Home
@@ -103,7 +103,7 @@ class Header extends React.Component {
                 </a>
               </li>
             </ul>
-            <ul className='navbar-nav ms-auto text-center'>
+            <ul className='navbar-nav text-center'>
               {isSuccess ? (
                 <>
                   <li className='text-center nav-item dropdown d-none d-md-block'>
