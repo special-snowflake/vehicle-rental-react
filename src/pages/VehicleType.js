@@ -134,6 +134,9 @@ class VehicleType extends Component {
     this.getCategory();
     const {searchParams} = this.props;
     if (searchParams.get('keyword') === null) {
+      this.setState({
+        isSearching: false,
+      });
       this.getData();
     } else {
       const keyword = searchParams.get('keyword');

@@ -143,6 +143,7 @@ class AddItem extends React.Component {
         });
       })
       .catch((err) => {
+        console.log(err);
         const errMsg = err.response.data.errMsg;
         toast.error(errMsg, {
           position: 'bottom-left',
@@ -378,7 +379,7 @@ class AddItem extends React.Component {
   }
 }
 
-function WrapperAddItem(props){
+function WrapperAddItem(props) {
   const usenavigate = useNavigate();
 
   return <AddItem {...props} usenavigate={usenavigate} />;

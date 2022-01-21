@@ -27,3 +27,7 @@ export const updateVehicles = (id, body, token) => {
   };
   return axios.patch(updateUrl, body, config);
 };
+
+export const searchVehicle = () => {
+  
+};

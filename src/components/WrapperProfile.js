@@ -138,6 +138,7 @@ export class WrapperProfile extends Component {
     axios
       .patch(url, body, config)
       .then((response) => {
+        console.log(response);
         toast.success('Update success.', {
           position: 'bottom-left',
           autoClose: 3000,
