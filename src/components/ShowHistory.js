@@ -35,7 +35,7 @@ function ShowHistory(props) {
           </div>
         </div>
         <div className='col-2 col-sm-1 m-auto'>
-          <input type='checkbox' className='checkbox-history' />
+          <input type='checkbox' className='checkbox-history' value={dataHistory[index].history_id}/>
         </div>
       </React.Fragment>
     );

@@ -1,0 +1,33 @@
+.custom-ui {
+  background: white;
+  border: 1px sold black;
+  border-radius: 10px;
+  color: black;
+  width: min(500px, 90vw);
+  text-align: center;
+  padding: 40px;
+  box-shadow: 0px 0px 5px 0px #0000006b;
+}
+h1 {
+  font-size: calc(20px + 0.3vw);
+  font-family: 'Nunito', sans-serif;
+  margin :1em auto;
+  font-weight: bold;
+}
+.btn-no,
+.btn-yes {
+  /* border: 1px solid black !important; */
+  border-radius: 7px !important;
+}
+
+.btn-yes {
+  background-color: #ffcd61;
+  box-shadow: 0px 0px 5px 0px rgba(251, 143, 29, 0.4);
+  color: black;
+}
+
+.btn-no {
+  background-color: #393939;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  color: #ffcd61;
+}

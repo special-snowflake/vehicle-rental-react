@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import {Navigate} from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 export default function Logout() {
   const host = process.env.REACT_APP_HOST;
@@ -14,11 +15,21 @@ export default function Logout() {
   axios
     .delete(urlLogout, config)
     .then((response) => {
-      return console.log(response.data);
+      toast.dismiss();
+      toast.success('Logout success.', {
+        position: 'bottom-left',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
     })
     .catch((err) => {
-      console.log(err.data);
+      console.log(err);
     });
+
   localStorage.removeItem('vehicle-rental-token');
   localStorage.removeItem('vehicle-rental-userId');
   localStorage.removeItem('vehicle-rental-roles');

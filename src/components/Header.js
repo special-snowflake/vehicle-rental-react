@@ -1,13 +1,20 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
-
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../assets/css/Modals.css';
 
 import logoVehicleRental from '../assets/icons/logo-vehicle-rental.svg';
 
 import forwardSvg from '../assets/icons/forward.svg';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
   state = {
     isSuccess: false,
     userData: null,
@@ -19,11 +26,9 @@ class Header extends React.Component {
     const id = localStorage['vehicle-rental-userId'];
     const host = process.env.REACT_APP_HOST;
     const urlData = `${host}/user/detail/${id}`;
-    // console.log('url: ', urlData);
     axios
       .get(urlData)
       .then((response) => {
-        // console.log(response.data);
         const photo = response.data.data.photo;
         console.log('photo: ', photo, typeof photo);
         if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
@@ -39,22 +44,43 @@ class Header extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-    // const photo = JSON.parse(localStorage['vehicle-rental-photo']);
-    // const host = process.env.REACT_APP_HOST;
-    // console.log('photo: ', photo, typeof photo);
-    // if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
-    //   this.setState({
-    //     photoProfile: `${host}/user${photo}`,
-    //   });
-    // }
-    // this.setState({
-    //   isSuccess: true,
-    // });
+  }
+
+  handleLogout() {
+    const navigate = this.props.navigate;
+    console.log('this is logout');
+    navigate('/logout');
   }
   componentDidMount() {
     const token = localStorage.getItem('vehicle-rental-token');
-    // console.log('token', token, typeof token);
     if (token !== null) this.getUserData();
+  }
+  logoutAlert() {
+    const navigate = this.props.navigate;
+    // console.log('this is logout');
+    confirmAlert({
+      customUI: ({onClose}) => {
+        return (
+          <div className='custom-ui'>
+            <h1>Are you sure you want to logout?</h1>
+            {/* <p>You want to delete this file?</p> */}
+            <div className='d-flex justify-content-evenly'>
+              <button
+                className='btn btn-yes px-2 me-2'
+                onClick={() => {
+                  onClose();
+                  navigate('/logout');
+                }}>
+                Yes
+              </button>
+              <button className='btn btn-no px-2 ms-2' onClick={onClose}>
+                No
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   }
   render() {
     const {isSuccess} = this.state;
@@ -190,10 +216,15 @@ class Header extends React.Component {
                       </li>
                       <hr className='dropdown-divider' />
                       <li>
-                        <Link className='dropdown-item' to='/logout'>
+                        <div
+                          className='dropdown-item cursor-pointer'
+                          onClick={this.logoutAlert.bind(this)}>
                           Logout
                           <img src={forwardSvg} width={15} height={15} alt='' />
-                        </Link>
+                        </div>
+                        {/* <Link className='dropdown-item' to='/logout'>
+                          Logout
+                        </Link> */}
                       </li>
                     </ul>
                   </li>
@@ -295,4 +326,8 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+// export default Header;
+export default function HeaderWrapper(props) {
+  const navigate = useNavigate();
+  return <Header {...props} navigate={navigate} />;
+}

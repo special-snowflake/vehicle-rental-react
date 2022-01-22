@@ -48,7 +48,7 @@ class Main extends React.Component {
     return (
       <Provider store={store}>
         <Router>
-          <ToastContainer />
+          <ToastContainer limit={1} />
           <Routes>
             <Route path='/' element={<Navigate to='home' />} />
             <Route path='home' element={<Home />} />

@@ -317,7 +317,7 @@ class VehicleType extends Component {
             <div
               className='row content d-flex flex-row align-items-center justify-content-start'
               style={{
-                backgroundImage: `url("../assets/icons/circle.svg")`,
+                backgroundImage: require(`../assets/icons/circle.svg`),
                 backgroundPosition: 'center bottom',
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
