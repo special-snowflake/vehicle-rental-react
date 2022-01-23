@@ -66,19 +66,21 @@ export default class SearchVehicle extends Component {
               </Link>
             </li>
           ) : (
-            <li className='page-item' disabled>
-              <button className='page-link'>Previous</button>
+            <li className='page-item disabled'>
+              <button className='page-link' aria-disabled='true'>
+                Previous
+              </button>
             </li>
           )}
           {/* <li className='page-item disabled'> */}
           <li className='page-item'>
-            <a className='page-link' href='/'>
+            <button className='page-link'>
               {page}
               {/* <span className='sr-only'>(current)</span> */}
-            </a>
+            </button>
           </li>
-          <li className='page-item'>
-            {nextPage !== null ? (
+          {nextPage !== null ? (
+            <li className='page-item'>
               <Link
                 to={`/vehicle-type${nextPage}`}
                 className='page-link'
@@ -87,10 +89,14 @@ export default class SearchVehicle extends Component {
                 }}>
                 Next
               </Link>
-            ) : (
-              <button className='page-link'>Next</button>
-            )}
-          </li>
+            </li>
+          ) : (
+            <li className='page-item disabled'>
+              <button className='page-link' aria-disabled='true'>
+                Next
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     );
@@ -134,8 +140,12 @@ export default class SearchVehicle extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 mt-3 mb-2'>
-                Showing 1-12 results from {totalData} for "
+              <div className='col-12 mt-5 mb-2'>
+                Showing {(meta.page - 1) * 12}-
+                {(meta.page - 1) * 12 + 12 <= totalData
+                  ? (meta.page - 1) * 12 + 12
+                  : totalData}{' '}
+                results from {totalData} for "
                 <span className='fw-bold'>{keyword ? keyword : ' '}</span>"
               </div>
               {searchResult.length !== 0 ? (

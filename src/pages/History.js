@@ -46,7 +46,7 @@ class History extends React.Component {
           {previousPage !== null ? (
             <li className='page-item'>
               <Link
-                to={`/history${previousPage}`}
+                to={`${previousPage}`}
                 className='page-link'
                 onClick={() => {
                   this.updateFilter(previousPage);
@@ -55,31 +55,37 @@ class History extends React.Component {
               </Link>
             </li>
           ) : (
-            <li className='page-item' disabled>
-              <button className='page-link'>Previous</button>
+            <li className='page-item disabled'>
+              <button className='page-link' aria-disabled='true'>
+                Previous
+              </button>
             </li>
           )}
           {/* <li className='page-item disabled'> */}
           <li className='page-item'>
-            <a className='page-link' href='/'>
+            <button className='page-link'>
               {page}
               {/* <span className='sr-only'>(current)</span> */}
-            </a>
+            </button>
           </li>
-          <li className='page-item'>
-            {nextPage !== null ? (
+          {nextPage !== null ? (
+            <li className='page-item'>
               <Link
-                to={`/history${nextPage}`}
+                to={`${nextPage}`}
                 className='page-link'
                 onClick={() => {
                   this.updateFilter(nextPage);
                 }}>
                 Next
               </Link>
-            ) : (
-              <button className='page-link'>Next</button>
-            )}
-          </li>
+            </li>
+          ) : (
+            <li className='page-item disabled'>
+              <button className='page-link' aria-disabled='true'>
+                Next
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     );
@@ -148,7 +154,7 @@ class History extends React.Component {
     return elements;
   };
 
-  componentDidUpdate(prevState, currentState) {
+  componentDidUpdate(prevState) {
     const filter = this.props.location.search;
     if (prevState.location.search !== filter) {
       this.searchHistoryReact();
@@ -194,6 +200,7 @@ class History extends React.Component {
       });
       this.searchHistoryReact();
     };
+    const {location, searchParams, setSearchParams} = this.props;
     return (
       <>
         <Header />
@@ -277,7 +284,12 @@ class History extends React.Component {
                     </h5>
                   )}
 
-                  <ShowHistory dataHistory={dataHistory} />
+                  <ShowHistory
+                    dataHistory={dataHistory}
+                    location={location}
+                    searchParams={searchParams}
+                    setSearchParams={setSearchParams}
+                  />
                   {this.showPagination()}
                   <div className='col-12 col-sm-11 p-0'>
                     <button className='btn btn-yellow'>

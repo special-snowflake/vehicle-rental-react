@@ -81,9 +81,6 @@ class Home extends React.Component {
     if (typeof roles !== 'undefined') {
       roles = JSON.parse(localStorage['vehicle-rental-roles']);
     }
-    // console.log(roles);
-    // console.log('data testi:', this.state.dataTestimony);
-    // console.log('list:', this.state.listCity);
     return (
       <>
         <Header />

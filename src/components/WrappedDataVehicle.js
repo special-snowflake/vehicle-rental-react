@@ -8,15 +8,8 @@ import SliderDetailVehicle from './SliderDetailVehicle';
 import {numberToRupiah} from '../helpers/collection';
 
 import backSvg from '../assets/icons/back.svg';
-// import forwardSvg from '../assets/icons/forward.svg';
 
 import axios from 'axios';
-
-// const numberFormat = (value) =>
-//   new Intl.NumberFormat('en-IN', {
-//     style: 'currency',
-//     currency: 'IDR',
-//   }).format(value);
 
 class WrappedDataVehicle extends React.Component {
   state = {
@@ -64,7 +57,6 @@ class WrappedDataVehicle extends React.Component {
   render() {
     const {city, category, name, price, status, description, user_id} =
       this.state.detailVehicle;
-    // const formatPrice = ;
     const {isSuccess} = this.state;
     const vehicleId = this.props.vid;
     return (
@@ -171,16 +163,25 @@ class WrappedDataVehicle extends React.Component {
                     </div>
                   </div>
                   <div className='col 12 mt-5'>
-                    <div className='row justify-content-between'>
-                      <div className='col-12 col-sm-4'>
-                        <a href='#chat' className='btn btn-black'>
-                          Chat Admin
-                        </a>
+                    {user_id ===
+                    JSON.parse(localStorage['vehicle-rental-userId']) ? (
+                      <div className='row justify-content-between'>
+                        <div className='col-12'>
+                          <Link
+                            to={`/edit-item/${vehicleId}`}
+                            className='btn btn-gold'>
+                            Edit Item
+                          </Link>
+                        </div>
                       </div>
-                      <div className='col-12 col-sm-4'>
-                        {user_id === JSON.parse(localStorage['vehicle-rental-userId']) ? (
-                          <Link to={`/edit-item/${vehicleId}`} className='btn btn-gold'>Edit Item</Link>
-                        ) : (
+                    ) : (
+                      <div className='row justify-content-between'>
+                        <div className='col-12 col-sm-4'>
+                          <a href='#chat' className='btn btn-black'>
+                            Chat Admin
+                          </a>
+                        </div>
+                        <div className='col-12 col-sm-4'>
                           <Link
                             to='/reservation'
                             state={{
@@ -190,17 +191,17 @@ class WrappedDataVehicle extends React.Component {
                             className='btn btn-gold'>
                             Reservation
                           </Link>
-                        )}
+                        </div>
+                        <div className='col-12 col-sm-3 like-item'>
+                          <a href='#Like' className='btn btn-black'>
+                            <i
+                              className='bi bi-heart-fill'
+                              style={{fontSize: '13px'}}></i>{' '}
+                            Like
+                          </a>
+                        </div>
                       </div>
-                      <div className='col-12 col-sm-3 like-item'>
-                        <a href='#Like' className='btn btn-black'>
-                          <i
-                            className='bi bi-heart-fill'
-                            style={{fontSize: '13px'}}></i>{' '}
-                          Like
-                        </a>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

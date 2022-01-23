@@ -15,21 +15,21 @@ export default function Logout() {
   axios
     .delete(urlLogout, config)
     .then((response) => {
-      toast.dismiss();
-      toast.success('Logout success.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-      });
+      console.log('logout success', response);
     })
     .catch((err) => {
       console.log(err);
     });
-
+  toast.dismiss();
+  toast.success('Logout success.', {
+    position: 'bottom-left',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+  });
   localStorage.removeItem('vehicle-rental-token');
   localStorage.removeItem('vehicle-rental-userId');
   localStorage.removeItem('vehicle-rental-roles');
