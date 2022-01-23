@@ -28,3 +28,15 @@ export const searchHistory = (filter, token) => {
   const searchUrl = URL + `/search?${filter}`;
   return axios.get(searchUrl, config);
 };
+
+export const deleteHistory = (body, token) => {
+  const newToken = JSON.parse(token);
+  console.log(token, body);
+  const config = {
+    headers: {
+      'x-authorized-token': newToken,
+    },
+    data: {historyIds: body.historyIds},
+  };
+  return axios.delete(URL, config);
+};

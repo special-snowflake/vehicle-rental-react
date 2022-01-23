@@ -4,6 +4,7 @@ import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
 
+import {numberToRupiah} from '../helpers/collection';
 import {getVehicleDetail, updateVehicles} from '../utils/https/vehicles';
 
 // import Counter from '../components/Counter';
@@ -41,6 +42,8 @@ class EditItem extends React.Component {
     selectedFiles3: null,
     category: null,
     city: null,
+    priceValue: '',
+    realPrice: '',
     navigate: null,
     isSuccess: false,
   };
@@ -102,7 +105,17 @@ class EditItem extends React.Component {
       console.log('Error: ', error);
     };
   }
-
+  priceHandler(e) {
+    const priceFormat = numberToRupiah(e.target.value);
+    this.setState({
+      priceValue: priceFormat,
+      realPrice: e.target.value,
+    });
+    e.target.value = priceFormat;
+  }
+  onFocusPrice(e) {
+    e.target.value = this.state.realPrice;
+  }
   handleSubmit = (e) => {
     const vehicleId = this.props.vid;
     const {selectedFiles1, selectedFiles2, selectedFiles3} = this.state;
@@ -134,7 +147,7 @@ class EditItem extends React.Component {
     body.append('category_id', e.target.category.value);
     body.append('name', e.target.productName.value);
     body.append('description', e.target.description.value);
-    body.append('price', e.target.price.value);
+    body.append('price', this.state.realPrice);
     body.append('status', e.target.status.value);
     body.append('stock', this.state.counter);
     updateVehicles(vehicleId, body, token)
@@ -200,9 +213,12 @@ class EditItem extends React.Component {
     getVehicleDetail(vehicleId)
       .then((response) => {
         console.log(response);
+        const priceFormat = numberToRupiah(response.data.data.price);
         this.setState({
           vehicleDetail: response.data.data,
           counter: parseInt(response.data.data.stock),
+          realPrice: response.data.data.price,
+          priceValue: priceFormat,
           isSuccess: true,
         });
         const images = this.state.vehicleDetail.images;
@@ -225,6 +241,21 @@ class EditItem extends React.Component {
           progress: undefined,
         });
       });
+  }
+  componentDidUpdate() {
+    const roles = localStorage['vehicle-rental-roles'];
+    const {usenavigate} = this.props;
+    if (!roles || JSON.parse(roles) !== 'owner') {
+      console.log('error roles', roles);
+      usenavigate('/403');
+    }
+    if (this.state.isSuccess) {
+      const userId = JSON.parse(localStorage['vehicle-rental-userId']);
+      console.log('userid', userId, this.state.vehicleDetail.user_id);
+      if (userId !== this.state.vehicleDetail.user_id) {
+        usenavigate('/403');
+      }
+    }
   }
   render() {
     const {
@@ -260,9 +291,7 @@ class EditItem extends React.Component {
                               width='23px'
                               height='23px'
                             />
-                            <span style={{paddingLeft: '10px'}}>
-                              Add New Item
-                            </span>
+                            <span style={{paddingLeft: '10px'}}>Back</span>
                           </div>
                         </div>
                       </div>
@@ -362,7 +391,13 @@ class EditItem extends React.Component {
                           <input
                             type='number'
                             name='price'
-                            defaultValue={vehicleDetail.price}
+                            defaultValue={this.state.priceValue}
+                            onBlur={(e) => {
+                              this.priceHandler(e);
+                            }}
+                            onFocus={(e) => {
+                              this.onFocusPrice(e);
+                            }}
                             placeholder='Type the price'
                           />
                           <h3 className='box-header'>Status : </h3>

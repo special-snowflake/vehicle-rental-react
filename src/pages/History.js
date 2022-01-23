@@ -7,8 +7,12 @@ import LoadingPage from '../components/LoadingPage';
 import searchSvg from '../assets/icons/search.svg';
 import forwarSvg from '../assets/icons/forward.svg';
 import downSvg from '../assets/icons/down.svg';
-import {searchHistory} from '../utils/https/history';
+import {searchHistory, deleteHistory} from '../utils/https/history';
 import {searchVehicle} from '../utils/https/vehicles';
+
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../assets/css/Modals.css';
 // import {numberToRupiah} from '../helpers/collection';
 
 import {toast} from 'react-toastify';
@@ -23,6 +27,7 @@ class History extends React.Component {
     orderBy: 'date',
     meta: null,
     page: '1',
+    historyIds: [],
   };
   getNewArrival = () => {
     searchVehicle('?sort=desc&limit=2')
@@ -180,8 +185,15 @@ class History extends React.Component {
     }
   }
 
+  callbackHistoryId(ids) {
+    this.setState({
+      historyIds: ids,
+    });
+  }
+
   render() {
     const {isSuccess, dataHistory} = this.state;
+
     const onSubmitHandler = (e) => {
       e.preventDefault();
       const {setSearchParams} = this.props;
@@ -192,15 +204,64 @@ class History extends React.Component {
       };
       setSearchParams(params);
       this.setState({
-        // prevKeyword: this.state.keyword,
-        // prevOrderBy: this.state.orderBy,
         page: '1',
         keyword: e.target.keyword.value,
         orderBy: e.target.orderBy.value,
       });
       this.searchHistoryReact();
     };
+    const onclickDelete = () => {
+      confirmAlert({
+        customUI: ({onClose}) => {
+          return (
+            <div className='custom-ui'>
+              <h1>Are you sure you want to delete history?</h1>
+              {/* <p>You want to delete this file?</p> */}
+              <div className='d-flex justify-content-evenly'>
+                <button
+                  className='btn btn-yes px-2 me-2'
+                  onClick={() => {
+                    onClose();
+                    deleteSelectedHistory();
+                  }}>
+                  Yes
+                </button>
+                <button className='btn btn-no px-2 ms-2' onClick={onClose}>
+                  No
+                </button>
+              </div>
+            </div>
+          );
+        },
+      });
+    };
+
+    const deleteSelectedHistory = () => {
+      console.log('delete history,', this.state.historyIds);
+      const token = localStorage['vehicle-rental-token'];
+      console.log('token', token);
+      const body = {
+        historyIds: this.state.historyIds,
+      };
+      deleteHistory(body, token)
+        .then((response) => {
+          toast.success('History deleted.', {
+            position: 'bottom-left',
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    };
+
     const {location, searchParams, setSearchParams} = this.props;
+
     return (
       <>
         <Header />
@@ -289,13 +350,18 @@ class History extends React.Component {
                     location={location}
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}
+                    callbackHistoryId={this.callbackHistoryId.bind(this)}
                   />
-                  {this.showPagination()}
-                  <div className='col-12 col-sm-11 p-0'>
-                    <button className='btn btn-yellow'>
+                  <div className='col-12 col-sm-11 p-0 mb-3'>
+                    <button
+                      className='btn btn-yellow'
+                      onClick={() => {
+                        onclickDelete();
+                      }}>
                       Delete Selected Item
                     </button>
                   </div>
+                  {this.showPagination()}
                 </div>
               </div>
               <div className='d-none d-md-block col-md-4 mb-3 py-0 px-2'>

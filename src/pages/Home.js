@@ -174,7 +174,7 @@ class Home extends React.Component {
                   {/* <div className='d-none d-sm-block col-sm-1'></div>
                   <div className='col-12 col-sm-10'> */}
                   <div className='add-item-wrapper'>
-                    <Link to='/add-item' className='btn btn-black'>
+                    <Link to='/vehicles/new' className='btn btn-black'>
                       Add Item
                     </Link>
                   </div>

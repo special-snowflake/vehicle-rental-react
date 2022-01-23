@@ -168,7 +168,7 @@ class WrappedDataVehicle extends React.Component {
                       <div className='row justify-content-between'>
                         <div className='col-12'>
                           <Link
-                            to={`/edit-item/${vehicleId}`}
+                            to={`/vehicles/edit/${vehicleId}`}
                             className='btn btn-gold'>
                             Edit Item
                           </Link>

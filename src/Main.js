@@ -69,19 +69,19 @@ class Main extends React.Component {
 
             <Route element={<PrivateRoutes />}>
               <Route element={<OwnerOnly />}>
-                <Route path='add-item' element={<AddItem />} />
-                <Route path='edit-item/:id' exact element={<EditItem />} />
+                <Route path='vehicles/new' element={<AddItem />} />
+                <Route path='vehicles/edit/:id' exact element={<EditItem />} />
                 {/* <Route path='history' element={<History />} /> */}
               </Route>
-              <Route path='history' element={<History />} />
 
               <Route element={<CustomerOnly />}>
                 <Route path='reservation' element={<Reservation />} />
                 <Route path='payment' element={<Payment />} />
               </Route>
 
+              <Route path='history' element={<History />} />
               <Route path='profile' element={<Profile />}>
-                <Route path='change-password' element={<ChangePassword />} />
+                <Route path='password' element={<ChangePassword />} />
               </Route>
               <Route path='chat' element={<Chat />} />
               <Route path='chat/:id' element={<ChatView />} />

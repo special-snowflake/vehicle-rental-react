@@ -3,13 +3,13 @@ import React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
-// import { numberToRupiah } from '../helpers/collection';
+
+import {numberToRupiah} from '../helpers/collection';
+
 import {addVehicle} from '../utils/https/vehicles';
 
-// import Counter from '../components/Counter';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import LoadingPage from '../components/LoadingPage';
 
 import {toast} from 'react-toastify';
 
@@ -37,6 +37,8 @@ class AddItem extends React.Component {
     selectedFiles1: null,
     selectedFiles2: null,
     selectedFiles3: null,
+    priceValue: '',
+    realPrice: '',
     category: null,
     city: null,
     navigate: null,
@@ -59,7 +61,6 @@ class AddItem extends React.Component {
 
   handleFileChange1(e) {
     this.getBase64(e, 'image1');
-    // console.log('image1 handle');
     this.setState({
       selectedFiles1: e.target.files[0],
     });
@@ -130,7 +131,7 @@ class AddItem extends React.Component {
     body.append('category_id', e.target.category.value);
     body.append('name', e.target.productName.value);
     body.append('description', e.target.description.value);
-    body.append('price', e.target.price.value);
+    body.append('price', this.state.realPrice);
     body.append('status', e.target.status.value);
     body.append('stock', this.state.counter);
     addVehicle(body, token)
@@ -156,6 +157,18 @@ class AddItem extends React.Component {
         });
       });
   };
+
+  priceHandler(e) {
+    const priceFormat = numberToRupiah(e.target.value);
+    this.setState({
+      priceValue: priceFormat,
+      realPrice: e.target.value,
+    });
+    e.target.value = priceFormat;
+  }
+  onFocusPrice(e) {
+    e.target.value = this.state.realPrice;
+  }
 
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -195,8 +208,16 @@ class AddItem extends React.Component {
       });
   }
   render() {
-    const {counter, image1, image2, image3, category, city, navigate} =
-      this.state;
+    const {
+      counter,
+      image1,
+      image2,
+      image3,
+      category,
+      city,
+      navigate,
+      // priceValue,
+    } = this.state;
     const {usenavigate} = this.props;
     return (
       <>
@@ -289,11 +310,6 @@ class AddItem extends React.Component {
                         maxLength={50}
                         placeholder='Name (Max up to 50 words)'
                       />
-                      {/* <input
-                        type='text'
-                        name='location'
-                        placeholder='Location'
-                      /> */}
                       <select
                         name='location'
                         id='location'
@@ -317,8 +333,14 @@ class AddItem extends React.Component {
                         <input
                           type='number'
                           name='price'
-                          // value={}
+                          onBlur={(e) => {
+                            this.priceHandler(e);
+                          }}
+                          onFocus={(e) => {
+                            this.onFocusPrice(e);
+                          }}
                           placeholder='Type the price'
+                          min={0}
                         />
                         <h3 className='box-header'>Status : </h3>
                         <select

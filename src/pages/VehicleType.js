@@ -273,7 +273,7 @@ class VehicleType extends Component {
                   <option value='desc'>Descending</option>
                 </select>
               </div>
-              <div className='col-12 col-sm-4'>
+              <div className='col-12 col-sm-6 col-lg-3'>
                 <button className='btn btn-yellow'>Search</button>
               </div>
             </div>
