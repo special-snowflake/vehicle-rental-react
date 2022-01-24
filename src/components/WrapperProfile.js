@@ -148,6 +148,11 @@ export class WrapperProfile extends Component {
           draggable: true,
           progress: undefined,
         });
+        if (this.state.selectedFile !== null) {
+          console.log('response data', response.data);
+          const photo = response.data.data.body.photo;
+          localStorage['vehicle-rental-photo'] = JSON.stringify(photo);
+        }
         this.getDataUser();
       })
       .catch((error) => {

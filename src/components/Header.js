@@ -17,33 +17,49 @@ class Header extends React.Component {
   }
   state = {
     isSuccess: false,
-    userData: null,
+    // userData: null,
     token: null,
     photoProfile: require('../assets/images/default3.jpg'),
   };
 
   getUserData() {
-    const id = localStorage['vehicle-rental-userId'];
+    // const id = localStorage['vehicle-rental-userId'];
     const host = process.env.REACT_APP_HOST;
-    const urlData = `${host}/user/detail/${id}`;
-    axios
-      .get(urlData)
-      .then((response) => {
-        const photo = response.data.data.photo;
-        console.log('photo: ', photo, typeof photo);
-        if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
-          this.setState({
-            photoProfile: `${host}/user${photo}`,
-          });
-        }
-        this.setState({
-          isSuccess: true,
-          userData: response.data.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    // const urlData = `${host}/user/detail/${id}`;
+    // axios
+    //   .get(urlData)
+    //   .then((response) => {
+    //     const photo = response.data.data.photo;
+    //     console.log('photo: ', photo, typeof photo);
+    //     if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
+    //       this.setState({
+    //         photoProfile: `${host}/user${photo}`,
+    //       });
+    //     }
+    //     this.setState({
+    //       isSuccess: true,
+    //       userData: response.data.data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    const photo = localStorage['vehicle-rental-photo'];
+    // console.log('photo', photo, typeof photo);
+    // if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
+    if (photo !== 'null') {
+      // console.log('yes, its not null', photo);
+      const parsedPhoto = JSON.parse(photo);
+      this.setState({
+        photoProfile: `${host}/user${parsedPhoto}`,
+        isSuccess: true,
+        // userData: response.data.data,
       });
+    } else {
+      this.setState({
+        isSuccess: true,
+      });
+    }
   }
 
   handleLogout() {
@@ -106,7 +122,7 @@ class Header extends React.Component {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='toggleMobileMenu'>
-            <ul className='navbar-nav ms-auto me-5 text-center nav-middle'>
+            <ul className='navbar-nav ms-auto text-center nav-middle'>
               <li key='Home'>
                 <NavLink to='/home' className='nav-link'>
                   Home
@@ -312,9 +328,11 @@ class Header extends React.Component {
                 </li>
                 <hr className='dropdown-divider' />
                 <li>
-                  <Link className='dropdown-item' to='/logout'>
+                  <button
+                    className='dropdown-item cursor-pointer'
+                    onClick={this.logoutAlert.bind(this)}>
                     Logout
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>

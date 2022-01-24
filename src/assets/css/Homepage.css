@@ -390,6 +390,9 @@ p.time-chat {
   object-position: center;
   border-radius: 5px;
 }
+#search-vehicle {
+  border: 1px solid #afb0b9;
+}
 .history-product .history-img-wrapper {
   height: calc(100px + 5vw);
   content: '';
