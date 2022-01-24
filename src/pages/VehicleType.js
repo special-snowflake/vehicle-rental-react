@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import {useSearchParams, useLocation} from 'react-router-dom';
+import {useSearchParams, useLocation, Link} from 'react-router-dom';
 
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import LoadingPage from '../components/LoadingPage';
 import VehicleCard from '../components/VehicleCard';
 import SearchVehicle from '../components/SearchVehicle';
+import forwardSvg from '../assets/icons/forward.svg';
 
 import {toast} from 'react-toastify';
 
@@ -289,7 +290,24 @@ class VehicleType extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Popular in Town</div>
+              <div className='col-8 col-sm-9 row-header'>Popular in Town</div>
+                <div
+                  className='col-4 col-sm-3 text-right align-bottom'
+                  style={{textAlign: 'right'}}>
+                  <Link to='/view-more' className='more'>
+                    View More
+                    <img
+                      src={forwardSvg}
+                      width='14px'
+                      height='14px'
+                      alt='View More'
+                      style={{
+                        filter:
+                          'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
+                      }}
+                    />
+                  </Link>
+                </div>
               <VehicleCard dataVehicle={this.state.dataPopular} length={4} />
             </div>
             <div

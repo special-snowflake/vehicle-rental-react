@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-import {confirmAlert} from 'react-confirm-alert'; // Import
+import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../assets/css/Modals.css';
 
@@ -52,18 +52,17 @@ class Header extends React.Component {
     navigate('/logout');
   }
   componentDidMount() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
     const token = localStorage.getItem('vehicle-rental-token');
     if (token !== null) this.getUserData();
   }
   logoutAlert() {
     const navigate = this.props.navigate;
-    // console.log('this is logout');
     confirmAlert({
       customUI: ({onClose}) => {
         return (
           <div className='custom-ui'>
             <h1>Are you sure you want to logout?</h1>
-            {/* <p>You want to delete this file?</p> */}
             <div className='d-flex justify-content-evenly'>
               <button
                 className='btn btn-yes px-2 me-2'

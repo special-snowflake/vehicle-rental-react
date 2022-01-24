@@ -163,7 +163,7 @@ class WrappedDataVehicle extends React.Component {
                     </div>
                   </div>
                   <div className='col 12 mt-5'>
-                    {user_id ===
+                    {localStorage['vehicle-rental-userId'] && user_id ===
                     JSON.parse(localStorage['vehicle-rental-userId']) ? (
                       <div className='row justify-content-between'>
                         <div className='col-12'>

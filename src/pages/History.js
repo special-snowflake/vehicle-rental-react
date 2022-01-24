@@ -22,6 +22,7 @@ class History extends React.Component {
   state = {
     isSuccess: false,
     dataNewArrival: null,
+    arrivalIsSuccess: false,
     dataHistory: null,
     keyword: '',
     orderBy: 'date',
@@ -35,6 +36,7 @@ class History extends React.Component {
         console.log('new arrival :', response);
         this.setState({
           dataNewArrival: response.data.data,
+          arrivalIsSuccess: true,
         });
       })
       .catch((err) => {
@@ -254,6 +256,7 @@ class History extends React.Component {
             draggable: true,
             progress: undefined,
           });
+          this.searchHistoryReact();
         })
         .catch((err) => {
           console.log(err.response);
@@ -261,6 +264,8 @@ class History extends React.Component {
     };
 
     const {location, searchParams, setSearchParams} = this.props;
+    const {arrivalIsSuccess} = this.state;
+    console.log('is arrival ', arrivalIsSuccess);
 
     return (
       <>
@@ -367,7 +372,9 @@ class History extends React.Component {
               <div className='d-none d-md-block col-md-4 mb-3 py-0 px-2'>
                 <section className='new-arrival-wrapper mx-auto text-center'>
                   <h3 className='m-3'>New Arrival</h3>
-                  <div className='new-arrival-box'>{this.showNewArrival()}</div>
+                  <div className='new-arrival-box'>
+                    {arrivalIsSuccess ? this.showNewArrival() : ''}
+                  </div>
                   <div className='col-12 view-more mt-4 mb-4'>
                     View More <br />
                     <img src={downSvg} alt='view more' />

@@ -258,7 +258,7 @@ ul li a {
   }
   .left {
     padding-bottom: 0;
-    max-height: 35vh !important;
+    max-height: max(35vh, 230px) !important;
     margin-bottom: 0;
     /* box-shadow: 0 1px 10px white; */
   }

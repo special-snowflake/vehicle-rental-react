@@ -12,16 +12,8 @@ export default class SearchVehicle extends Component {
     searchResult: null,
     meta: null,
   };
-  // searchVehicle(keyword, filter) {
   searchVehicle(keyword, filter) {
-    // console.log('filter:', filter);
     const host = process.env.REACT_APP_HOST;
-    // const paramKeywords =
-    //   keyword !== null && typeof keyword !== 'undefined'
-    //     ? `?keyword=${keyword}`
-    //     : '';
-    // const url = `${host}/vehicles/search?keyword=${keyword}${filter}`;
-    // const url = `${host}/vehicles/search${paramKeywords}${filter}`;
     const url = `${host}/vehicles/search${filter}`;
     console.log('url inside search:', url);
     axios
@@ -42,10 +34,8 @@ export default class SearchVehicle extends Component {
       });
   }
   updateFilter(newFilter) {
-    // const keyword = this.state.keyword;
     console.log('updatefiler:', newFilter);
     this.searchVehicle(null, newFilter);
-    // this.setState({filter: newFilter});
   }
 
   showPagination(meta) {
@@ -72,11 +62,9 @@ export default class SearchVehicle extends Component {
               </button>
             </li>
           )}
-          {/* <li className='page-item disabled'> */}
           <li className='page-item'>
             <button className='page-link'>
               {page}
-              {/* <span className='sr-only'>(current)</span> */}
             </button>
           </li>
           {nextPage !== null ? (
@@ -102,7 +90,6 @@ export default class SearchVehicle extends Component {
     );
   }
   componentDidMount() {
-    // const useLocation = this.props.useLocation;
     const filter = this.props.location.search;
     const keyword = this.props.searchParams.get('keyword');
     const page = parseInt(this.props.page);
@@ -113,19 +100,17 @@ export default class SearchVehicle extends Component {
   componentDidUpdate(a, b) {
     const filter = this.props.location.search;
     const keyword = this.props.searchParams.get('keyword');
-    // const location = this.props.location;
-    // console.log('location:', location);
     console.log('a and b', a, b);
     console.log(this.props.searchParams.get('keyword'));
     console.log(this.props.searchParams.get('sort'));
-    // console.log('the keyword is:', keyword);
     if (a.location.search !== filter) {
       this.searchVehicle(keyword, filter);
+      const header = document.getElementById('resultHeader');
+      header.scrollIntoView({behavior: 'smooth'});
     }
   }
   render() {
     const {isSuccess, searchResult, keyword, meta} = this.state;
-    // const totalData = !meta.totalData ? "0" : meta.totalData;
     let totalData = 0;
     if (meta !== null) totalData = meta.totalData;
     return (
@@ -140,7 +125,7 @@ export default class SearchVehicle extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 mt-5 mb-2'>
+              <div className='col-12 mt-5 mb-2' id='resultHeader'>
                 Showing {(meta.page - 1) * 12}-
                 {(meta.page - 1) * 12 + 12 <= totalData
                   ? (meta.page - 1) * 12 + 12
@@ -158,9 +143,6 @@ export default class SearchVehicle extends Component {
             </div>
             <div className='col-12 text-center mx-auto mb-5'>
               {this.showPagination(this.state.meta)}
-              {/* <Link to={`?keyword=&sort=asc&page=2`}>
-                Some Link
-              </Link> */}
             </div>
           </div>
         ) : (

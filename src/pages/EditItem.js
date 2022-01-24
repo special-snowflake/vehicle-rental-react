@@ -111,9 +111,11 @@ class EditItem extends React.Component {
       priceValue: priceFormat,
       realPrice: e.target.value,
     });
+    e.target.type = 'text';
     e.target.value = priceFormat;
   }
   onFocusPrice(e) {
+    e.target.type = 'number';
     e.target.value = this.state.realPrice;
   }
   handleSubmit = (e) => {

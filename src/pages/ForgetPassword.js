@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from '../components/Footer';
-// import {Link} from 'react-router-dom';
 function ForgetPassword() {
   return (
     <>
@@ -11,7 +10,7 @@ function ForgetPassword() {
               <section className='single-content'>
                 <h1>Don't worry, we got your back.</h1>
                 <div className='wrapper-forget'>
-                  <input type='text' placeholder='Email' name='' id='' />
+                  <input type='email' placeholder='Email' name='email' className='email-forget-password' />
                   <button className='btn btn-yellow'>Send Link</button>
                 <p className='notice'>
                   You will receive a link to reset your password. If you haven’t

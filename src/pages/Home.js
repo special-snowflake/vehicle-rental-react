@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 import '../assets/css/Home.css';
@@ -76,6 +76,14 @@ class Home extends React.Component {
       });
   };
   render() {
+    const searchVehicles = (e) => {
+      e.preventDefault();
+      const navTo = `/vehicle-type?keyword=&city=${e.target.city.value}&category=${e.target.category.value}&sort=asc`;
+      // <Navigate to={navTo} />;
+      console.log(e.target.category.value, e.target.city.value, navTo);
+      const navigate = this.props.navigate;
+      navigate(navTo);
+    };
     const {isSuccess, listCategory, listCity} = this.state;
     let roles = localStorage['vehicle-rental-roles'];
     if (typeof roles !== 'undefined') {
@@ -101,40 +109,46 @@ class Home extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div
-                    className='col-12 form'
-                    style={{minHeight: '25vh', paddingTop: '10vh'}}>
-                    <div className='wrapper col-12 col-sm-8 col-md-8 col-xl-6'>
-                      <div className='row' style={{color: '#393939'}}>
-                        <div className='col-sm-6 col-12'>
-                          <select>{isSuccess && optionCity(listCity)}</select>
+                  <form onSubmit={searchVehicles}>
+                    <div
+                      className='col-12 form'
+                      style={{minHeight: '25vh', paddingTop: '10vh'}}>
+                      <div className='wrapper col-12 col-sm-8 col-md-8 col-xl-6'>
+                        <div className='row' style={{color: '#393939'}}>
+                          <div className='col-sm-6 col-12'>
+                            <select name='city'>
+                              {isSuccess && optionCity(listCity)}
+                            </select>
+                          </div>
+                          <div className='col-sm-6 col-12'>
+                            <select name='category'>
+                              {isSuccess && optionCategory(listCategory)}
+                            </select>
+                          </div>
+                          {/* <div className='col-sm-6 col-12'>
+                            <select>
+                              <option value='Payment'>Payment</option>
+                            </select>
+                          </div>
+                          <div className='col-sm-6 col-12'>
+                            <input
+                              type='date'
+                              name='date'
+                              id=''
+                              placeholder='now'
+                            />
+                          </div> */}
                         </div>
-                        <div className='col-sm-6 col-12'>
-                          <select>
-                            {isSuccess && optionCategory(listCategory)}
-                          </select>
+                        <div className='col-sm-4 col-8 mt-5'>
+                          <button
+                            type='submit'
+                            className='btn btn-md btn-yellow'>
+                            Explore
+                          </button>
                         </div>
-                        <div className='col-sm-6 col-12'>
-                          <select>
-                            <option value='Payment'>Payment</option>
-                          </select>
-                        </div>
-                        <div className='col-sm-6 col-12'>
-                          <input
-                            type='date'
-                            name='date'
-                            id=''
-                            placeholder='now'
-                          />
-                        </div>
-                      </div>
-                      <div className='col-sm-4 col-8'>
-                        <a href='#explore' className='btn btn-md btn-yellow'>
-                          Explore
-                        </a>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -142,7 +156,7 @@ class Home extends React.Component {
           {isSuccess ? (
             <>
               <div
-                className='row content d-flex flex-row align-items-center justify-content-start'
+                className='row content d-flex flex-row align-items-center justify-content-start pb-0'
                 style={{
                   backgroundImage: `url("../assets/icons/circle.svg")`,
                   backgroundPosition: 'center bottom',
@@ -170,16 +184,12 @@ class Home extends React.Component {
                 <VehicleCard dataVehicle={this.state.dataVehicle} length={4} />
               </div>
               {roles === 'owner' && (
-                <div className='row row content d-flex flex-row align-items-center justify-content-start mt-0'>
-                  {/* <div className='d-none d-sm-block col-sm-1'></div>
-                  <div className='col-12 col-sm-10'> */}
+                <div className='row row content d-flex flex-row align-items-center justify-content-start mt-0 mb-2 pb-0 '>
                   <div className='add-item-wrapper'>
                     <Link to='/vehicles/new' className='btn btn-black'>
                       Add Item
                     </Link>
                   </div>
-                  {/* </div>
-                  <div className='d-none d-sm-block col-sm-1'></div> */}
                 </div>
               )}
               <div className='row'>
@@ -215,4 +225,8 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default function WrapperHome(props) {
+  const navigate = useNavigate();
+  return <Home {...props} navigate={navigate} />;
+  // return <Home />;
+}

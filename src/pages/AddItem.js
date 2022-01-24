@@ -91,7 +91,6 @@ class AddItem extends React.Component {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      // console.log('image1 :', reader.result);
       this.setState({
         [stateImage]: reader.result,
       });
@@ -164,9 +163,12 @@ class AddItem extends React.Component {
       priceValue: priceFormat,
       realPrice: e.target.value,
     });
+    e.target.type = 'text';
     e.target.value = priceFormat;
+    console.log('type priceformat:', typeof priceFormat);
   }
   onFocusPrice(e) {
+    e.target.type = 'number';
     e.target.value = this.state.realPrice;
   }
 
@@ -181,8 +183,8 @@ class AddItem extends React.Component {
       .catch((err) => {
         toast.error('Error get category', {
           position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
+          autoClose: 3000,
+          hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: false,
@@ -331,7 +333,7 @@ class AddItem extends React.Component {
                       <section className='add-item-box'>
                         <h3 className='box-header'>Price : </h3>
                         <input
-                          type='number'
+                          type='text'
                           name='price'
                           onBlur={(e) => {
                             this.priceHandler(e);
