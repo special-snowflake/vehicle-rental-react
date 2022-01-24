@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
