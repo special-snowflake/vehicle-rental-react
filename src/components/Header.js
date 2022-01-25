@@ -122,7 +122,7 @@ class Header extends React.Component {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='toggleMobileMenu'>
-            <ul className='navbar-nav ms-auto text-center nav-middle'>
+            <ul className='navbar-nav ms-auto text-center nav-middle me-md-5'>
               <li key='Home'>
                 <NavLink to='/home' className='nav-link'>
                   Home
