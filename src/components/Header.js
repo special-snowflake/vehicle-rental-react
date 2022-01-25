@@ -129,7 +129,7 @@ class Header extends React.Component {
                 </NavLink>
               </li>
               <li key='Vehicle'>
-                <NavLink to='/vehicle-type' className='nav-link'>
+                <NavLink to='/vehicles/type' className='nav-link'>
                   Vehicle Type
                 </NavLink>
               </li>

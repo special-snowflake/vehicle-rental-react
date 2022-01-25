@@ -79,7 +79,7 @@ class Home extends React.Component {
   render() {
     const searchVehicles = (e) => {
       e.preventDefault();
-      const navTo = `/vehicle-type?keyword=&city=${e.target.city.value}&category=${e.target.category.value}&sort=asc`;
+      const navTo = `/vehicles/type?keyword=&city=${e.target.city.value}&category=${e.target.category.value}&sort=asc`;
       // <Navigate to={navTo} />;
       console.log(e.target.category.value, e.target.city.value, navTo);
       const navigate = this.props.navigate;

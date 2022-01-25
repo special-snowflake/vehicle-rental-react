@@ -296,7 +296,7 @@ class VehicleType extends Component {
         {isSuccess & !isSearching ? (
           <>
             <div
-              className='row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start pb-0'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
@@ -324,7 +324,7 @@ class VehicleType extends Component {
               <VehicleCard dataVehicle={this.state.dataPopular} length={4} />
             </div>
             <div
-              className='row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start pb-0'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
@@ -352,7 +352,7 @@ class VehicleType extends Component {
               <VehicleCard dataVehicle={this.state.dataCar} length={4} />
             </div>
             <div
-              className='row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start pb-0'
               style={{
                 backgroundImage: `url("../assets/icons/circle.svg")`,
                 backgroundPosition: 'center bottom',
@@ -380,7 +380,7 @@ class VehicleType extends Component {
               <VehicleCard dataVehicle={this.state.dataMotorCycle} length={4} />
             </div>
             <div
-              className='row content d-flex flex-row align-items-center justify-content-start'
+              className='row content d-flex flex-row align-items-center justify-content-start pb-0'
               style={{
                 backgroundImage: require(`../assets/icons/circle.svg`),
                 backgroundPosition: 'center bottom',

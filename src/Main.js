@@ -52,7 +52,7 @@ class Main extends React.Component {
           <Routes>
             <Route path='/' element={<Navigate to='home' />} />
             <Route path='home' element={<Home />} />
-            <Route path='vehicle-type' element={<VehicleType />} />
+            <Route path='vehicles/type' element={<VehicleType />} />
 
             <Route path='view-more' element={<ViewMore />} />
             <Route path='vehicle' element={<DetailVehicle />} />

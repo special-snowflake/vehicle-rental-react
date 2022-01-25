@@ -47,7 +47,7 @@ export default class SearchVehicle extends Component {
           {previousPage !== null ? (
             <li className='page-item'>
               <Link
-                to={`/vehicle-type${previousPage}`}
+                to={`/vehicles/type${previousPage}`}
                 className='page-link'
                 onClick={() => {
                   this.updateFilter(previousPage);
@@ -70,7 +70,7 @@ export default class SearchVehicle extends Component {
           {nextPage !== null ? (
             <li className='page-item'>
               <Link
-                to={`/vehicle-type${nextPage}`}
+                to={`/vehicles/type${nextPage}`}
                 className='page-link'
                 onClick={() => {
                   this.updateFilter(nextPage);
