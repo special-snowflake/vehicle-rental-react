@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {useSearchParams, useLocation, Link} from 'react-router-dom';
 
+import {searchVehicle} from '../utils/https/vehicles';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
 import '../assets/css/Homepage.css';
@@ -37,9 +38,9 @@ class VehicleType extends Component {
   getData = () => {
     const host = process.env.REACT_APP_HOST;
     const urlPopular = axios.get(host + '/vehicles/popular');
-    const urlBike = axios.get(host + '/vehicles/bike');
-    const urlCar = axios.get(host + '/vehicles/car');
-    const urlMotorCycle = axios.get(host + '/vehicles/motorcycle');
+    const urlBike = searchVehicle('?keyword=&category=2&sort=asc');
+    const urlCar = searchVehicle('?keyword=&category=1&sort=asc');
+    const urlMotorCycle = searchVehicle('?keyword=&category=3&sort=asc');
     axios
       .all([urlPopular, urlBike, urlCar, urlMotorCycle])
       .then(
@@ -175,6 +176,17 @@ class VehicleType extends Component {
       });
     }
   }
+  componentDidUpdate(prev, current) {
+    const location = this.props.location;
+    console.log(prev, location.search);
+    if (prev.location.search !== location.search) {
+      this.setState({
+        isSearching: true,
+      });
+      const button = document.getElementById('searchButton');
+      button.scrollIntoView({behavior: 'smooth'});
+    }
+  }
   render() {
     const {
       isSuccess,
@@ -275,7 +287,9 @@ class VehicleType extends Component {
                 </select>
               </div>
               <div className='col-12 col-sm-6 col-lg-3'>
-                <button className='btn btn-yellow'>Search</button>
+                <button className='btn btn-yellow' id='searchButton'>
+                  Search
+                </button>
               </div>
             </div>
           </form>
@@ -291,23 +305,23 @@ class VehicleType extends Component {
                 backgroundRepeat: 'no-repeat',
               }}>
               <div className='col-8 col-sm-9 row-header'>Popular in Town</div>
-                <div
-                  className='col-4 col-sm-3 text-right align-bottom'
-                  style={{textAlign: 'right'}}>
-                  <Link to='/view-more' className='more'>
-                    View More
-                    <img
-                      src={forwardSvg}
-                      width='14px'
-                      height='14px'
-                      alt='View More'
-                      style={{
-                        filter:
-                          'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
-                      }}
-                    />
-                  </Link>
-                </div>
+              <div
+                className='col-4 col-sm-3 text-right align-bottom'
+                style={{textAlign: 'right'}}>
+                <Link to='/view-more' className='more'>
+                  View More
+                  <img
+                    src={forwardSvg}
+                    width='14px'
+                    height='14px'
+                    alt='View More'
+                    style={{
+                      filter:
+                        'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
+                    }}
+                  />
+                </Link>
+              </div>
               <VehicleCard dataVehicle={this.state.dataPopular} length={4} />
             </div>
             <div
@@ -318,7 +332,24 @@ class VehicleType extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Car</div>
+              <div className='col-8 col-sm-9 row-header'>Car</div>
+              <div
+                className='col-4 col-sm-3 text-right align-bottom'
+                style={{textAlign: 'right'}}>
+                <Link to={`?keyword=&category=1&sort=asc`} className='more'>
+                  View More
+                  <img
+                    src={forwardSvg}
+                    width='14px'
+                    height='14px'
+                    alt='View More'
+                    style={{
+                      filter:
+                        'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
+                    }}
+                  />
+                </Link>
+              </div>
               <VehicleCard dataVehicle={this.state.dataCar} length={4} />
             </div>
             <div
@@ -329,7 +360,24 @@ class VehicleType extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Motorcycle</div>
+              <div className='col-8 col-sm-9 row-header'>Motorcycle</div>
+              <div
+                className='col-4 col-sm-3 text-right align-bottom'
+                style={{textAlign: 'right'}}>
+                <Link to={`?keyword=&category=3&sort=asc`} className='more'>
+                  View More
+                  <img
+                    src={forwardSvg}
+                    width='14px'
+                    height='14px'
+                    alt='View More'
+                    style={{
+                      filter:
+                        'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
+                    }}
+                  />
+                </Link>
+              </div>
               <VehicleCard dataVehicle={this.state.dataMotorCycle} length={4} />
             </div>
             <div
@@ -340,7 +388,24 @@ class VehicleType extends Component {
                 backgroundSize: '2vw 2vw',
                 backgroundRepeat: 'no-repeat',
               }}>
-              <div className='col-12 row-header'>Bike</div>
+              <div className='col-8 col-sm-9 row-header'>Bike</div>
+              <div
+                className='col-4 col-sm-3 text-right align-bottom'
+                style={{textAlign: 'right'}}>
+                <Link to={`?keyword=&category=2&sort=asc`} className='more'>
+                  View More
+                  <img
+                    src={forwardSvg}
+                    width='14px'
+                    height='14px'
+                    alt='View More'
+                    style={{
+                      filter:
+                        'invert(70%) sepia(32%) saturate(5220%) hue-rotate(347deg) brightness(102%) contrast(97%)',
+                    }}
+                  />
+                </Link>
+              </div>
               <VehicleCard dataVehicle={this.state.dataBike} length={4} />
             </div>
           </>

@@ -5,15 +5,16 @@ import axios from 'axios';
 import '../assets/css/Home.css';
 import '../assets/css/Homepage.css';
 
+import {getCategory} from '../utils/https/category';
+import {getCity} from '../utils/https/city';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LoadingPage from '../components/LoadingPage';
 import VehicleCard from '../components/VehicleCard';
 import SliderTestimony from '../components/SliderTestimony';
 
-// import prevSvg from '../assets/icons/previous.svg';
-// import nextSvg from '../assets/icons/next.svg';
-// import circleSvg from '../assets/icons/circle.svg';
+import circleSvg from '../assets/icons/circle.svg';
 import forwardSvg from '../assets/icons/forward.svg';
 
 const optionCity = (list) => {
@@ -55,10 +56,10 @@ class Home extends React.Component {
     const host = process.env.REACT_APP_HOST;
     const popular = axios.get(host + '/vehicles/popular');
     const testi = axios.get(host + '/testimony?orderBy=rate&sort=desc');
-    const getLocation = axios.get(host + '/city');
-    const getCategory = axios.get(host + '/category');
+    const city = getCity();
+    const category = getCategory();
     axios
-      .all([popular, testi, getLocation, getCategory])
+      .all([popular, testi, city, category])
       .then(
         axios.spread((...responses) => {
           console.log('list city getpop:', responses[2].data);
@@ -117,11 +118,13 @@ class Home extends React.Component {
                         <div className='row' style={{color: '#393939'}}>
                           <div className='col-sm-6 col-12'>
                             <select name='city'>
+                              <option value=''>City</option>
                               {isSuccess && optionCity(listCity)}
                             </select>
                           </div>
                           <div className='col-sm-6 col-12'>
                             <select name='category'>
+                              <option value=''>Category</option>
                               {isSuccess && optionCategory(listCategory)}
                             </select>
                           </div>
@@ -158,7 +161,7 @@ class Home extends React.Component {
               <div
                 className='row content d-flex flex-row align-items-center justify-content-start pb-0'
                 style={{
-                  backgroundImage: `url("../assets/icons/circle.svg")`,
+                  backgroundImage: {circleSvg},
                   backgroundPosition: 'center bottom',
                   backgroundSize: '2vw 2vw',
                   backgroundRepeat: 'no-repeat',
@@ -196,7 +199,7 @@ class Home extends React.Component {
                 <div
                   className='row content'
                   style={{
-                    backgroundImage: `url(./assets/icons/circle.svg)`,
+                    backgroundImage: {circleSvg},
                     backgroundPosition: '2rem center',
                     backgroundSize: '2vw 2vw',
                     backgroundRepeat: 'no-repeat',
