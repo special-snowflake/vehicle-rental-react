@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {useSearchParams, useLocation, Link} from 'react-router-dom';
 
-import {searchVehicle} from '../utils/https/vehicles';
+import {searchVehicle, getPopular} from '../utils/https/vehicles';
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
 import '../assets/css/Homepage.css';
@@ -36,8 +36,7 @@ class VehicleType extends Component {
     city: null,
   };
   getData = () => {
-    const host = process.env.REACT_APP_HOST;
-    const urlPopular = axios.get(host + '/vehicles/popular');
+    const urlPopular = getPopular();
     const urlBike = searchVehicle('?keyword=&category=2&sort=asc');
     const urlCar = searchVehicle('?keyword=&category=1&sort=asc');
     const urlMotorCycle = searchVehicle('?keyword=&category=3&sort=asc');

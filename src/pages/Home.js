@@ -7,6 +7,8 @@ import '../assets/css/Homepage.css';
 
 import {getCategory} from '../utils/https/category';
 import {getCity} from '../utils/https/city';
+import { getPopular } from '../utils/https/vehicles';
+import { getTestimony } from '../utils/https/testimony';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -50,12 +52,10 @@ class Home extends React.Component {
   };
   componentDidMount() {
     this.getPopular();
-    // console.log('this is:', process.env.REACT_APP_HOST);
   }
   getPopular = () => {
-    const host = process.env.REACT_APP_HOST;
-    const popular = axios.get(host + '/vehicles/popular');
-    const testi = axios.get(host + '/testimony?orderBy=rate&sort=desc');
+    const popular = getPopular();
+    const testi = getTestimony('?orderBy=rate&sort=desc');
     const city = getCity();
     const category = getCategory();
     axios

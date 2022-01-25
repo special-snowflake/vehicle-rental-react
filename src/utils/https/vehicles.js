@@ -32,3 +32,7 @@ export const searchVehicle = (filter) => {
   const urlSearch = url + '/search' + filter;
   return axios.get(urlSearch);
 };
+
+export const getPopular = () =>{
+  return axios.get(url + '/popular');
+}
