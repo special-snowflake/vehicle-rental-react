@@ -45,7 +45,7 @@ function ShowHistory(props) {
             <p className='availabiliy mt-2'>
               {dataHistory[index].return_status !== null
                 ? dataHistory[index].return_status
-                : 'Vehicle has been returned.'}
+                : 'Vehicle has not been returned.'}
             </p>
           </div>
         </div>
