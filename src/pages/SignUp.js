@@ -45,9 +45,7 @@ class SignUp extends React.Component {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => {
-            return navigate('/login', {replace: false});
-          }, 2500);
+          return navigate('/login', {replace: false});
         })
         .catch((error) => {
           toast.error(error.response.data.errMsg, {

@@ -38,6 +38,13 @@
 }
 .vehicle-content {
   position: relative;
+  margin:auto;
+}
+.vehicle-content::after{
+  margin: auto;
+}
+.vehicle-content::before{
+  margin: auto;
 }
 .vehicle-card {
   border: 0px solid tomato;

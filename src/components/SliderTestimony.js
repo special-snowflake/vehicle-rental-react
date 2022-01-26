@@ -41,7 +41,7 @@ function SliderTestimony(props) {
     const element = (
       <div
         className={carouselClass}
-        style={{minHeight: '500px'}}
+        // style={{minHeight: '500px'}}
         data-bs-interval='5000'
         key={testimonyData[i].testiID}>
         <div className='row testimony'>

@@ -79,7 +79,7 @@ class Home extends React.Component {
   render() {
     const searchVehicles = (e) => {
       e.preventDefault();
-      const navTo = `/vehicles/type?keyword=&city=${e.target.city.value}&category=${e.target.category.value}&sort=asc`;
+      const navTo = `/vehicles/type?keyword=${e.target.keyword.value}&city=${e.target.city.value}&category=${e.target.category.value}&sort=asc`;
       // <Navigate to={navTo} />;
       console.log(e.target.category.value, e.target.city.value, navTo);
       const navigate = this.props.navigate;
@@ -116,6 +116,9 @@ class Home extends React.Component {
                       style={{minHeight: '25vh', paddingTop: '10vh'}}>
                       <div className='wrapper col-12 col-sm-8 col-md-8 col-xl-6'>
                         <div className='row' style={{color: '#393939'}}>
+                        <div className="col-12">
+                            <input type="text" name="keyword" placeholder='Search vehicle (ex. cars, cars name)' id="" />
+                          </div>
                           <div className='col-sm-6 col-12'>
                             <select name='city'>
                               <option value=''>City</option>
@@ -141,6 +144,7 @@ class Home extends React.Component {
                               placeholder='now'
                             />
                           </div> */}
+                          
                         </div>
                         <div className='col-sm-4 col-8 mt-5'>
                           <button
@@ -195,9 +199,9 @@ class Home extends React.Component {
                   </div>
                 </div>
               )}
-              <div className='row'>
+              <div className='row mb-3'>
                 <div
-                  className='row content'
+                  className='row content pb-0'
                   style={{
                     backgroundImage: {circleSvg},
                     backgroundPosition: '2rem center',

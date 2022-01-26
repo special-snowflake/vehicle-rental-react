@@ -359,6 +359,7 @@ export class WrapperProfile extends Component {
                             <div className='col-12 col-sm-4'>
                               <Link
                                 to='/profile/password'
+                                replace={true}
                                 className='btn btn-black'>
                                 Edit Password
                               </Link>

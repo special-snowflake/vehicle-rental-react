@@ -9,6 +9,9 @@ export default class ChangePassword extends Component {
     isError: false,
     showError: false,
     errMsg: null,
+    currentPassword: null,
+    newPassword: null,
+    repeatNewPassword: false,
   };
   handleChangePassword(e) {
     e.preventDefault();
@@ -32,7 +35,7 @@ export default class ChangePassword extends Component {
       })
       .catch((error) => {
         console.log('error', error.response);
-        const errMsg = error.response.data.errMsg;
+        const errMsg = error.response.data.err;
         // console.log('err msg', errMsg)
         toast.error(errMsg, {
           position: 'bottom-left',
@@ -71,8 +74,8 @@ export default class ChangePassword extends Component {
               Change Password
             </div>
             <div className='row justify-content-between'>
-              <div className='col-12 col-sm-6'>
-                <label htmlFor='oldPassword'>Old Password:</label>
+              <div className='col-12 col-sm-4'>
+                <label htmlFor='oldPassword'>Current Password:</label>
                 <input
                   type='password'
                   className='input-proile'
@@ -80,20 +83,50 @@ export default class ChangePassword extends Component {
                   id='oldPassword'
                 />
               </div>
-              <div className='col-12 col-sm-6'>
+              <div className='col-12 col-sm-4'>
                 <label htmlFor='newPassword'>New Password:</label>
                 <input
                   type='password'
                   className='input-proile'
                   name='newPassword'
                   id='newPassword'
+                  onBlur={(e) => {
+                    this.setState({newPassword: e.target.value});
+                  }}
+                />
+              </div>
+              <div className='col-12 col-sm-4'>
+                <label htmlFor='repeatNewPassword'>Repeat New Password:</label>
+                <input
+                  type='password'
+                  className='input-proile'
+                  name='repeatNewPassword'
+                  id='repeatNewPassword'
+                  onChange={(e) => {
+                    if (e.target.value !== this.state.newPassword) {
+                      console.log('not match');
+                    } else {
+                      console.log('match');
+                      this.setState({
+                        repeatNewPassword: true,
+                      });
+                    }
+                  }}
                 />
               </div>
               <div className='col-12 col-sm-4 justify-content-center'>
-                <button className='btn btn-yellow'>Save Password</button>
+                <button
+                  className='btn btn-yellow'
+                  disabled={
+                    !this.state.repeatNewPassword &&
+                    this.state.currentPassword === null &&
+                    this.state.currentPassword !== this.state.newPassword
+                  }>
+                  Save Password
+                </button>
               </div>
               <div className='col-12 col-sm-4 justify-content-center'>
-                <Link to='/profile' className='btn btn-grey'>
+                <Link to='/profile' replace={true} className='btn btn-grey'>
                   Close
                 </Link>
               </div>
