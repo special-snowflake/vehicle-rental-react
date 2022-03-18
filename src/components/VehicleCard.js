@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+const defaultImage = require('../assets/images/car-default.jpg');
 function VehicleCard(props) {
   const dataVehicle = props.dataVehicle;
   // console.log('vehicle card', dataVehicle);
@@ -38,7 +38,14 @@ function VehicleCard(props) {
         <div className='vehicle-content'>
           <div className={`vehicle-images ${classMarginMD}`}>
             <Link to={`/vehicle/${id}`}>
-              <img src={imgURL} alt='vehicles' />
+              <img
+                src={imgURL}
+                alt='vehicles'
+                onError={({currentTarget}) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = defaultImage;
+                }}
+              />
               <figcaption>
                 <span className='fig-title'>{dataVehicle[index].name}</span>
                 <br />

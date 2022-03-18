@@ -3,6 +3,8 @@ import React from 'react';
 import backSvg from '../assets/icons/back.svg';
 import forwardSvg from '../assets/icons/forward.svg';
 
+const defaultImage = require('../assets/images/car-default.jpg');
+
 const host = process.env.REACT_APP_HOST;
 function carousel(image, idx) {
   let imgSrc = `${host}/vehicles${image}`;
@@ -10,8 +12,17 @@ function carousel(image, idx) {
   return (
     <div
       className={`carousel-item carousel-item-vehicle ${idx === 0 && 'active'}`}
-      data-bs-interval='false' key={idx}>
-      <img src={imgSrc} className='d-block w-100' alt='...' />
+      data-bs-interval='false'
+      key={idx}>
+      <img
+        src={imgSrc}
+        className='d-block w-100'
+        alt='...'
+        onError={({currentTarget}) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = defaultImage;
+        }}
+      />
       <div className='carousel-caption d-none d-md-block'></div>
     </div>
   );
@@ -31,6 +42,10 @@ function indicatorPreview(image, idx) {
         src={imgSrc}
         width='100%'
         alt=''
+        onError={({currentTarget}) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = defaultImage;
+        }}
       />
     </div>
   );
@@ -45,13 +60,13 @@ function SliderDetailVehicle(props) {
         id='carouselExampleDark'
         className='carousel carousel-dark slide'
         data-bs-ride='carousel'
-        data-bs-interval="false">
+        data-bs-interval='false'>
         <div className='carousel-inner'>
-        {data.length !== 0
-                ? data.map((image, idx) => {
-                    return carousel(image, idx);
-                  })
-                : carousel('default', 0)}
+          {data.length !== 0
+            ? data.map((image, idx) => {
+                return carousel(image, idx);
+              })
+            : carousel('default', 0)}
         </div>
         <div className='row preview-images d-none d-sm-flex'>
           <div className='col-2 align-items-center'>

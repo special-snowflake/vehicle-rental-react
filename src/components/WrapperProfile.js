@@ -13,6 +13,7 @@ import axios from 'axios';
 
 import {toast} from 'react-toastify';
 
+const defaultImage = require('../assets/images/default.jpg');
 export class WrapperProfile extends Component {
   constructor(props) {
     super(props);
@@ -217,6 +218,10 @@ export class WrapperProfile extends Component {
                           alt='User Profile'
                           className='profile-image'
                           onClick={this.inputImage}
+                          onError={({currentTarget}) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = defaultImage;
+                          }}
                         />
                         <figcaption>
                           <button type='button' onClick={this.inputImage}>

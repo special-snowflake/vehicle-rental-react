@@ -17,7 +17,7 @@ import '../assets/css/Modals.css';
 
 import {toast} from 'react-toastify';
 import ShowHistory from '../components/ShowHistory';
-
+const defaultImage = require('../assets/images/car-default.jpg');
 class History extends React.Component {
   state = {
     isSuccess: false,
@@ -145,7 +145,14 @@ class History extends React.Component {
           key={`newArrival-${i}`}>
           <div className='vehicle-images'>
             <Link to={`/vehicle/${id}`}>
-              <img src={imageURL} alt='vehicles' />
+              <img
+                src={imageURL}
+                alt='vehicles'
+                onError={({currentTarget}) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = defaultImage;
+                }}
+              />
               <figcaption>
                 <span className='fig-title'>{name}</span>
                 <br />

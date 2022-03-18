@@ -5,6 +5,8 @@ import prevSvg from '../assets/icons/previous.svg';
 import nextSvg from '../assets/icons/next.svg';
 import circleSvg from '../assets/icons/circle.svg';
 
+const defaultImage = require('../assets/images/default.jpg');
+
 const rateStar = (rate, testiID) => {
   const elements = [];
   for (let j = 0; j < rate; j++) {
@@ -28,8 +30,7 @@ function SliderTestimony(props) {
   const testimonies = [];
   for (let i = 0; i < 3; i++) {
     const profilPhoto =
-      testimonyData[i].image !== 'null' &&
-      testimonyData[i].image !== ''
+      testimonyData[i].image !== 'null' && testimonyData[i].image !== ''
         ? `${process.env.REACT_APP_HOST}/user${testimonyData[i].image}`
         : require('../assets/images/default2.jpg');
     let carouselClass = 'carousel-item';
@@ -71,7 +72,15 @@ function SliderTestimony(props) {
           <div className='col-12 col-sm-6 mx-auto'>
             <div className='wrapper-all'>
               <div className='testimony-images'>
-                <img src={profilPhoto} alt='testimony' className='user-image' />
+                <img
+                  src={profilPhoto}
+                  alt='testimony'
+                  className='user-image'
+                  onError={({currentTarget}) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = defaultImage;
+                  }}
+                />
                 <figcaption>
                   <div className='text-center wrapper-testimony-btn'>
                     <a href='home' aria-label='Previous testimony'>

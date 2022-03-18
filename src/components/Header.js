@@ -7,8 +7,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../assets/css/Modals.css';
 
 import logoVehicleRental from '../assets/icons/logo-vehicle-rental.svg';
-
 import forwardSvg from '../assets/icons/forward.svg';
+
+const defaultImage = require('../assets/images/default.jpg');
 
 class Header extends React.Component {
   constructor(props) {
@@ -106,8 +107,8 @@ class Header extends React.Component {
             <img
               src={logoVehicleRental}
               alt='Bootstrap'
-              width='25'
-              height='25'
+              width='30'
+              height='30'
               className='d-inline-block align-top'
             />
           </Link>
@@ -210,6 +211,10 @@ class Header extends React.Component {
                           src={this.state.photoProfile}
                           alt='user profile'
                           className='nav-user-profile'
+                          onError={({currentTarget}) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = defaultImage;
+                          }}
                         />
                       </div>
                     </div>
@@ -309,6 +314,10 @@ class Header extends React.Component {
                     src={this.state.photoProfile}
                     className='menu-sm-img-profile'
                     alt='msg'
+                    onError={({currentTarget}) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = defaultImage;
+                    }}
                   />
                 </div>
               </button>

@@ -12,6 +12,7 @@ import LoadingPage from '../components/LoadingPage';
 import backSvg from '../assets/icons/back.svg';
 import {toast} from 'react-toastify';
 
+const defaultImage = require('../assets/images/car-default.jpg');
 class Payment extends Component {
   state = {
     dataVehicle: null,
@@ -31,6 +32,7 @@ class Payment extends Component {
       progress: undefined,
     });
   };
+
   getUserData = (id) => {
     getUserData(id)
       .then((response) => {
@@ -69,7 +71,7 @@ class Payment extends Component {
     const token = localStorage['vehicle-rental-token'];
     const body = {
       user_id: userId,
-      unit:this.state.counter,
+      unit: this.state.counter,
       vehicle_id: this.state.dataVehicle.id,
       total_payment: this.state.totalPayment,
       rental_date: this.state.rentalDate,
@@ -89,7 +91,7 @@ class Payment extends Component {
           progress: undefined,
         });
         setTimeout(() => {
-          navigate('/history')
+          navigate('/history');
         }, 3500);
       })
       .catch((err) => {
@@ -155,7 +157,14 @@ class Payment extends Component {
                     </div>
                     <div className='col-12 col-sm-4 vehicle-noslide-detail'>
                       <div className='payment-img-wrapper'>
-                        <img src={this.state.vehicleImage} alt='' />
+                        <img
+                          src={this.state.vehicleImage}
+                          alt=''
+                          onError={({currentTarget}) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = defaultImage;
+                          }}
+                        />
                       </div>
                     </div>
                     <div className='col-12 col-sm-8 vehicle-info-details'>

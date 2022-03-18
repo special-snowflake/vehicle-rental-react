@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {numberToRupiah} from '../helpers/collection';
-
+const defaultImage = require('../assets/images/car-default.jpg');
 function ShowHistory(props) {
   const [stateCheckId, setStateCheckId] = useState({historyId: []});
   const host = process.env.REACT_APP_HOST;
@@ -34,7 +34,14 @@ function ShowHistory(props) {
           className='history-product col-10 col-sm-11 p-0 mb-4 d-flex'
           key={`history-${index}`}>
           <div className='history-img-wrapper'>
-            <img src={imgSrc} alt='' />
+            <img
+              src={imgSrc}
+              alt=''
+              onError={({currentTarget}) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = defaultImage;
+              }}
+            />
           </div>
           <div className='history-product-info mt-auto mb-auto'>
             <p className='vehicle-detail-header'>{dataHistory[index].name}</p>
