@@ -162,17 +162,19 @@ class EditItem extends React.Component {
         });
       })
       .catch((err) => {
-        console.log('error is:', err.response);
-        // const errMsg = err.response.data.errMsg;
-        toast.error('Update Failed', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        if (err.response.data.err_code) {
+          if (
+            err.response.data.err_code === 'TOKEN_EXPIRED' ||
+            err.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            const {usenavigate} = this.props;
+            usenavigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          console.log('error is:', err.response);
+          toast.error('Update Failed');
+        }
       });
   };
 
@@ -185,15 +187,7 @@ class EditItem extends React.Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get category');
       });
     getCity()
       .then((response) => {
@@ -202,15 +196,7 @@ class EditItem extends React.Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get city');
       });
     getVehicleDetail(vehicleId)
       .then((response) => {
@@ -233,15 +219,7 @@ class EditItem extends React.Component {
         }
       })
       .catch((err) => {
-        toast.error('Error while fetching data', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error while fetching data');
       });
   }
   componentDidUpdate() {

@@ -1,5 +1,10 @@
 import React from 'react';
-import {Link, useLocation, useSearchParams} from 'react-router-dom';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -68,12 +73,8 @@ class History extends React.Component {
               </button>
             </li>
           )}
-          {/* <li className='page-item disabled'> */}
           <li className='page-item'>
-            <button className='page-link'>
-              {page}
-              {/* <span className='sr-only'>(current)</span> */}
-            </button>
+            <button className='page-link'>{page}</button>
           </li>
           {nextPage !== null ? (
             <li className='page-item'>
@@ -115,15 +116,18 @@ class History extends React.Component {
         });
       })
       .catch((err) => {
-        toast.error(err.response.data.errMsg, {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        if (err.response.data.err_code) {
+          if (
+            err.response.data.err_code === 'TOKEN_EXPIRED' ||
+            err.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            const {usenavigate} = this.props;
+            usenavigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          toast.error(err.response.data.errMsg);
+        }
       });
   };
 
@@ -225,7 +229,6 @@ class History extends React.Component {
           return (
             <div className='custom-ui'>
               <h1>Are you sure you want to delete history?</h1>
-              {/* <p>You want to delete this file?</p> */}
               <div className='d-flex justify-content-evenly'>
                 <button
                   className='btn btn-yes px-2 me-2'
@@ -254,19 +257,23 @@ class History extends React.Component {
       };
       deleteHistory(body, token)
         .then((response) => {
-          toast.success('History deleted.', {
-            position: 'bottom-left',
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success('History deleted.');
           this.searchHistoryReact();
         })
         .catch((err) => {
-          console.log(err.response);
+          if (err.response.data.err_code) {
+            if (
+              err.response.data.err_code === 'TOKEN_EXPIRED' ||
+              err.response.data.err_code === 'INVALID_TOKEN'
+            ) {
+              const {usenavigate} = this.props;
+              usenavigate('/logout');
+              toast.warning('Token Expired');
+            }
+          } else {
+            console.log(err.response);
+            toast.error('Failed to delete history');
+          }
         });
     };
 
@@ -316,7 +323,6 @@ class History extends React.Component {
                         <option value='date'>Date Added</option>
                         <option value='type'>Type</option>
                         <option value='name'>Name</option>
-                        {/* <option value='favourite'>Favourite Product</option> */}
                       </select>
                     </div>
                     <div className='col-8 col-sm-4 mb-3'>
@@ -332,23 +338,12 @@ class History extends React.Component {
                     Please finish your payment for vespa for Vespa Rental Jogja
                     <img src={forwarSvg} alt='next' />
                   </div>
-                  <div className='col-2 col-sm-1 '>
-                    {/* <input
-                      type='checkbox'
-                      className='checkbox-history m-auto'
-                      name='deleteCheck'
-                    /> */}
-                  </div>
+                  <div className='col-2 col-sm-1 '></div>
                   <div className='info-history-wrapper col-10 col-sm-11 mb-2'>
                     Your payment has been confirmed!
                     <img src={forwarSvg} alt='next' />
                   </div>
-                  <div className='col-2 col-sm-1 m-auto'>
-                    {/* <input
-                      type='checkbox'
-                      className='checkbox-history m-auto'
-                    /> */}
-                  </div>
+                  <div className='col-2 col-sm-1 m-auto'></div>
                 </div>
                 <div className='history-list p-0 text-start mt-4 mb-4 row'>
                   {this.state.meta.totalData !== 0 && (
@@ -367,11 +362,15 @@ class History extends React.Component {
                   <div className='col-12 col-sm-11 p-0 mb-3'>
                     <button
                       className='btn btn-yellow'
+                      disabled={this.state.historyIds.length === 0}
                       onClick={() => {
-                        onclickDelete();
+                        if (this.state.historyIds.length !== 0) {
+                          onclickDelete();
+                        }
                       }}>
                       Delete Selected Item
                     </button>
+                    {/* )} */}
                   </div>
                   {this.showPagination()}
                 </div>
@@ -400,16 +399,16 @@ class History extends React.Component {
   }
 }
 
-// export default History;
-
 export default function WrapperHistory(props) {
   let [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const usenavigate = useNavigate();
   return (
     <History
       {...props}
       location={location}
       searchParams={searchParams}
+      usenavigate={usenavigate}
       setSearchParams={setSearchParams}
     />
   );

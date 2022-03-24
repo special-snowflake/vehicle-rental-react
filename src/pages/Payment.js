@@ -22,15 +22,7 @@ class Payment extends Component {
   };
   copyBookingCode = (bookingCode) => {
     navigator.clipboard.writeText(bookingCode);
-    toast.success('Booking code coppied to clipboard', {
-      position: 'bottom-left',
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.success('Booking code coppied to clipboard');
   };
 
   getUserData = (id) => {
@@ -81,34 +73,31 @@ class Payment extends Component {
     addTransaction(body, token)
       .then((response) => {
         const navigate = this.props.navigate;
-        toast.success('Payment success.', {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.success('Payment success.');
         setTimeout(() => {
           navigate('/history');
         }, 3500);
       })
       .catch((err) => {
-        toast.error(err.response.data.errMsg, {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        if (err.response.data.err_code) {
+          if (
+            err.response.data.err_code === 'TOKEN_EXPIRED' ||
+            err.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            const {usenavigate} = this.props;
+            usenavigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          toast.error(err.response.data.errMsg);
+        }
       });
   };
   componentDidMount() {
     const hostImg = process.env.REACT_APP_HOST + '/vehicles';
     const location = this.props.location;
+    // let endDate = selectedDate;
+    // endDate.setDate(endDate.getDate() + day);
     const {dataVehicle, counter, rentalDate, rentalDuration} = location.state;
     console.log('rental date is:', rentalDate);
     const totalPayment = counter * dataVehicle.price * rentalDuration;

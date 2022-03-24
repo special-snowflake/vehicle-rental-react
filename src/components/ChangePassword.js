@@ -34,23 +34,20 @@ export default class ChangePassword extends Component {
         this.getDataUser();
       })
       .catch((error) => {
-        console.log('error', error.response);
-        const errMsg = error.response.data.err;
-        // console.log('err msg', errMsg)
-        toast.error(errMsg, {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        // this.setState({
-        //   isError: true,
-        //   showError: true,
-        //   errMsg: error.response.data.errMsg,
-        // });
+        if (error.response.data.err_code) {
+          if (
+            error.response.data.err_code === 'TOKEN_EXPIRED' ||
+            error.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            const {usenavigate} = this.props;
+            usenavigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          console.log('error', error.response);
+          const errMsg = error.response.data.err;
+          toast.error(errMsg);
+        }
       });
   }
   handleCallback = (childData) => {

@@ -48,7 +48,7 @@ class Header extends React.Component {
     const photo = localStorage['vehicle-rental-photo'];
     // console.log('photo', photo, typeof photo);
     // if (photo !== null && typeof photo !== 'undefined' && photo !== '') {
-    if (photo !== 'null') {
+    if (photo) {
       // console.log('yes, its not null', photo);
       const parsedPhoto = JSON.parse(photo);
       this.setState({

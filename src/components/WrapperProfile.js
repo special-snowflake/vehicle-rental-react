@@ -26,7 +26,7 @@ export class WrapperProfile extends Component {
     dataUser: '',
     selectedFile: null,
     selectedSex: '',
-    photoProfile: require('../assets/images/default3.jpg'),
+    photoProfile: defaultImage,
     isError: false,
     showError: false,
     errMsg: null,
@@ -53,15 +53,7 @@ export class WrapperProfile extends Component {
       })
       .catch((error) => {
         const errMsg = error.response.data.errMsg;
-        toast.error(errMsg, {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(errMsg);
         // console.log(error);
       });
   };
@@ -115,6 +107,7 @@ export class WrapperProfile extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const navigate = this.props.navigate;
     const body = new FormData();
     const url = `${process.env.REACT_APP_HOST}/user`;
     if (this.state.selectedFile !== null) {
@@ -129,7 +122,8 @@ export class WrapperProfile extends Component {
     body.append('sex', this.state.selectedSex);
     body.append('address', e.target.address.value);
     body.append('phone', e.target.phone.value);
-    body.append('dob', e.target.dob.value);
+    console.log('dob', e.target.dob.value);
+    if (e.target.dob.value) body.append('dob', e.target.dob.value);
     const token = JSON.parse(localStorage.getItem('vehicle-rental-token'));
     const config = {
       headers: {
@@ -140,15 +134,7 @@ export class WrapperProfile extends Component {
       .patch(url, body, config)
       .then((response) => {
         console.log(response);
-        toast.success('Update success.', {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.success('Update success.');
         if (this.state.selectedFile !== null) {
           console.log('response data', response.data);
           const photo = response.data.data.body.photo;
@@ -157,23 +143,19 @@ export class WrapperProfile extends Component {
         this.getDataUser();
       })
       .catch((error) => {
-        // console.log('error', error.response);
-        const errMsg = error.response.data.errMsg;
-        // console.log('err msg', errMsg)
-        toast.error(errMsg, {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        // this.setState({
-        //   isError: true,
-        //   showError: true,
-        //   errMsg: error.response.data.errMsg,
-        // });
+        if (error.response.data.err_code) {
+          if (
+            error.response.data.err_code === 'TOKEN_EXPIRED' ||
+            error.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            // this.props.dispatch(logoutAction());
+            navigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          const errMsg = error.response.data.errMsg;
+          toast.error(errMsg);
+        }
       });
   }
   componentDidMount() {
@@ -349,7 +331,7 @@ export class WrapperProfile extends Component {
                                 className='input-proile'
                                 name='dob'
                                 id='dob'
-                                defaultValue={dob}
+                                defaultValue={dob && dob.slice(0, 10)}
                               />
                             </div>
                           </div>

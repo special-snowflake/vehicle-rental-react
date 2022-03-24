@@ -100,15 +100,7 @@ class VehicleType extends Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get category');
       });
   }
   getCity() {
@@ -119,15 +111,7 @@ class VehicleType extends Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get category');
       });
   }
   componentDidMount() {

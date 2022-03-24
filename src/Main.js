@@ -48,7 +48,18 @@ class Main extends React.Component {
     return (
       <Provider store={store}>
         <Router>
-          <ToastContainer limit={1} />
+          <ToastContainer
+            limit={1}
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <Routes>
             <Route path='/' element={<Navigate to='home' />} />
             <Route path='home' element={<Home />} />

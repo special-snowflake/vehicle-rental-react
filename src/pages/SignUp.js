@@ -36,27 +36,11 @@ class SignUp extends React.Component {
       register(body)
         .then((response) => {
           console.log(response);
-          toast.success(response.data.msg, {
-            position: 'bottom-left',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success(response.data.msg);
           return navigate('/login', {replace: false});
         })
         .catch((error) => {
-          toast.error(error.response.data.errMsg, {
-            position: 'bottom-left',
-            autoClose: false,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.error(error.response.data.errMsg);
           // this.setState({
           //   isError: true,
           //   showError: true,

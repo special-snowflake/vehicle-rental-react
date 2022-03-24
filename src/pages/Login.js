@@ -29,27 +29,11 @@ class Login extends React.Component {
       localStorage['vehicle-rental-userId'] = JSON.stringify(userData.id);
       localStorage['vehicle-rental-roles'] = JSON.stringify(userData.roles);
       localStorage['vehicle-rental-photo'] = JSON.stringify(userData.photo);
-      toast.success('Login success', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success('Login success');
       return navigate('/home', {replace: true});
     }
     if (isRejected === true) {
-      toast.error(this.props.auth.err.errMsg, {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(this.props.auth.err.errMsg);
     }
   }
   render() {

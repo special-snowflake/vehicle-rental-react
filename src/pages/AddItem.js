@@ -143,17 +143,21 @@ class AddItem extends React.Component {
         });
       })
       .catch((err) => {
-        console.log(err);
-        const errMsg = err.response.data.errMsg;
-        toast.error(errMsg, {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        if (err.response.data.err_code) {
+          if (
+            err.response.data.err_code === 'TOKEN_EXPIRED' ||
+            err.response.data.err_code === 'INVALID_TOKEN'
+          ) {
+            // this.props.dispatch(logoutAction());
+            const {usenavigate} = this.props;
+            usenavigate('/logout');
+            toast.warning('Token Expired');
+          }
+        } else {
+          console.log(err);
+          const errMsg = err.response.data.errMsg;
+          toast.error(errMsg);
+        }
       });
   };
 
@@ -181,15 +185,7 @@ class AddItem extends React.Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get category');
       });
     getCity()
       .then((response) => {
@@ -198,15 +194,7 @@ class AddItem extends React.Component {
         });
       })
       .catch((err) => {
-        toast.error('Error get category', {
-          position: 'bottom-left',
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-        });
+        toast.error('Error get category');
       });
   }
   render() {
