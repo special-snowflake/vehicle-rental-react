@@ -6,7 +6,7 @@ import {checkOTP, getOTP, resetPassword} from '../utils/https/auth';
 function ForgetPassword() {
   const [otp, setOTP] = useState(null);
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // const [password, setPassword] = useState(null);
   const navigate = useNavigate();
   const [conf, setConf] = useState({
     getOTP: true,
