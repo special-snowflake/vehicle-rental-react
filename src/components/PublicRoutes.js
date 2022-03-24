@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Outlet, Navigate} from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 const useAuth = () => {
   const token = localStorage.getItem('vehicle-rental-token');
@@ -10,6 +11,11 @@ const useAuth = () => {
 
 function PublicRoutes() {
   const isAuth = useAuth();
+  useEffect(() => {
+    if (isAuth) {
+      toast.warning(`You don't have access to this page`);
+    }
+  }, [isAuth]);
   return isAuth ? <Navigate to='/home' replace={true} /> : <Outlet />;
 }
 
